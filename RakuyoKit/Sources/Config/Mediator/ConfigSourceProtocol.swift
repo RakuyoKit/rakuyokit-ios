@@ -17,6 +17,9 @@ public protocol ConfigSourceProtocol {
     
     /// App’s Apple ID on App Store Connect.
     var appStoreConnectAppleID: String { get }
+    
+    /// App's AppGroups identifier
+    var appGroupIdentifier: String { get }
 }
 
 // MARK: - Default value
@@ -25,6 +28,8 @@ public extension ConfigSourceProtocol {
     var color: ColorConfig { .placeholder }
     
     var appStoreConnectAppleID: String { "" }
+    
+    var appGroupIdentifier: String { "" }
 }
 
 // MARK: - Public Tools

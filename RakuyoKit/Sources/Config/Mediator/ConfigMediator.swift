@@ -25,4 +25,6 @@ public final class ConfigMediator: ConfigSourceProtocol {
     public var color: ColorConfig { this.source.color }
     
     public var appStoreConnectAppleID: String { this.source.appStoreConnectAppleID }
+    
+    public var appGroupIdentifier: String { this.source.appGroupIdentifier }
 }
