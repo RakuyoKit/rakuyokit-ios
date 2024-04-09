@@ -14,7 +14,7 @@ let package = Package(
         .library(name: "RakuyoKit", targets: ["RakuyoKit"]),
         .library(name: "RAKCore", targets: ["RAKCore"]),
         .library(name: "RAKConfig", targets: ["RAKConfig"]),
-//        .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
+        .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
     ],
     dependencies: [
         .package(url: "https://github.com/realm/SwiftLint.git", from: "0.54.0"),
@@ -27,7 +27,7 @@ let package = Package(
             name: "RakuyoKit",
             dependencies: [
                 "RAKConfig",
-//                "RAKEpoxy"
+                "RAKEpoxy",
             ]),
         .target(
             name: "RAKCore",
@@ -40,10 +40,13 @@ let package = Package(
             name: "RAKConfig",
             dependencies: ["RAKCore"],
             path: "Sources/Config"),
-//        .target(
-//            name: "RAKEpoxy",
-//            dependencies: ["RAKConfig", "EpoxyCollectionView"],
-//            path: "Sources/Epoxy"),
+        .target(
+            name: "RAKEpoxy",
+            dependencies: [
+                "RAKConfig",
+                .product(name: "EpoxyCollectionView", package: "epoxy-ios"),
+            ],
+            path: "Sources/Epoxy"),
         .testTarget(
             name: "RakuyoKitTests",
             dependencies: ["RakuyoKit"]),
