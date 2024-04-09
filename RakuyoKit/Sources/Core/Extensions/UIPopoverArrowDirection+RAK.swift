@@ -16,4 +16,3 @@ public extension Extendable where Base == UIPopoverArrowDirection {
     static let `default`: Base = [.up, .down]
 }
 #endif
-

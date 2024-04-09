@@ -8,16 +8,18 @@
 
 import Foundation
 
-public extension Extendable where Base: Collection {
-    var isNotEmpty: Bool { !base.isEmpty }
+public extension Collection {
+    var isNotEmpty: Bool { !isEmpty }
     
-    func ifNotEmpty<U>(_ transform: (Base) throws -> U) rethrows -> U? {
-        guard isNotEmpty else { return nil }
-        return try transform(base)
+    func toArray() -> [Element] {
+        return .init(self)
     }
-    
-    func toArray() -> [Base.Element] {
-        return .init(base)
+}
+
+public extension Extendable where Base: Collection {
+    func ifNotEmpty<U>(_ transform: (Base) throws -> U) rethrows -> U? {
+        guard base.isNotEmpty else { return nil }
+        return try transform(base)
     }
     
     @inlinable

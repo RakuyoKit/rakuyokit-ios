@@ -10,14 +10,6 @@
 import UIKit
 
 public extension Extendable where Base: UIScrollView {
-    /// Reset the `contentOffset` of the `UIScrollView`.
-    ///
-    /// - Parameter animated: Whether to update with animation.
-    func resetContentOffset(animated: Bool) {
-        let inset = base.adjustedContentInset
-        base.setContentOffset(.init(x: -inset.left, y: -inset.top), animated: animated)
-    }
-    
     /// Check if the current `UIScrollView` is scrolled to the top.
     var isScrolledTop: Bool {
         ceil(base.contentOffset.y) == -ceil(base.adjustedContentInset.top)
@@ -38,6 +30,14 @@ public extension Extendable where Base: UIScrollView {
             .init(x: base.contentOffset.x, y: -base.adjustedContentInset.top),
             animated: animated
         )
+    }
+    
+    /// Reset the `contentOffset` of the `UIScrollView`.
+    ///
+    /// - Parameter animated: Whether to update with animation.
+    func resetContentOffset(animated: Bool) {
+        let inset = base.adjustedContentInset
+        base.setContentOffset(.init(x: -inset.left, y: -inset.top), animated: animated)
     }
 }
 #endif

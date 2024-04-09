@@ -8,6 +8,8 @@
 
 import UIKit
 
+import RAKCore
+
 /// Color configuration
 ///
 /// We recommend that when defining colors, you define `Tool` first,
@@ -16,24 +18,22 @@ import UIKit
 public struct ColorConfig {
     public typealias Color = UIColor
     
-    public class Level {
+    /// From the perspective of color design specifications, the higher the level, the lighter the color should be.
+    public class SecondLevel {
         public let main: Color
         
-        public var color: Color { main }
-        
-        public init(_ color: Color) {
-            self.main = color
-        }
-    }
-    
-    /// From the perspective of color design specifications, the higher the level, the lighter the color should be.
-    public class SecondLevel: Level {
         public let secondary: Color
         
         public init(main: Color, secondary: Color) {
+            self.main = main
             self.secondary = secondary
-            
-            super.init(main)
+        }
+        
+        public convenience init(
+            main: ConvertibleToColor,
+            secondary: ConvertibleToColor
+        ) {
+            self.init(main: main.color, secondary: secondary.color)
         }
     }
     
@@ -46,6 +46,18 @@ public struct ColorConfig {
             
             super.init(main: main, secondary: secondary)
         }
+        
+        public convenience init(
+            main: ConvertibleToColor,
+            secondary: ConvertibleToColor,
+            tertiary: ConvertibleToColor
+        ) {
+            self.init(
+                main: main.color,
+                secondary: secondary.color,
+                tertiary: tertiary.color
+            )
+        }
     }
     
     /// Tool color without usage scenarios or emotional overtones.
@@ -57,21 +69,35 @@ public struct ColorConfig {
         public let auxiliaryGray: ThreeLevel
         
         /// Please use this property instead of `UIColor.white` when using white in your project
-        public let white: Level
+        public let white: Color
         
         /// Please use this property instead of `UIColor.black` when using white in your project
-        public let black: Level
+        public let black: Color
         
         public init(
             backgroundGray: ThreeLevel,
             auxiliaryGray: ThreeLevel,
-            white: Level,
-            black: Level
+            white: Color,
+            black: Color
         ) {
             self.backgroundGray = backgroundGray
             self.auxiliaryGray = auxiliaryGray
             self.white = white
             self.black = black
+        }
+        
+        public init(
+            backgroundGray: ThreeLevel,
+            auxiliaryGray: ThreeLevel,
+            white: ConvertibleToColor,
+            black: ConvertibleToColor
+        ) {
+            self.init(
+                backgroundGray: backgroundGray,
+                auxiliaryGray: auxiliaryGray,
+                white: white.color,
+                black: black.color
+            )
         }
     }
     
@@ -90,7 +116,7 @@ public struct ColorConfig {
         ///
         /// Generally refers to the color of the dividing line of UITableView,
         /// which means that it does not include the "separator bar".
-        public let separator: Level
+        public let separator: Color
         
         /// Emphasis color.
         ///
@@ -101,26 +127,26 @@ public struct ColorConfig {
         /// Border color
         ///
         /// If you need transparency, you need to handle it yourself when defining the color value.
-        public let border: Level
+        public let border: Color
         
         /// Shadow color.
         ///
         /// If you need transparency, you need to handle it yourself when defining the color value.
-        public let shadow: Level
+        public let shadow: Color
         
         /// Text color when expressing "unavailable".
         ///
         /// Color commonly used when buttons are not clickable.
-        public let unavailableText: Level
+        public let unavailableText: Color
         
         public init(
             theme: SecondLevel,
             text: ThreeLevel,
-            separator: Level,
+            separator: Color,
             emphasis: ThreeLevel,
-            border: Level,
-            shadow: Level,
-            unavailableText: Level
+            border: Color,
+            shadow: Color,
+            unavailableText: Color
         ) {
             self.theme = theme
             self.text = text
@@ -129,6 +155,26 @@ public struct ColorConfig {
             self.border = border
             self.shadow = shadow
             self.unavailableText = unavailableText
+        }
+        
+        public init(
+            theme: SecondLevel,
+            text: ThreeLevel,
+            separator: ConvertibleToColor,
+            emphasis: ThreeLevel,
+            border: ConvertibleToColor,
+            shadow: ConvertibleToColor,
+            unavailableText: ConvertibleToColor
+        ) {
+            self.init(
+                theme: theme,
+                text: text,
+                separator: separator.color,
+                emphasis: emphasis,
+                border: border.color,
+                shadow: shadow.color,
+                unavailableText: unavailableText.color
+            )
         }
     }
     
@@ -170,8 +216,8 @@ public extension ColorConfig {
                 main: .systemGray4,
                 secondary: .systemGray5,
                 tertiary: .systemGray6),
-            white: .init(.tertiarySystemBackground),
-            black: .init(.label))
+            white: .tertiarySystemBackground,
+            black: .label)
         
         let semanticConfig = Semantic(
             theme: .init(
@@ -181,14 +227,14 @@ public extension ColorConfig {
                 main: .label,
                 secondary: .secondaryLabel,
                 tertiary: .tertiaryLabel),
-            separator: .init(.separator),
+            separator: .separator,
             emphasis: .init(
                 main: .systemRed,
                 secondary: .systemOrange,
                 tertiary: .systemPink),
-            border: .init(toolConfig.auxiliaryGray.main),
-            shadow: .init(toolConfig.black.color.withAlphaComponent(0.2)),
-            unavailableText: .init(.systemGray))
+            border: toolConfig.auxiliaryGray.main,
+            shadow: toolConfig.black.color.withAlphaComponent(0.2),
+            unavailableText: .systemGray)
         
         return Self(tool: toolConfig, semantic: semanticConfig)
     }()
