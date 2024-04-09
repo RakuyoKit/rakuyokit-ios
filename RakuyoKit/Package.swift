@@ -14,6 +14,7 @@ let package = Package(
         .library(name: "RakuyoKit", targets: ["RakuyoKit"]),
         .library(name: "RAKCore", targets: ["RAKCore"]),
         .library(name: "RAKConfig", targets: ["RAKConfig"]),
+        .library(name: "RAKBase", targets: ["RAKBase"]),
         .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
     ],
     dependencies: [
@@ -27,6 +28,7 @@ let package = Package(
             name: "RakuyoKit",
             dependencies: [
                 "RAKConfig",
+                "RAKBase",
                 "RAKEpoxy",
             ]),
         .target(
@@ -40,6 +42,10 @@ let package = Package(
             name: "RAKConfig",
             dependencies: ["RAKCore"],
             path: "Sources/Config"),
+        .target(
+            name: "RAKBase",
+            dependencies: ["RAKConfig"],
+            path: "Sources/Base"),
         .target(
             name: "RAKEpoxy",
             dependencies: [
