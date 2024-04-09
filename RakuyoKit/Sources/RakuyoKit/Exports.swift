@@ -2,4 +2,5 @@
 @_exported import RAKBase
 @_exported import RAKConfig
 @_exported import RAKCore
+@_exported import RAKNotification
 @_exported import RAKEpoxy
