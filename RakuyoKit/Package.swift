@@ -12,12 +12,13 @@ let package = Package(
     ],
     products: [
         .library(name: "RakuyoKit", targets: ["RakuyoKit"]),
-        .library(name: "RAKCore", targets: ["RAKCore"]),
+        .library(name: "RAKCore", targets: ["RAKCore", "RAKFixCrashOnInputKeyboard"]),
         .library(name: "RAKConfig", targets: ["RAKConfig"]),
         .library(name: "RAKBase", targets: ["RAKBase"]),
         .library(name: "RAKNotification", targets: ["RAKNotification"]),
         .library(name: "RAKEncrypte", targets: ["RAKEncrypte"]),
         .library(name: "RAKLocalCache", targets: ["RAKLocalCache"]),
+        .library(name: "RAKGradient", targets: ["RAKGradient"]),
         .library(name: "RAKCombine", targets: ["RAKCombine"]),
         .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
     ],
@@ -37,13 +38,14 @@ let package = Package(
                 "RAKNotification",
                 "RAKEncrypte",
                 "RAKLocalCache",
+                "RAKGradient",
                 "RAKCombine",
                 "RAKEpoxy",
             ]),
         
         .target(
             name: "RAKCore",
-            dependencies: ["RaLog", "Then", "RAKFixCrashOnInputKeyboard"],
+            dependencies: ["RaLog", "Then"],
             path: "Sources/Core",
             resources: [
                 .copy("../PrivacyInfo.xcprivacy"),
@@ -73,6 +75,11 @@ let package = Package(
             name: "RAKLocalCache",
             dependencies: ["RAKEncrypte"],
             path: "Sources/LocalCache"),
+        
+        .target(
+            name: "RAKGradient",
+            dependencies: ["RAKCore"],
+            path: "Sources/Gradient"),
         
         .target(
             name: "RAKFixCrashOnInputKeyboard",
