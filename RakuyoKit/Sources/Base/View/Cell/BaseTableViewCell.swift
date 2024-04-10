@@ -1,0 +1,44 @@
+//
+//  BaseTableViewCell.swift
+//  RakuyoKit
+//
+//  Created by Rakuyo on 2024/4/10.
+//  Copyright © 2024 Rakuyo. All rights reserved.
+//
+
+import UIKit
+
+#if !os(watchOS)
+@objc(RAKBaseTableViewCell)
+open class BaseTableViewCell: UITableViewCell {
+    public typealias View = UITableView
+    
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        config(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        config(style: .default, reuseIdentifier: "\(Self.self)")
+    }
+}
+
+extension BaseTableViewCell {
+    @objc
+    open func config(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        selectionStyle = .none
+        
+        addSubviews()
+        addInitialLayout()
+    }
+    
+    @objc
+    open func addSubviews() { }
+    
+    @objc
+    open func addInitialLayout() { }
+}
+#endif

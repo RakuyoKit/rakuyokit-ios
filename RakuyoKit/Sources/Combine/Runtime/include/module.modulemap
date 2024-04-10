@@ -1,0 +1,4 @@
+module _RAKCombineRuntime {
+    umbrella header "ObjcDelegateProxy.h"
+    export *
+}
