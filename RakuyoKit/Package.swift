@@ -38,7 +38,7 @@ let package = Package(
             ]),
         .target(
             name: "RAKCore",
-            dependencies: ["RaLog", "Then"],
+            dependencies: ["RaLog", "Then", "RAKFixCrashOnInputKeyboard"],
             path: "Sources/Core",
             resources: [
                 .copy("../PrivacyInfo.xcprivacy"),
@@ -59,6 +59,9 @@ let package = Package(
             name: "RAKEncrypte",
             dependencies: ["RAKConfig", "CryptoSwift"],
             path: "Sources/Encrypte"),
+        .target(
+            name: "RAKFixCrashOnInputKeyboard",
+            path: "Sources/FixCrashOnInputKeyboard"),
         .target(
             name: "RAKEpoxy",
             dependencies: [
