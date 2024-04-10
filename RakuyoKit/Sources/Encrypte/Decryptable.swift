@@ -9,10 +9,7 @@
 import Foundation
 
 import CryptoSwift
-
-#if canImport(RAKCore)
 import RAKCore
-#endif
 
 /// Decryption result.
 public enum DecryptResult<T: RAKCodable> {

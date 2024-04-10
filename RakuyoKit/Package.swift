@@ -17,6 +17,7 @@ let package = Package(
         .library(name: "RAKBase", targets: ["RAKBase"]),
         .library(name: "RAKNotification", targets: ["RAKNotification"]),
         .library(name: "RAKEncrypte", targets: ["RAKEncrypte"]),
+        .library(name: "RAKLocalCache", targets: ["RAKLocalCache"]),
         .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
     ],
     dependencies: [
@@ -34,6 +35,7 @@ let package = Package(
                 "RAKBase",
                 "RAKNotification",
                 "RAKEncrypte",
+                "RAKLocalCache",
                 "RAKEpoxy",
             ]),
         .target(
@@ -59,6 +61,10 @@ let package = Package(
             name: "RAKEncrypte",
             dependencies: ["RAKConfig", "CryptoSwift"],
             path: "Sources/Encrypte"),
+        .target(
+            name: "RAKLocalCache",
+            dependencies: ["RAKEncrypte"],
+            path: "Sources/LocalCache"),
         .target(
             name: "RAKFixCrashOnInputKeyboard",
             path: "Sources/FixCrashOnInputKeyboard"),

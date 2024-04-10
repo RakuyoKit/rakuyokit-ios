@@ -8,10 +8,7 @@
 import Foundation
 
 import Combine
-
-#if canImport(RAKCore)
 import RAKCore
-#endif
 
 // MARK: - Post
 
