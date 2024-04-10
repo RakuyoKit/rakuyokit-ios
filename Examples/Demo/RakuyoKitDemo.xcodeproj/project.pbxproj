@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE8EA1902BC6656100A26563 /* RakuyoKitDemoDependencies in Frameworks */ = {isa = PBXBuildFile; productRef = AE8EA18F2BC6656100A26563 /* RakuyoKitDemoDependencies */; };
 		AECCF2A12BC63AA000D45535 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECCF2A02BC63AA000D45535 /* AppDelegate.swift */; };
 		AECCF2A32BC63AA000D45535 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECCF2A22BC63AA000D45535 /* SceneDelegate.swift */; };
 		AECCF2A52BC63AA000D45535 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECCF2A42BC63AA000D45535 /* ViewController.swift */; };
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE8EA1902BC6656100A26563 /* RakuyoKitDemoDependencies in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +94,7 @@
 			);
 			name = RakuyoKitDemo;
 			packageProductDependencies = (
+				AE8EA18F2BC6656100A26563 /* RakuyoKitDemoDependencies */,
 			);
 			productName = RakuyoKitDemo;
 			productReference = AECCF29D2BC63AA000D45535 /* RakuyoKitDemo.app */;
@@ -383,6 +386,14 @@
 			relativePath = ../DemoDependencies;
 		};
 /* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AE8EA18F2BC6656100A26563 /* RakuyoKitDemoDependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE8EA18E2BC65FC100A26563 /* XCLocalSwiftPackageReference "../DemoDependencies" */;
+			productName = RakuyoKitDemoDependencies;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AECCF2952BC63AA000D45535 /* Project object */;
 }

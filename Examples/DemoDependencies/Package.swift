@@ -14,7 +14,7 @@ let package = Package(
         .library(name: "RakuyoKitDemoDependencies", targets: ["RakuyoKitDemoDependencies"]),
     ],
     dependencies: [
-        .package(name: "RakuyoKit", path: "../RakuyoKit")
+        .package(name: "RakuyoKit", path: "../..")
     ],
     targets: [
         .target(name: "RakuyoKitDemoDependencies", dependencies: ["RakuyoKit"], path: "Sources")
