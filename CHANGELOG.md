@@ -8,7 +8,7 @@ All notable changes to this project are documented in this file.
 
 ---
 
-## [1.0.0 - Initial submission](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.0.0) (2024-4-9)
+## [1.0.0 - Initial submission](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.0.0) (2024-4-10)
 
 ### Added
 
