@@ -18,6 +18,7 @@ let package = Package(
         .library(name: "RAKNotification", targets: ["RAKNotification"]),
         .library(name: "RAKEncrypte", targets: ["RAKEncrypte"]),
         .library(name: "RAKLocalCache", targets: ["RAKLocalCache"]),
+        .library(name: "RAKCombine", targets: ["RAKCombine"]),
         .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
     ],
     dependencies: [
@@ -36,8 +37,10 @@ let package = Package(
                 "RAKNotification",
                 "RAKEncrypte",
                 "RAKLocalCache",
+                "RAKCombine",
                 "RAKEpoxy",
             ]),
+        
         .target(
             name: "RAKCore",
             dependencies: ["RaLog", "Then", "RAKFixCrashOnInputKeyboard"],
@@ -45,29 +48,44 @@ let package = Package(
             resources: [
                 .copy("../PrivacyInfo.xcprivacy"),
             ]),
+        
         .target(
             name: "RAKConfig",
             dependencies: ["RAKCore"],
             path: "Sources/Config"),
+        
         .target(
             name: "RAKBase",
             dependencies: ["RAKConfig"],
             path: "Sources/Base"),
+        
         .target(
             name: "RAKNotification",
             dependencies: ["RAKCore"],
             path: "Sources/Notification"),
+        
         .target(
             name: "RAKEncrypte",
             dependencies: ["RAKConfig", "CryptoSwift"],
             path: "Sources/Encrypte"),
+        
         .target(
             name: "RAKLocalCache",
             dependencies: ["RAKEncrypte"],
             path: "Sources/LocalCache"),
+        
         .target(
             name: "RAKFixCrashOnInputKeyboard",
             path: "Sources/FixCrashOnInputKeyboard"),
+        
+        .target(
+            name: "RAKCombine",
+            dependencies: ["RAKCore", "_RAKCombineRuntime"],
+            path: "Sources/Combine/Core"),
+        .target(
+            name: "_RAKCombineRuntime",
+            path: "Sources/Combine/Runtime"),
+        
         .target(
             name: "RAKEpoxy",
             dependencies: [
@@ -75,6 +93,7 @@ let package = Package(
                 .product(name: "EpoxyCollectionView", package: "epoxy-ios"),
             ],
             path: "Sources/Epoxy"),
+        
         .testTarget(
             name: "RakuyoKitTests",
             dependencies: ["RakuyoKit"]),
