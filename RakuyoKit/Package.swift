@@ -16,6 +16,7 @@ let package = Package(
         .library(name: "RAKConfig", targets: ["RAKConfig"]),
         .library(name: "RAKBase", targets: ["RAKBase"]),
         .library(name: "RAKNotification", targets: ["RAKNotification"]),
+        .library(name: "RAKEncrypte", targets: ["RAKEncrypte"]),
         .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
     ],
     dependencies: [
@@ -23,6 +24,7 @@ let package = Package(
         .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.7.1"),
         .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
         .package(url: "https://github.com/airbnb/epoxy-ios.git", from: "0.10.0"),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.1"),
     ],
     targets: [
         .target(
@@ -31,6 +33,7 @@ let package = Package(
                 "RAKConfig",
                 "RAKBase",
                 "RAKNotification",
+                "RAKEncrypte",
                 "RAKEpoxy",
             ]),
         .target(
@@ -52,6 +55,10 @@ let package = Package(
             name: "RAKNotification",
             dependencies: ["RAKCore"],
             path: "Sources/Notification"),
+        .target(
+            name: "RAKEncrypte",
+            dependencies: ["RAKConfig", "CryptoSwift"],
+            path: "Sources/Encrypte"),
         .target(
             name: "RAKEpoxy",
             dependencies: [
