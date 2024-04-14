@@ -33,14 +33,15 @@ let package = Package(
         .target(
             name: "RakuyoKit",
             dependencies: [
-                "RAKConfig",
                 "RAKBase",
-                "RAKNotification",
-                "RAKEncrypte",
-                "RAKLocalCache",
-                "RAKGradient",
                 "RAKCombine",
+                "RAKConfig",
+                "RAKCore",
+                "RAKEncrypte",
                 "RAKEpoxy",
+                "RAKGradient",
+                "RAKLocalCache",
+                "RAKNotification",
             ]),
         
         .target(

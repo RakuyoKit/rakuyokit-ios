@@ -6,6 +6,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.2...HEAD)
 
+### Fixed
+
+- Fixed the issue where RakuyoKit components did not reference RAKCombine. [#5](https://github.com/RakuyoKit/RakuyoKit/pull/5) @rakuyoMo
+
 ---
 
 ## [1.0.2 - Small optimization](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.0.2) (2024-4-10)
