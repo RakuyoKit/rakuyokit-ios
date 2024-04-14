@@ -4,7 +4,11 @@ All notable changes to this project are documented in this file.
 
 -----
 
-## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.2...HEAD)
+## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.3...HEAD)
+
+-----
+
+## [1.0.3 - Piece of Cake](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.0.3) (2024-4-14)
 
 ### Fixed
 
