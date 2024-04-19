@@ -16,11 +16,13 @@ public final class Atomic<Value> {
     
     public var wrappedValue: Value {
         get {
-            lock.lock(); defer { lock.unlock() }
+            lock.lock()
+            defer { lock.unlock() }
             return value
         }
         set {
-            lock.lock(); defer { lock.unlock() }
+            lock.lock()
+            defer { lock.unlock() }
             value = newValue
         }
     }

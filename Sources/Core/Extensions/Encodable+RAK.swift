@@ -10,9 +10,9 @@ import Foundation
 
 import RaLog
 
-public extension Extendable where Base: RAKEncodable {
+extension Extendable where Base: RAKEncodable {
     /// Convert to binary JSON data.
-    func toJSONData() throws -> Data {
+    public func toJSONData() throws -> Data {
         do {
             return try JSONEncoder().encode(base)
             
@@ -23,7 +23,7 @@ public extension Extendable where Base: RAKEncodable {
     }
     
     /// Convert to JSON object.
-    func toJSONObject() throws -> Any {
+    public func toJSONObject() throws -> Any {
         do {
             let data = try toJSONData()
             return try JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed])
@@ -35,7 +35,7 @@ public extension Extendable where Base: RAKEncodable {
     }
     
     /// Convert to JSON string.
-    func toJSONString() throws -> String? {
+    public func toJSONString() throws -> String? {
         do {
             let data = try toJSONData()
             return String(data: data, encoding: .utf8)
@@ -47,7 +47,7 @@ public extension Extendable where Base: RAKEncodable {
     }
     
     ///
-    func encode() -> [String: Any?] {
+    public func encode() -> [String: Any?] {
         guard let encoded = try? toJSONObject() else {
             return [:]
         }

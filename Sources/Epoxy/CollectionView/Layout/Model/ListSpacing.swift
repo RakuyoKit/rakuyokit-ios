@@ -10,6 +10,8 @@ import Foundation
 
 import CoreGraphics.CGFunction
 
+// MARK: - ListSpacing
+
 /// List Spacing
 public struct ListSpacing {
     /// Default Spacing: 0
@@ -29,7 +31,7 @@ public struct ListSpacing {
     }
 }
 
-// MARK: - ExpressibleByIntegerLiteral
+// MARK: ExpressibleByIntegerLiteral
 
 extension ListSpacing: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
@@ -37,7 +39,7 @@ extension ListSpacing: ExpressibleByIntegerLiteral {
     }
 }
 
-// MARK: - ExpressibleByFloatLiteral
+// MARK: ExpressibleByFloatLiteral
 
 extension ListSpacing: ExpressibleByFloatLiteral {
     public init(floatLiteral value: FloatLiteralType) {

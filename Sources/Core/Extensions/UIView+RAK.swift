@@ -13,11 +13,11 @@ import Then
 
 // MARK: - Hide keyboard when tap
 
-public extension Extendable where Base: UIView {
+extension Extendable where Base: UIView {
     /// By setting this property, you can add/remove the function of
     /// hiding the keyboard when clicked for `UIView` and its subclasses.
     @available(iOSApplicationExtension, unavailable)
-    var isHideKeyboardWhenTap: Bool {
+    public var isHideKeyboardWhenTap: Bool {
         get { (objc_getAssociatedObject(base, &kIsHideKeyboardWhenTapKey) as? Bool) ?? false }
         set {
             objc_setAssociatedObject(base, &kIsHideKeyboardWhenTapKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -31,9 +31,9 @@ public extension Extendable where Base: UIView {
     }
 }
 
-fileprivate extension UIView {
+extension UIView {
     @available(iOSApplicationExtension, unavailable)
-    var _hideKeyboardGesture: UITapGestureRecognizer {
+    fileprivate var _hideKeyboardGesture: UITapGestureRecognizer {
         if let ges = objc_getAssociatedObject(self, &kHideKeyboardGestureKey) as? UITapGestureRecognizer {
             return ges
         }
@@ -51,7 +51,7 @@ fileprivate extension UIView {
     
     @available(iOSApplicationExtension, unavailable)
     @objc
-    func _endEditing() {
+    fileprivate func _endEditing() {
         UIApplication.shared.rak.keyWindow?.endEditing(true)
     }
 }
@@ -61,9 +61,9 @@ private var kHideKeyboardGestureKey: Void?
 
 // MARK: - Other
 
-public extension Extendable where Base: UIView {
+extension Extendable where Base: UIView {
     /// Convert UIView to UIImage
-    func toImage() -> UIImage? {
+    public func toImage() -> UIImage? {
         let format = UIGraphicsImageRendererFormat().then {
             $0.scale = UIScreen.rak.scale
             

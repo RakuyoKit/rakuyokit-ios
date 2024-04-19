@@ -8,11 +8,15 @@
 
 import UIKit
 
+// MARK: - ConvertibleToColor
+
 /// Used to convert some types to `UIColor` types
 public protocol ConvertibleToColor {
     /// The converted color will be read through this attribute
     var color: UIColor { get }
 }
+
+// MARK: - UIColor + ConvertibleToColor
 
 extension UIColor: ConvertibleToColor {
     public var color: UIColor { self }
@@ -27,6 +31,8 @@ extension UIColor: ConvertibleToColor {
     }
 }
 
+// MARK: - Int + ConvertibleToColor
+
 /// Like `0x88B0BF`
 extension Int: ConvertibleToColor {
     public var color: UIColor {
@@ -38,10 +44,14 @@ extension Int: ConvertibleToColor {
     }
 }
 
+// MARK: - String + ConvertibleToColor
+
 /// Like `#FF7F20` or `FF7F20`
 extension String: ConvertibleToColor {
     public var color: UIColor { rak.toHex.color }
 }
+
+// MARK: - ConvertibleToColor + ConvertibleToColor
 
 /// Will not check for out-of-bounds behavior.
 /// Please make sure that the array contains at least three elements.
@@ -59,7 +69,7 @@ extension String: ConvertibleToColor {
 /// ```swift
 /// view.backgroundColor = [0.4, 127.5, 127, 0.5].color
 /// ```
-extension Array: ConvertibleToColor where Element == CGFloat {
+extension [CGFloat]: ConvertibleToColor {
     public var color: UIColor {
         let configValue: (CGFloat) -> CGFloat = {
             guard $0 > 1 else { return $0 }

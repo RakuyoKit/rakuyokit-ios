@@ -10,21 +10,25 @@ import Foundation
 private let payloadEncoder = JSONEncoder()
 private let payloadDecoder = JSONDecoder()
 
+// MARK: - PassiveNotificationPayload
+
 public protocol PassiveNotificationPayload {
     init(_ notification: Notification)
 }
+
+// MARK: - NotificationPayload
 
 public protocol NotificationPayload: PassiveNotificationPayload {
     var userInfo: [AnyHashable: Any] { get }
 }
 
-public extension NotificationPayload where Self: Decodable {
-    init(_ notification: Notification) {
+extension NotificationPayload where Self: Decodable {
+    public init(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
             fatalError("""
-                    [Noti] Received a `nil` userInfo. Maybe you are sending a customized notification with untyped API.
-                    Please send typed notifications with Noti APIs instead of plain Cocoa APIs.
-                    """)
+                [Noti] Received a `nil` userInfo. Maybe you are sending a customized notification with untyped API.
+                Please send typed notifications with Noti APIs instead of plain Cocoa APIs.
+                """)
         }
         
         do {
@@ -36,8 +40,8 @@ public extension NotificationPayload where Self: Decodable {
     }
 }
 
-public extension NotificationPayload where Self: Encodable {
-    var userInfo: [AnyHashable: Any] {
+extension NotificationPayload where Self: Encodable {
+    public var userInfo: [AnyHashable: Any] {
         // swiftlint:disable force_cast force_try
         let data = try! payloadEncoder.encode(self)
         return try! JSONSerialization.jsonObject(with: data, options: []) as! [AnyHashable: Any]
@@ -45,27 +49,31 @@ public extension NotificationPayload where Self: Encodable {
     }
 }
 
+// MARK: - EmptyNotificationPayload
+
 public struct EmptyNotificationPayload: NotificationPayload {
     static let empty = Self()
     
     public var userInfo: [AnyHashable: Any] { [:] }
     
-    public init(_ notification: Notification) { }
+    public init(_: Notification) { }
     
     private init() { }
 }
 
-public extension Notification {
-    func extract<T>(key: String, type: T.Type) -> T {
+extension Notification {
+    public func extract<T>(key: String, type _: T.Type) -> T {
         // swiftlint:disable:next force_cast force_unwrapping
-        return userInfo![key] as! T
+        userInfo![key] as! T
     }
     
-    func extract<T, U>(key: String, type: T.Type, transform: (T) -> U) -> U {
+    public func extract<T, U>(key: String, type: T.Type, transform: (T) -> U) -> U {
         let value = extract(key: key, type: type)
         return transform(value)
     }
 }
 
-// For auto generating of payload
+// MARK: - AutoPassiveNotificationPayload
+
+/// For auto generating of payload
 public protocol AutoPassiveNotificationPayload { }

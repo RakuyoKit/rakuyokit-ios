@@ -19,11 +19,11 @@ public final class TextField: UITextField {
     /// Default is `Config.color.auxiliaryText`.
     public lazy var placeholderColor: UIColor = Config.color.auxiliaryGray.main
     
-    public override var placeholder: String? {
+    override public var placeholder: String? {
         didSet { configPlaceholder() }
     }
     
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         
         configPlaceholder()
@@ -43,8 +43,8 @@ public final class TextField: UITextField {
     }
 }
 
-public extension TextField {
-    func selectedRange() -> NSRange? {
+extension TextField {
+    public func selectedRange() -> NSRange? {
         guard
             let start = selectedTextRange?.start,
             let end = selectedTextRange?.end
@@ -57,7 +57,7 @@ public extension TextField {
         return .init(location: location, length: length)
     }
     
-    func setSelectedRange(_ range: NSRange) {
+    public func setSelectedRange(_ range: NSRange) {
         guard
             let start = position(from: beginningOfDocument, offset: range.location),
             let end = position(from: beginningOfDocument, offset: range.location + range.length),

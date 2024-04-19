@@ -9,16 +9,16 @@
 import Foundation
 
 infix operator +: AdditionPrecedence
-public extension Dictionary {
+extension Dictionary {
     /// - Note: Will keep rhs's values for duplicate keys.
-    static func + (lhs: [Key: Value], rhs: [Key: Value]) -> [Key: Value] {
-        return lhs.merging(rhs) { _, new in new }
+    public static func + (lhs: [Key: Value], rhs: [Key: Value]) -> [Key: Value] {
+        lhs.merging(rhs) { _, new in new }
     }
 }
 
 infix operator +=: AssignmentPrecedence
-public extension Dictionary {
-    static func += (lhs: inout [Key: Value], rhs: [Key: Value]) {
+extension Dictionary {
+    public static func += (lhs: inout [Key: Value], rhs: [Key: Value]) {
         lhs.merge(rhs) { _, new in new }
     }
 }

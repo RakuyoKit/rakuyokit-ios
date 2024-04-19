@@ -29,4 +29,4 @@ public typealias RAKDecodable = Decodable & NamespaceProviding
 /// Used to replace `Codable` and provide the `rak` namespace.
 ///
 /// Please try to use `RAKCodable` instead of `Codable` in your project.
-public typealias RAKCodable = RAKEncodable & RAKDecodable
+public typealias RAKCodable = RAKDecodable & RAKEncodable

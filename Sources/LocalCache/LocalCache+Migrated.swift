@@ -4,18 +4,20 @@ import RAKCore
 import RAKEncrypte
 import Then
 
+// MARK: - NeedMigratedCache
+
 /// Cache requiring migration
 public protocol NeedMigratedCache {
     /// Migration method
     static func migrate()
 }
 
-public extension NeedMigratedCache {
-    static func migrateValueFromSandboxToAppGroup(_ value: NeedEncrypted<some RAKCodable>) {
+extension NeedMigratedCache {
+    public static func migrateValueFromSandboxToAppGroup(_ value: NeedEncrypted<some RAKCodable>) {
         value.wrappedValue = getOldUserDefaultsValue(name: value.name)
     }
     
-    static func getOldUserDefaultsValue<T: RAKCodable>(name: String) -> T? {
+    public static func getOldUserDefaultsValue<T: RAKCodable>(name: String) -> T? {
         let userDefaults: UserDefaults = .standard
         var encrypted: NeedEncrypted<T> = .init(name: name)
         
@@ -24,9 +26,11 @@ public extension NeedMigratedCache {
     }
 }
 
-public extension LocalCache {
+// MARK: - LocalCache.Migrated
+
+extension LocalCache {
     /// Management class for migrating local data
-    enum Migrated {
+    public enum Migrated {
         /// Indicates whether UserDefaults has been migrated
         @NeedEncrypted(name: "user default migrated")
         private static var isUserDefaultMigrated: Bool?
@@ -35,12 +39,12 @@ public extension LocalCache {
 
 // MARK: - Logic
 
-public extension LocalCache.Migrated {
-    static func migrate(_ migrateds: [NeedMigratedCache.Type]) {
+extension LocalCache.Migrated {
+    public static func migrate(_ migrateds: [NeedMigratedCache.Type]) {
         if let _isMigrated = isUserDefaultMigrated, _fastPath(_isMigrated) {
             return
         }
         defer { isUserDefaultMigrated = true }
-        migrateds.forEach { $0.migrate() }
+        for migrated in migrateds { migrated.migrate() }
     }
 }

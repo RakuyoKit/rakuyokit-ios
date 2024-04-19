@@ -40,7 +40,8 @@ let package = Package(
                 "RAKGradient",
                 "RAKLocalCache",
                 "RAKNotification",
-            ]),
+            ]
+        ),
         
         .target(
             name: "RAKCore",
@@ -48,49 +49,59 @@ let package = Package(
             path: "Sources/Core",
             resources: [
                 .copy("../PrivacyInfo.xcprivacy"),
-            ]),
+            ]
+        ),
         
         .target(
             name: "RAKConfig",
             dependencies: ["RAKCore"],
-            path: "Sources/Config"),
+            path: "Sources/Config"
+        ),
         
         .target(
             name: "RAKBase",
             dependencies: ["RAKConfig"],
-            path: "Sources/Base"),
+            path: "Sources/Base"
+        ),
         
         .target(
             name: "RAKNotification",
             dependencies: ["RAKCore"],
-            path: "Sources/Notification"),
+            path: "Sources/Notification"
+        ),
         
         .target(
             name: "RAKEncrypte",
             dependencies: ["RAKConfig", "CryptoSwift"],
-            path: "Sources/Encrypte"),
+            path: "Sources/Encrypte"
+        ),
         
         .target(
             name: "RAKLocalCache",
             dependencies: ["RAKEncrypte"],
-            path: "Sources/LocalCache"),
+            path: "Sources/LocalCache"
+        ),
         
         .target(
             name: "RAKGradient",
             dependencies: ["RAKCore"],
-            path: "Sources/Gradient"),
+            path: "Sources/Gradient"
+        ),
         
         .target(
             name: "RAKFixCrashOnInputKeyboard",
-            path: "Sources/FixCrashOnInputKeyboard"),
+            path: "Sources/FixCrashOnInputKeyboard"
+        ),
         
         .target(
             name: "RAKCombine",
             dependencies: ["RAKCore", "_RAKCombineRuntime"],
-            path: "Sources/Combine/Core"),
+            path: "Sources/Combine/Core"
+        ),
         .target(
             name: "_RAKCombineRuntime",
-            path: "Sources/Combine/Runtime"),
+            path: "Sources/Combine/Runtime"
+        ),
         
         .target(
             name: "RAKEpoxy",
@@ -98,11 +109,13 @@ let package = Package(
                 "RAKConfig",
                 .product(name: "Epoxy", package: "epoxy-ios"),
             ],
-            path: "Sources/Epoxy"),
+            path: "Sources/Epoxy"
+        ),
         
         .testTarget(
             name: "RakuyoKitTests",
-            dependencies: ["RakuyoKit"]),
+            dependencies: ["RakuyoKit"]
+        ),
     ]
 )
 

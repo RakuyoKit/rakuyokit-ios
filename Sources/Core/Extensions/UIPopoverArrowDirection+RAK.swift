@@ -11,8 +11,8 @@ import UIKit
 
 extension UIPopoverArrowDirection: NamespaceProviding { }
 
-public extension Extendable where Base == UIPopoverArrowDirection {
+extension Extendable where Base == UIPopoverArrowDirection {
     /// default direction
-    static let `default`: Base = [.up, .down]
+    public static let `default`: Base = [.up, .down]
 }
 #endif

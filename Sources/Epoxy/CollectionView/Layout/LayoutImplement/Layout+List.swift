@@ -11,20 +11,18 @@ import UIKit
 import EpoxyCollectionView
 import RAKCore
 
-public extension Extendable where Base: Layout.Section {
-    /*
-     *  Used as a reference baseline when customizing layouts in the extension of `Layout.LayoutType`.
-     *  Also the specific implementations for the two layout methods below.
-     */
+extension Extendable where Base: Layout.Section {
+    //  Used as a reference baseline when customizing layouts in the extension of `Layout.LayoutType`.
+    //  Also the specific implementations for the two layout methods below.
     
-    static func list(
+    public static func list(
         layoutEnvironment environment: Layout.Environment,
         spacing: ListSpacing = .default,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = .whiteBackground
     ) -> Base {
-        return custom(
+        custom(
             layoutEnvironment: environment,
             style: .list,
             header: header,
@@ -35,48 +33,46 @@ public extension Extendable where Base: Layout.Section {
     }
 }
 
-public extension Extendable where Base: Layout.Compositional {
-    /*
-     *  When inheriting `BaseCodeCollectionViewController`,
-     *  use in the .layout property of the controller. Provides consistent layout for the entire list.
-     */
+extension Extendable where Base: Layout.Compositional {
+    //  When inheriting `BaseCodeCollectionViewController`,
+    //  use in the .layout property of the controller. Provides consistent layout for the entire list.
     
-    static func list(
+    public static func list(
         spacing: ListSpacing = .default,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = .whiteBackground
     ) -> Self {
-        return Base { (_, environment) in
+        Base { _, environment in
             Layout.Section.rak.list(
                 layoutEnvironment: environment,
                 spacing: spacing,
                 header: header,
                 footer: footer,
-                decoration: decoration)
+                decoration: decoration
+            )
         }.rak
     }
 }
 
-public extension SectionProviderWrapper {
-    /*
-     *  Used in the `.layout()` method of Data Tree.
-     *  Provides a special layout for a specific Section.
-     */
+extension SectionProviderWrapper {
+    //  Used in the `.layout()` method of Data Tree.
+    //  Provides a special layout for a specific Section.
     
-    static func list(
+    public static func list(
         spacing: ListSpacing = .default,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = .whiteBackground
     ) -> Self {
-        return .init {
+        .init {
             Layout.Section.rak.list(
                 layoutEnvironment: $0,
                 spacing: spacing,
                 header: header,
                 footer: footer,
-                decoration: decoration)
+                decoration: decoration
+            )
         }
     }
 }

@@ -23,19 +23,23 @@ public protocol BridgeToObjC {
     var bridgeToObjC: ObjCType { get }
 }
 
-public extension BridgeToObjC {
-    var bridgeToObjC: ObjCType {
+extension BridgeToObjC {
+    public var bridgeToObjC: ObjCType {
         guard let obj = bridgedValue as? ObjCType else {
-            fatalError("Conversion of \(bridgedValue) to \(ObjCType.self) type failed!" +
-                       "Please check whether the ObjCType paradigm setting is correct")
+            fatalError(
+                "Conversion of \(bridgedValue) to \(ObjCType.self) type failed!" +
+                    "Please check whether the ObjCType paradigm setting is correct"
+            )
         }
         return obj
     }
 }
 
-public extension BridgeToObjC where Self: CanBridageToObjC {
-    var bridgedValue: Self { self }
+extension BridgeToObjC where Self: CanBridageToObjC {
+    public var bridgedValue: Self { self }
 }
+
+// MARK: - Extendable + BridgeToObjC
 
 extension Extendable: BridgeToObjC where Base: CanBridageToObjC {
     public var bridgedValue: Base { base }
@@ -48,30 +52,42 @@ public protocol CanBridageToObjC {
     associatedtype ObjCType: NSObject
 }
 
+// MARK: - String + CanBridageToObjC
+
 extension String: CanBridageToObjC {
     // swiftlint:disable:next legacy_objc_type
     public typealias ObjCType = NSString
 }
+
+// MARK: - Int + CanBridageToObjC
 
 extension Int: CanBridageToObjC {
     // swiftlint:disable:next legacy_objc_type
     public typealias ObjCType = NSNumber
 }
 
+// MARK: - Float + CanBridageToObjC
+
 extension Float: CanBridageToObjC {
     // swiftlint:disable:next legacy_objc_type
     public typealias ObjCType = NSNumber
 }
+
+// MARK: - Double + CanBridageToObjC
 
 extension Double: CanBridageToObjC {
     // swiftlint:disable:next legacy_objc_type
     public typealias ObjCType = NSNumber
 }
 
+// MARK: - CGFloat + CanBridageToObjC
+
 extension CGFloat: CanBridageToObjC {
     // swiftlint:disable:next legacy_objc_type
     public typealias ObjCType = NSNumber
 }
+
+// MARK: - Array + CanBridageToObjC
 
 extension Array: CanBridageToObjC where Element: CanBridageToObjC {
     // swiftlint:disable:next legacy_objc_type

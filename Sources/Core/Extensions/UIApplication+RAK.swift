@@ -9,15 +9,15 @@
 #if !os(watchOS)
 import UIKit
 
-public extension Extendable where Base: UIApplication {
-    var keyWindow: UIWindow? {
+extension Extendable where Base: UIApplication {
+    public var keyWindow: UIWindow? {
         mainScene?.windows.first { $0.isKeyWindow }
     }
     
-    var rootViewController: UIViewController? { keyWindow?.rootViewController }
+    public var rootViewController: UIViewController? { keyWindow?.rootViewController }
     
     /// Get the height of the status bar
-    func statusBarHeight(in view: UIView? = nil) -> CGFloat {
+    public func statusBarHeight(in view: UIView? = nil) -> CGFloat {
         let height = view?.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         
         guard _slowPath(height.isZero) else { return height }
@@ -37,12 +37,12 @@ public extension Extendable where Base: UIApplication {
 // MARK: - Open URL
 
 @available(iOSApplicationExtension, unavailable)
-public extension Extendable where Base: UIApplication {
+extension Extendable where Base: UIApplication {
     /// Returns the openable form of `urlString`
     ///
     /// - Parameter urlString: The link to open
     /// - Returns: Whether the link can be opened. If possible, the corresponding URL object is returned. Otherwise return `nil`
-    func openableLink(of urlString: String) -> URL? {
+    public func openableLink(of urlString: String) -> URL? {
         guard
             let url = URL(string: urlString),
             base.canOpenURL(url)
@@ -58,7 +58,7 @@ public extension Extendable where Base: UIApplication {
     /// - Parameter urlString: The link to open
     /// - Returns: Can it be opened successfully
     @discardableResult
-    func open(_ urlString: String) -> Bool {
+    public func open(_ urlString: String) -> Bool {
         guard let url = openableLink(of: urlString) else { return false }
         base.open(url)
         return true
@@ -66,8 +66,8 @@ public extension Extendable where Base: UIApplication {
     
     /// Open settings page
     @discardableResult
-    func openSettings() -> Bool {
-        return open(Base.openSettingsURLString)
+    public func openSettings() -> Bool {
+        open(Base.openSettingsURLString)
     }
 }
 

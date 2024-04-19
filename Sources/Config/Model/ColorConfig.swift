@@ -10,6 +10,8 @@ import UIKit
 
 import RAKCore
 
+// MARK: - ColorConfig
+
 /// Color configuration
 ///
 /// We recommend that when defining colors, you define `Tool` first,
@@ -192,55 +194,64 @@ public struct ColorConfig {
 
 // MARK: - Simplified calling
 
-public extension ColorConfig {
-    subscript<T>(dynamicMember keyPath: KeyPath<Tool, T>) -> T {
-        return tool[keyPath: keyPath]
+extension ColorConfig {
+    public subscript<T>(dynamicMember keyPath: KeyPath<Tool, T>) -> T {
+        tool[keyPath: keyPath]
     }
     
-    subscript<T>(dynamicMember keyPath: KeyPath<Semantic, T>) -> T {
-        return semantic[keyPath: keyPath]
+    public subscript<T>(dynamicMember keyPath: KeyPath<Semantic, T>) -> T {
+        semantic[keyPath: keyPath]
     }
 }
 
 // MARK: - Placeholder
 
-public extension ColorConfig {
-#if os(iOS) || os(visionOS)
-    static let placeholder: Self = {
+extension ColorConfig {
+    #if os(iOS) || os(visionOS)
+    // swiftlint:disable:next closure_body_length
+    public static let placeholder: Self = {
         let toolConfig = Tool(
             backgroundGray: .init(
                 main: .systemGroupedBackground,
                 secondary: .secondarySystemGroupedBackground,
-                tertiary: .tertiarySystemGroupedBackground),
+                tertiary: .tertiarySystemGroupedBackground
+            ),
             auxiliaryGray: .init(
                 main: .systemGray4,
                 secondary: .systemGray5,
-                tertiary: .systemGray6),
+                tertiary: .systemGray6
+            ),
             white: .tertiarySystemBackground,
-            black: .label)
+            black: .label
+        )
         
         let semanticConfig = Semantic(
             theme: .init(
                 main: .systemIndigo,
-                secondary: .systemIndigo.withAlphaComponent(0.8)),
+                secondary: .systemIndigo.withAlphaComponent(0.8)
+            ),
             text: .init(
                 main: .label,
                 secondary: .secondaryLabel,
-                tertiary: .tertiaryLabel),
+                tertiary: .tertiaryLabel
+            ),
             separator: .separator,
             emphasis: .init(
                 main: .systemRed,
                 secondary: .systemOrange,
-                tertiary: .systemPink),
+                tertiary: .systemPink
+            ),
             border: toolConfig.auxiliaryGray.main,
             shadow: toolConfig.black.color.withAlphaComponent(0.2),
-            unavailableText: .systemGray)
+            unavailableText: .systemGray
+        )
         
         return Self(tool: toolConfig, semantic: semanticConfig)
     }()
-#elseif os(tvOS)
+
+    #elseif os(tvOS)
     
-#elseif os(watchOS)
+    #elseif os(watchOS)
     
-#endif
+    #endif
 }

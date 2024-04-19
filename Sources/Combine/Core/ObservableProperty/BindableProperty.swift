@@ -2,6 +2,8 @@ import Foundation
 
 import Combine
 
+// MARK: - BindableProperty
+
 ///
 public final class BindableProperty<Value>: BindableConvertibleProperty<Value, Value> {
     public init(_ value: Value) {
@@ -9,10 +11,12 @@ public final class BindableProperty<Value>: BindableConvertibleProperty<Value, V
     }
     
     @available(*, unavailable)
-    override init(_ value: Value, map: ObservableMapBlock?) {
+    override init(_: Value, map _: ObservableMapBlock?) {
         fatalError("init(_:map:) has not been implemented")
     }
 }
+
+// MARK: - BindableConvertibleProperty
 
 ///
 public class BindableConvertibleProperty<Value, Convert> {
@@ -33,7 +37,7 @@ public class BindableConvertibleProperty<Value, Convert> {
     private let observableWrapper: Wrapper
     
     public init(_ value: Value, map: ObservableMapBlock?) {
-        self.observableWrapper = .init(value, map: map)
+        observableWrapper = .init(value, map: map)
     }
     
     public func update(_ value: Value) {

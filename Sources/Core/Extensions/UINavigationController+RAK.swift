@@ -9,9 +9,9 @@
 #if !os(watchOS)
 import UIKit
 
-public extension Extendable where Base: UINavigationController {
+extension Extendable where Base: UINavigationController {
     /// Uses a horizontal slide transition. Has no effect if the view controller is already in the stack.
-    func pushViewController(_ viewController: UIViewController, animated: Bool, complete: @escaping EmptyClosure) {
+    public func pushViewController(_ viewController: UIViewController, animated: Bool, complete: @escaping EmptyClosure) {
         CATransaction.setCompletionBlock(complete)
         CATransaction.begin()
         base.pushViewController(viewController, animated: animated)
@@ -20,7 +20,7 @@ public extension Extendable where Base: UINavigationController {
     
     /// Returns the popped controller
     @discardableResult
-    func popViewController(animated: Bool, complete: @escaping EmptyClosure) -> UIViewController? {
+    public func popViewController(animated: Bool, complete: @escaping EmptyClosure) -> UIViewController? {
         let poppedViewController: UIViewController?
         
         CATransaction.setCompletionBlock(complete)
@@ -33,7 +33,7 @@ public extension Extendable where Base: UINavigationController {
     
     /// Pops view controllers until the one specified is on top. Returns the popped controllers.
     @discardableResult
-    func popToViewController(
+    public func popToViewController(
         _ viewController: UIViewController,
         animated: Bool,
         complete: @escaping EmptyClosure
@@ -50,7 +50,7 @@ public extension Extendable where Base: UINavigationController {
     
     /// Pops until there's only a single view controller left on the stack. Returns the popped controllers.
     @discardableResult
-    func popToRootViewController(animated: Bool, complete: @escaping EmptyClosure) -> [UIViewController]? {
+    public func popToRootViewController(animated: Bool, complete: @escaping EmptyClosure) -> [UIViewController]? {
         let viewControllers: [UIViewController]?
         
         CATransaction.setCompletionBlock(complete)

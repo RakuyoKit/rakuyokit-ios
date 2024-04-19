@@ -8,30 +8,30 @@
 
 import Foundation
 
-public extension Collection {
-    var isNotEmpty: Bool { !isEmpty }
+extension Collection {
+    public var isNotEmpty: Bool { !isEmpty }
     
-    func toArray() -> [Element] {
-        return .init(self)
+    public func toArray() -> [Element] {
+        .init(self)
     }
 }
 
-public extension Extendable where Base: Collection {
-    func ifNotEmpty<U>(_ transform: (Base) throws -> U) rethrows -> U? {
+extension Extendable where Base: Collection {
+    public func ifNotEmpty<U>(_ transform: (Base) throws -> U) rethrows -> U? {
         guard base.isNotEmpty else { return nil }
         return try transform(base)
     }
     
     @inlinable
-    func changingEach(_ body: (inout Base.Element) throws -> Void) rethrows -> [Base.Element] {
-        return try base.map {
+    public func changingEach(_ body: (inout Base.Element) throws -> Void) rethrows -> [Base.Element] {
+        try base.map {
             var copy = $0
             try body(&copy)
             return copy
         }
     }
     
-    func removeDuplicated<H: Hashable>(by keyPath: KeyPath<Base.Element, H>) -> [Base.Element] {
+    public func removeDuplicated<H: Hashable>(by keyPath: KeyPath<Base.Element, H>) -> [Base.Element] {
         var result = [Base.Element]()
         var map = [H: Base.Element]()
         for ele in base {
@@ -44,7 +44,7 @@ public extension Extendable where Base: Collection {
         return result
     }
     
-    func removeDuplicate<H: Hashable>(_ filter: (Base.Element) -> H) -> [Base.Element] {
+    public func removeDuplicate<H: Hashable>(_ filter: (Base.Element) -> H) -> [Base.Element] {
         var result = [Base.Element]()
         var map = [H: Base.Element]()
         for ele in base {
@@ -58,8 +58,8 @@ public extension Extendable where Base: Collection {
     }
 }
 
-public extension Extendable where Base: Collection & RAKCodable, Base.Element: RAKCodable {
-    static func decodeJSON(from jsonString: String?, designatedPath: String? = nil) -> [Base.Element?]? {
+extension Extendable where Base: Collection & RAKCodable, Base.Element: RAKCodable {
+    public static func decodeJSON(from jsonString: String?, designatedPath: String? = nil) -> [Base.Element?]? {
         guard
             let data = jsonString?.data(using: .utf8),
             let jsonData = getInnerObject(inside: data, by: designatedPath),
@@ -71,7 +71,7 @@ public extension Extendable where Base: Collection & RAKCodable, Base.Element: R
         return Base.rak.decodeJSON(from: jsonObject)
     }
     
-    static func decodeJSON(from array: [Any]?) -> [Base.Element?]? {
-        return array?.map { Base.Element.rak.decodeJSON(from: $0) }
+    public static func decodeJSON(from array: [Any]?) -> [Base.Element?]? {
+        array?.map { Base.Element.rak.decodeJSON(from: $0) }
     }
 }

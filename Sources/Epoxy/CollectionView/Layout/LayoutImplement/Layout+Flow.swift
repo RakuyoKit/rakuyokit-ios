@@ -11,13 +11,11 @@ import UIKit
 import EpoxyCollectionView
 import RAKCore
 
-public extension Extendable where Base: Layout.Section {
-    /*
-     *  When extending `Layout.LayoutType` for custom layout,
-     *  this serves as a reference and specific implementation for the two layout methods below.
-     */
+extension Extendable where Base: Layout.Section {
+    //  When extending `Layout.LayoutType` for custom layout,
+    //  this serves as a reference and specific implementation for the two layout methods below.
     
-    static func flow(
+    public static func flow(
         layoutEnvironment environment: Layout.Environment,
         itemSize: Layout.Size,
         scrollingBehavior behavior: Layout.ScrollingBehavior = .none,
@@ -27,12 +25,13 @@ public extension Extendable where Base: Layout.Section {
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
-        return custom(
+        custom(
             layoutEnvironment: environment,
             style: .flow(
                 itemSize: itemSize,
                 scrollingBehavior: behavior,
-                customGroup: customGroup),
+                customGroup: customGroup
+            ),
             header: header,
             footer: footer,
             decoration: decoration,
@@ -41,13 +40,11 @@ public extension Extendable where Base: Layout.Section {
     }
 }
 
-public extension Extendable where Base: Layout.Compositional {
-    /*
-     *  When inheriting `BaseCodeCollectionViewController`,
-     *  use in the controller's .layout property to provide consistent layout for the entire list.
-     */
+extension Extendable where Base: Layout.Compositional {
+    //  When inheriting `BaseCodeCollectionViewController`,
+    //  use in the controller's .layout property to provide consistent layout for the entire list.
     
-    static func flow(
+    public static func flow(
         itemSize: Layout.Size,
         scrollingBehavior behavior: Layout.ScrollingBehavior = .none,
         customGroup: Layout.CustomGroupFactory? = nil,
@@ -56,7 +53,7 @@ public extension Extendable where Base: Layout.Compositional {
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
-        return Base { (_, environment) in
+        Base { _, environment in
             Layout.Section.rak.flow(
                 layoutEnvironment: environment,
                 itemSize: itemSize,
@@ -65,18 +62,17 @@ public extension Extendable where Base: Layout.Compositional {
                 header: header,
                 footer: footer,
                 decoration: decoration,
-                edgeInsets: edgeInsets)
+                edgeInsets: edgeInsets
+            )
         }.rak
     }
 }
 
-public extension SectionProviderWrapper {
-    /*
-     *  Used in the `.layout()` method of the Data Tree.
-     *  Provides a special layout for a specific section.
-     */
+extension SectionProviderWrapper {
+    //  Used in the `.layout()` method of the Data Tree.
+    //  Provides a special layout for a specific section.
     
-    static func flow(
+    public static func flow(
         itemSize: Layout.Size,
         scrollingBehavior behavior: Layout.ScrollingBehavior = .none,
         customGroup: Layout.CustomGroupFactory? = nil,
@@ -85,7 +81,7 @@ public extension SectionProviderWrapper {
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
-        return .init {
+        .init {
             Layout.Section.rak.flow(
                 layoutEnvironment: $0,
                 itemSize: itemSize,
@@ -94,7 +90,8 @@ public extension SectionProviderWrapper {
                 header: header,
                 footer: footer,
                 decoration: decoration,
-                edgeInsets: edgeInsets)
+                edgeInsets: edgeInsets
+            )
         }
     }
 }

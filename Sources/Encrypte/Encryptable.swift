@@ -11,6 +11,8 @@ import Foundation
 import CryptoSwift
 import RaLog
 
+// MARK: - EncryptResult
+
 /// Encryption result.
 public enum EncryptResult {
     /// Encryption failed.
@@ -19,6 +21,8 @@ public enum EncryptResult {
     /// Encryption succeeded, and conversion to base64 succeeded.
     case success(result: String)
 }
+
+// MARK: - Encryptable
 
 /// Provides encryption capability.
 public protocol Encryptable {
@@ -32,8 +36,8 @@ public protocol Encryptable {
     func encrypt(_ content: some Codable) -> EncryptResult
 }
 
-public extension Encryptable {
-    func encrypt(_ content: some Codable) -> EncryptResult {
+extension Encryptable {
+    public func encrypt(_ content: some Codable) -> EncryptResult {
         do {
             let data = try JSONEncoder().encode(content)
             let result = try aes.encrypt(data.bytes).toBase64()

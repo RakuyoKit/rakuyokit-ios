@@ -8,9 +8,9 @@
 
 import Foundation
 
-public extension Extendable where Base: MutableCollection {
+extension Extendable where Base: MutableCollection {
     @inlinable
-    mutating func changedEach(_ body: (inout Base.Element) throws -> Void) rethrows {
+    public mutating func changedEach(_ body: (inout Base.Element) throws -> Void) rethrows {
         try base.indices.forEach { try body(&base[$0]) }
     }
 }

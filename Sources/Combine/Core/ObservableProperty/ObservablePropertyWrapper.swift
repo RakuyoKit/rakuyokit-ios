@@ -17,7 +17,7 @@ public final class ObservablePropertyWrapper<ValueType, ConvertType>: Observable
     lazy var valueMapPublisher = createValueMapPublisher()
     
     required init(_ value: ValueType, map: ObservableMapBlock?) {
-        self.subject = .init(value)
-        self.mapBlock = map
+        subject = .init(value)
+        mapBlock = map
     }
 }

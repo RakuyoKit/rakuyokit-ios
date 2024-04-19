@@ -15,6 +15,6 @@ public struct SectionProviderWrapper {
     public let provider: CompositionalLayoutSectionProvider
     
     public init(layoutSectionProvider: @escaping CompositionalLayoutSectionProvider) {
-        self.provider = layoutSectionProvider
+        provider = layoutSectionProvider
     }
 }

@@ -11,6 +11,8 @@ import Foundation
 /// The caller obtains the corresponding configuration through this object
 public let Config = ConfigMediator() // swiftlint:disable:this identifier_name
 
+// MARK: - ConfigMediator
+
 /// Mediator for calling configuration
 public final class ConfigMediator: ConfigSourceProtocol {
     private typealias Mediator = any ConfigMediatorProtocol

@@ -25,6 +25,6 @@ public enum Device {
     }
     
     public static func generateUUID() -> String {
-        return UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
+        UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
     }
 }

@@ -59,7 +59,7 @@ extension ControlTargetPublisher {
             addTargetAction(control, self, action)
         }
         
-        func request(_ demand: Subscribers.Demand) { }
+        func request(_: Subscribers.Demand) { }
         
         func cancel() {
             subscriber = nil
@@ -68,7 +68,7 @@ extension ControlTargetPublisher {
         
         @objc
         private func interaction() {
-            guard let control = control else { return }
+            guard let control else { return }
             _ = subscriber?.receive(control)
         }
     }

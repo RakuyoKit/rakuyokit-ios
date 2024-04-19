@@ -9,16 +9,16 @@ open class DelegateProxy: ObjcDelegateProxy {
     private var dict: [Selector: [([Any]) -> Void]] = [:]
     private var subscribers = [AnySubscriber<[Any], Never>?]()
     
-    public override required init() {
+    override public required init() {
         super.init()
     }
     
     deinit {
-        subscribers.forEach { $0?.receive(completion: .finished) }
+        for subscriber in subscribers { subscriber?.receive(completion: .finished) }
         subscribers = []
     }
     
-    public override func interceptedSelector(_ selector: Selector, arguments: [Any]) {
+    override public func interceptedSelector(_ selector: Selector, arguments: [Any]) {
         dict[selector]?.forEach { handler in
             handler(arguments)
         }

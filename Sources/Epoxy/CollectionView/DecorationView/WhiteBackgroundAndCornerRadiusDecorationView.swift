@@ -10,10 +10,12 @@ import UIKit
 
 import RAKConfig
 
-/* A series of views for setting white background and corner radius for UICollectionView sections */
+// MARK: - WhiteBackgroundAndCornerRadiusDecorationView
+
+// A series of views for setting white background and corner radius for UICollectionView sections
 
 open class WhiteBackgroundAndCornerRadiusDecorationView: WhiteBackgroundDecorationView {
-    open override func config() {
+    override open func config() {
         super.config()
         
         layer.cornerRadius = 10
@@ -21,26 +23,30 @@ open class WhiteBackgroundAndCornerRadiusDecorationView: WhiteBackgroundDecorati
     }
 }
 
+// MARK: - WhiteBackgroundAndTopCornerRadiusDecorationView
+
 open class WhiteBackgroundAndTopCornerRadiusDecorationView: WhiteBackgroundAndCornerRadiusDecorationView {
-    open override func config() {
+    override open func config() {
         super.config()
         
         // Top left & top right corners
         layer.maskedCorners = [
             .layerMinXMinYCorner,
-            .layerMaxXMinYCorner
+            .layerMaxXMinYCorner,
         ]
     }
 }
 
+// MARK: - WhiteBackgroundAndBottomCornerRadiusDecorationView
+
 open class WhiteBackgroundAndBottomCornerRadiusDecorationView: WhiteBackgroundAndCornerRadiusDecorationView {
-    open override func config() {
+    override open func config() {
         super.config()
         
         // Bottom left & bottom right corners
         layer.maskedCorners = [
             .layerMinXMaxYCorner,
-            .layerMaxXMaxYCorner
+            .layerMaxXMaxYCorner,
         ]
     }
 }

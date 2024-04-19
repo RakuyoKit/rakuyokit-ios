@@ -13,7 +13,7 @@ import UIKit
 open class BaseCollectionViewCell: UICollectionViewCell {
     public typealias View = UICollectionView
     
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         
         config()

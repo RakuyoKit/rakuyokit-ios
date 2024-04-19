@@ -6,13 +6,13 @@ import Combine
 import RAKCore
 
 @available(iOS 13.0, *)
-public extension Extendable where Base: UITextView {
+extension Extendable where Base: UITextView {
     /// A Combine publisher for the `UITextView's` value.
     ///
     /// - note: This uses the underlying `NSTextStorage` to make sure autocorrect changes are reflected as well.
     ///
     /// - seealso: https://git.io/JJM5Q
-    var textPublisher: AnyPublisher<String?, Never> {
+    public var textPublisher: AnyPublisher<String?, Never> {
         Deferred { [weak textView = base] in
             textView?.textStorage.rak
                 .didProcessEditingRangeChangeInLengthPublisher
@@ -24,7 +24,7 @@ public extension Extendable where Base: UITextView {
     }
     
     /// Combine wrapper for `textViewDidBeginEditing(_:)`
-    var didBeginEditingPublisher: AnyPublisher<Void, Never> {
+    public var didBeginEditingPublisher: AnyPublisher<Void, Never> {
         let selector = #selector(UITextViewDelegate.textViewDidBeginEditing(_:))
         return delegateProxy.interceptSelectorPublisher(selector)
             .map { _ in }
@@ -32,7 +32,7 @@ public extension Extendable where Base: UITextView {
     }
     
     /// Combine wrapper for `textViewDidEndEditing(_:)`
-    var didEndEditingPublisher: AnyPublisher<Void, Never> {
+    public var didEndEditingPublisher: AnyPublisher<Void, Never> {
         let selector = #selector(UITextViewDelegate.textViewDidEndEditing(_:))
         return delegateProxy.interceptSelectorPublisher(selector)
             .map { _ in }
@@ -40,7 +40,7 @@ public extension Extendable where Base: UITextView {
     }
     
     /// A publisher emits on first responder changes
-    var isFirstResponderPublisher: AnyPublisher<Bool, Never> {
+    public var isFirstResponderPublisher: AnyPublisher<Bool, Never> {
         Just<Void>(())
             .merge(with: didBeginEditingPublisher, didEndEditingPublisher)
             .map { [weak textView = base] in
@@ -50,7 +50,7 @@ public extension Extendable where Base: UITextView {
     }
     
     /// A publisher emits on selected range changes
-    var selectedRangePublisher: AnyPublisher<NSRange, Never> {
+    public var selectedRangePublisher: AnyPublisher<NSRange, Never> {
         let selector = #selector(UITextViewDelegate.textViewDidChangeSelection(_:))
         return delegateProxy.interceptSelectorPublisher(selector)
             .compactMap { [weak textView = base] _ in

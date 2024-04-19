@@ -11,6 +11,8 @@ import UIKit
 import EpoxyCore
 import RAKConfig
 
+// MARK: - SpacerRow
+
 /// View used for filling spacing in CollectionView
 public final class SpacerRow: UIView {
     /// Style
@@ -25,7 +27,7 @@ public final class SpacerRow: UIView {
     }
     
     required init?(coder: NSCoder) {
-        self.style = .default
+        style = .default
         
         super.init(coder: coder)
         
@@ -33,7 +35,7 @@ public final class SpacerRow: UIView {
     }
 }
 
-// MARK: - StyledView
+// MARK: StyledView
 
 extension SpacerRow: StyledView {
     public struct Style: Hashable {
@@ -56,31 +58,31 @@ extension SpacerRow: StyledView {
     }
 }
 
-// MARK: - ContentConfigurableView
+// MARK: ContentConfigurableView
 
 extension SpacerRow: ContentConfigurableView { }
 
-// MARK: - BehaviorsConfigurableView
+// MARK: BehaviorsConfigurableView
 
 extension SpacerRow: BehaviorsConfigurableView { }
 
 // MARK: - Life cycle
 
-public extension SpacerRow {
-    override var intrinsicContentSize: CGSize {
+extension SpacerRow {
+    override public var intrinsicContentSize: CGSize {
         .init(width: UIView.noIntrinsicMetric, height: style.height)
     }
 }
 
 // MARK: - Config
 
-private extension SpacerRow {
-    func config() {
+extension SpacerRow {
+    private func config() {
         backgroundColor = style.backgroundColor
     }
 }
 
-// MARK: - ExpressibleByFloatLiteral
+// MARK: - SpacerRow.Style + ExpressibleByFloatLiteral
 
 extension SpacerRow.Style: ExpressibleByFloatLiteral {
     public init(floatLiteral value: Float) {
@@ -88,7 +90,7 @@ extension SpacerRow.Style: ExpressibleByFloatLiteral {
     }
 }
 
-// MARK: - ExpressibleByFloatLiteral
+// MARK: - SpacerRow.Style + ExpressibleByIntegerLiteral
 
 extension SpacerRow.Style: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: Int) {
