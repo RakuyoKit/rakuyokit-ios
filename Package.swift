@@ -38,7 +38,6 @@ let package = Package(
                 "RAKConfig",
                 "RAKCore",
                 "RAKEncrypte",
-                "RAKEpoxy",
                 "RAKGradient",
                 "RAKLocalCache",
                 "RAKNotification",
@@ -98,7 +97,7 @@ let package = Package(
             name: "RAKEpoxy",
             dependencies: [
                 "RAKConfig",
-                .product(name: "EpoxyCollectionView", package: "epoxy-ios"),
+                .product(name: "Epoxy", package: "epoxy-ios"),
             ],
             path: "Sources/Epoxy"),
         
