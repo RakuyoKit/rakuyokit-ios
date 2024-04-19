@@ -4,7 +4,6 @@
 @_exported import RAKConfig
 @_exported import RAKCore
 @_exported import RAKEncrypte
-@_exported import RAKEpoxy
 @_exported import RAKGradient
 @_exported import RAKLocalCache
 @_exported import RAKNotification

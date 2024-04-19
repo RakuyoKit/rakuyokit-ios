@@ -38,7 +38,6 @@ let package = Package(
                 "RAKConfig",
                 "RAKCore",
                 "RAKEncrypte",
-                "RAKEpoxy",
                 "RAKGradient",
                 "RAKLocalCache",
                 "RAKNotification",
