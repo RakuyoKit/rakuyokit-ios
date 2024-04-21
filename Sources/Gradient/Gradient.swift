@@ -20,8 +20,8 @@ public struct Gradient {
     public let colors: Colors
     
     public init(start: Direction, end: Direction, colors: Colors) {
-        self.startDirection = start
-        self.endDirection = end
+        startDirection = start
+        endDirection = end
         self.colors = colors
     }
 }

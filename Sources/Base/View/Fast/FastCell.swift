@@ -30,30 +30,30 @@ public protocol FastCell: UIView {
 
 // MARK: - Defaults
 
-public extension FastCell {
-    static func cell(
+extension FastCell {
+    public static func cell(
         of view: FastListView,
         for indexPath: IndexPath,
         identifier: String? = nil,
         config: ConfigClosure
     ) -> Self {
-        return createCell(of: view, for: indexPath, identifier: identifier, isCodeCell: true, config: config)
+        createCell(of: view, for: indexPath, identifier: identifier, isCodeCell: true, config: config)
     }
     
-    static func xibCell(
+    public static func xibCell(
         of view: FastListView,
         for indexPath: IndexPath,
         identifier: String? = nil,
         config: ConfigClosure
     ) -> Self {
-        return createCell(of: view, for: indexPath, identifier: identifier, isCodeCell: false, config: config)
+        createCell(of: view, for: indexPath, identifier: identifier, isCodeCell: false, config: config)
     }
 }
 
 // MARK: - Tools
 
-private extension FastCell {
-    static func createCell(
+extension FastCell {
+    fileprivate static func createCell(
         of listView: FastListView,
         for indexPath: IndexPath,
         identifier: String?,

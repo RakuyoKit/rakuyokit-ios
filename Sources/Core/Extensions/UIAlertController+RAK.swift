@@ -11,10 +11,10 @@ import UIKit
 
 import Then
 
-public extension Extendable where Base: UIAlertController {
+extension Extendable where Base: UIAlertController {
     /// Create an alert-style popup.
-    static func alert(title: String? = nil, message: String? = nil) -> Base {
-        return .init(title: title, message: message, preferredStyle: .alert)
+    public static func alert(title: String? = nil, message: String? = nil) -> Base {
+        .init(title: title, message: message, preferredStyle: .alert)
     }
     
     /// Create an action sheet-style popup.
@@ -25,13 +25,13 @@ public extension Extendable where Base: UIAlertController {
     ///   - sourceView: The view the popup is anchored to, used for iPad adaptation.
     ///   - arrowDirections: Optional arrow directions.
     /// - Returns: Created `UIAlertController` object.
-    static func actionSheet(
+    public static func actionSheet(
         title: String? = nil,
         message: String? = nil,
         on sourceView: UIView?,
         arrowDirections: UIPopoverArrowDirection = .rak.default
     ) -> Base {
-        return .init(title: title, message: message, preferredStyle: .actionSheet).then {
+        .init(title: title, message: message, preferredStyle: .actionSheet).then {
             let idiom = UIDevice.current.userInterfaceIdiom
             
             var isPad = idiom == .pad
@@ -53,7 +53,7 @@ public extension Extendable where Base: UIAlertController {
     ///   - title: Title.
     ///   - style: Style, default is `.default`.
     ///   - handler: Button action, default is `nil`.
-    func addAction(
+    public func addAction(
         title: String,
         style: UIAlertAction.Style = .default,
         handler: EmptyClosure? = nil

@@ -2,6 +2,8 @@ import Foundation
 
 import Combine
 
+// MARK: - ObservableProperty
+
 protocol ObservableProperty {
     associatedtype ValueType
     associatedtype ConvertType
@@ -28,11 +30,11 @@ extension ObservableProperty {
     }
     
     func createValuePublisher() -> AnyPublisher<ValueType, Never> {
-        return subject.eraseToAnyPublisher()
+        subject.eraseToAnyPublisher()
     }
     
     func createValueMapPublisher() -> AnyPublisher<ConvertType, Never> {
-        return subject
+        subject
             .compactMap { self.mapBlock?($0) }
             .eraseToAnyPublisher()
     }
@@ -40,6 +42,6 @@ extension ObservableProperty {
 
 extension ObservableProperty where ValueType == ConvertType {
     func createValueMapPublisher() -> AnyPublisher<ValueType, Never> {
-        return createValuePublisher()
+        createValuePublisher()
     }
 }

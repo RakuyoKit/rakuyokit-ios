@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - Extendable
+
 public struct Extendable<Base>: HigherOrderFunctionalizable {
     /// Base object to extend.
     public var base: Base
@@ -17,6 +19,8 @@ public struct Extendable<Base>: HigherOrderFunctionalizable {
     /// - parameter base: Base object.
     public init(_ base: Base) { self.base = base }
 }
+
+// MARK: - NamespaceProviding
 
 /// A type that has `Extendable` extensions.
 public protocol NamespaceProviding {
@@ -30,16 +34,16 @@ public protocol NamespaceProviding {
     var rak: Extendable<CompatibleType> { get set }
 }
 
-public extension NamespaceProviding {
+extension NamespaceProviding {
     /// `Extendable` extensions.
-    static var rak: Extendable<Self>.Type {
+    public static var rak: Extendable<Self>.Type {
         get { Extendable<Self>.self }
         // swiftlint:disable:next unused_setter_value
         set { /* this enables using `Extendable` to "mutate" base type */ }
     }
     
     /// `Extendable` extensions.
-    var rak: Extendable<Self> {
+    public var rak: Extendable<Self> {
         get { Extendable(self) }
         // swiftlint:disable:next unused_setter_value
         set { /* this enables using `Extendable` to "mutate" base object */ }
@@ -49,6 +53,7 @@ public extension NamespaceProviding {
 // MARK: - Extend `rak` proxy.
 
 // swiftlint:disable colon duplicate_imports
+// swiftformat:disable all
 import struct Swift.String;             extension String            : NamespaceProviding { }
 import struct Swift.Character;          extension Character         : NamespaceProviding { }
 import struct Swift.Bool;               extension Bool              : NamespaceProviding { }
@@ -67,3 +72,4 @@ import struct UIKit.CGPoint;            extension CGPoint           : NamespaceP
 import struct UIKit.CGSize;             extension CGSize            : NamespaceProviding { }
 import struct UIKit.CGRect;             extension CGRect            : NamespaceProviding { }
 // swiftlint:enable colon duplicate_imports
+// swiftformat:enable all

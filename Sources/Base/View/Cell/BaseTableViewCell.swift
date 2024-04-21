@@ -13,7 +13,7 @@ import UIKit
 open class BaseTableViewCell: UITableViewCell {
     public typealias View = UITableView
     
-    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         config(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,7 +28,7 @@ open class BaseTableViewCell: UITableViewCell {
 
 extension BaseTableViewCell {
     @objc
-    open func config(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    open func config(style _: UITableViewCell.CellStyle, reuseIdentifier _: String?) {
         selectionStyle = .none
         
         addSubviews()

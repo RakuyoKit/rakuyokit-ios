@@ -3,12 +3,16 @@
 
 import Foundation
 
+// MARK: - NSExtensionHostNotificationPayload + PassiveNotificationPayload
+
 extension NSExtensionHostNotificationPayload: PassiveNotificationPayload {
     public init(_ notification: Notification) {
         // swiftlint:disable:next force_cast
         context = notification.object as! NSExtensionContext
     }
 }
+
+// MARK: - NSFileHandleDataAvailableNotification.Payload + PassiveNotificationPayload
 
 extension NSFileHandleDataAvailableNotification.Payload: PassiveNotificationPayload {
     public init(_ notification: Notification) {
@@ -17,12 +21,16 @@ extension NSFileHandleDataAvailableNotification.Payload: PassiveNotificationPayl
     }
 }
 
+// MARK: - NSHTTPCookieManagerAcceptPolicyChangedNotification.Payload + PassiveNotificationPayload
+
 extension NSHTTPCookieManagerAcceptPolicyChangedNotification.Payload: PassiveNotificationPayload {
     public init(_ notification: Notification) {
         // swiftlint:disable:next force_cast
         storage = notification.object as! HTTPCookieStorage
     }
 }
+
+// MARK: - NSHTTPCookieManagerCookiesChangedNotification.Payload + PassiveNotificationPayload
 
 extension NSHTTPCookieManagerCookiesChangedNotification.Payload: PassiveNotificationPayload {
     public init(_ notification: Notification) {
@@ -31,12 +39,16 @@ extension NSHTTPCookieManagerCookiesChangedNotification.Payload: PassiveNotifica
     }
 }
 
+// MARK: - NSProcessInfoPowerStateDidChangeNotification.Payload + PassiveNotificationPayload
+
 extension NSProcessInfoPowerStateDidChangeNotification.Payload: PassiveNotificationPayload {
     public init(_ notification: Notification) {
         // swiftlint:disable:next force_cast
         processInfo = notification.object as! ProcessInfo
     }
 }
+
+// MARK: - NSThreadWillExitNotification.Payload + PassiveNotificationPayload
 
 extension NSThreadWillExitNotification.Payload: PassiveNotificationPayload {
     public init(_ notification: Notification) {
@@ -45,12 +57,16 @@ extension NSThreadWillExitNotification.Payload: PassiveNotificationPayload {
     }
 }
 
+// MARK: - NSURLCredentialStorageChangedNotification.Payload + PassiveNotificationPayload
+
 extension NSURLCredentialStorageChangedNotification.Payload: PassiveNotificationPayload {
     public init(_ notification: Notification) {
         // swiftlint:disable:next force_cast
         storage = notification.object as! URLCredentialStorage
     }
 }
+
+// MARK: - UndoManagerNotificationPayload + PassiveNotificationPayload
 
 extension UndoManagerNotificationPayload: PassiveNotificationPayload {
     public init(_ notification: Notification) {

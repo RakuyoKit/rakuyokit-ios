@@ -12,8 +12,8 @@ import RaLog
 
 // MARK: - Init
 
-public extension Extendable where Base: UIImage {
-    enum Radius {
+extension Extendable where Base: UIImage {
+    public enum Radius {
         /// The corner radius should be calculated as a proportion of the **width** of the image.
         /// Typically, the associated value should be between 0 and 0.5,
         /// where 0 means no rounded corners and 0.5 means using half of the image width as the corner radius.
@@ -28,20 +28,20 @@ public extension Extendable where Base: UIImage {
         case point(CGFloat)
         
         func compute(with size: CGSize) -> CGFloat {
-            let cornerRadius: CGFloat
-            switch self {
-            case .point(let point):
-                cornerRadius = point
-            case .widthFraction(let widthFraction):
-                cornerRadius = size.width * widthFraction
-            case .heightFraction(let heightFraction):
-                cornerRadius = size.height * heightFraction
-            }
+            let cornerRadius: CGFloat =
+                switch self {
+                case .point(let point):
+                    point
+                case .widthFraction(let widthFraction):
+                    size.width * widthFraction
+                case .heightFraction(let heightFraction):
+                    size.height * heightFraction
+                }
             return cornerRadius
         }
     }
     
-#if !os(watchOS)
+    #if !os(watchOS)
     /// Generate a solid color image.
     ///
     /// - Parameters:
@@ -50,7 +50,7 @@ public extension Extendable where Base: UIImage {
     ///   - radius: Whether to apply rounded corners, and the size of the rounded corners.
     ///   - corners: The position of the rounded corners. By default, all four corners have rounded corners.
     /// - Returns: The created image.
-    static func color(
+    public static func color(
         _ color: UIColor,
         size: CGSize = .init(width: 1, height: 1),
         radius: Radius? = nil,
@@ -61,36 +61,35 @@ public extension Extendable where Base: UIImage {
         let renderer = UIGraphicsImageRenderer(size: size)
         let image = renderer.image { _ in
             let rect = CGRect(origin: .zero, size: size)
-            let path: UIBezierPath
-            
-            if let cornerRadius = cornerRadius {
-                path = .init(
-                    roundedRect: rect,
-                    byRoundingCorners: corners.rak.uiRectCorner,
-                    cornerRadii: .init(width: cornerRadius, height: cornerRadius)
-                )
-            } else {
-                path = .init(rect: rect)
-            }
+            let path: UIBezierPath =
+                if let cornerRadius {
+                    .init(
+                        roundedRect: rect,
+                        byRoundingCorners: corners.rak.uiRectCorner,
+                        cornerRadii: .init(width: cornerRadius, height: cornerRadius)
+                    )
+                } else {
+                    .init(rect: rect)
+                }
             
             color.setFill()
             path.fill()
         }
         
-        guard let cornerRadius = cornerRadius else { return image }
+        guard let cornerRadius else { return image }
         
         let insets = { UIEdgeInsets(top: $0, left: $0, bottom: $0, right: $0) }(cornerRadius)
         return image.resizableImage(withCapInsets: insets, resizingMode: .stretch)
     }
-#endif
+    #endif
 }
 
 // MARK: - Adjustment
 
-public extension Extendable where Base: UIImage {
+extension Extendable where Base: UIImage {
     /// Scale image to new size.
-    func resized(to newSize: CGSize) -> UIImage {
-        return UIGraphicsImageRenderer(size: newSize).image { _ in
+    public func resized(to newSize: CGSize) -> UIImage {
+        UIGraphicsImageRenderer(size: newSize).image { _ in
             let size = base.size
             
             // Calculate scaling
@@ -111,9 +110,9 @@ public extension Extendable where Base: UIImage {
 
 // MARK: - Compresse
 
-public extension Extendable where Base: UIImage {
+extension Extendable where Base: UIImage {
     /// Image compression result
-    struct ImageCompresseResult {
+    public struct ImageCompresseResult {
         /// Whether the compression was successful
         public let isSuccess: Bool
         
@@ -132,8 +131,8 @@ public extension Extendable where Base: UIImage {
     /// - Parameter maxSizeByte: Maximum image size. Unit kb
     /// - Returns: Compress results
     @available(watchOS 6.0, *)
-    func halfFuntion(maxSizeByte: Int) async -> ImageCompresseResult {
-        await withCheckedContinuation { (continuation) in
+    public func halfFuntion(maxSizeByte: Int) async -> ImageCompresseResult {
+        await withCheckedContinuation { continuation in
             halfFuntion(maxSizeByte: maxSizeByte) {
                 continuation.resume(returning: $0)
             }
@@ -145,7 +144,7 @@ public extension Extendable where Base: UIImage {
     /// - Parameters:
     ///   - maxSizeByte: Maximum image size. Unit kb
     ///   - completion: Compress results
-    func halfFuntion(maxSizeByte: Int, completion: (ImageCompresseResult) -> Void) {
+    public func halfFuntion(maxSizeByte: Int, completion: (ImageCompresseResult) -> Void) {
         // Binary image compression
         var compression: CGFloat = 1
         
@@ -166,9 +165,11 @@ public extension Extendable where Base: UIImage {
         
         // If the minimum value is still greater than the maximum value, return the minimum value
         if tmpData.count >= maxSizeByte {
-            Log.warning("The original size of the image is approximately: \(imageData)." +
-                        "The minimum value that can be compressed is \(tmpData.count)," +
-                        "which is still greater than the limit: \(tmpData.count)!")
+            Log.warning(
+                "The original size of the image is approximately: \(imageData)." +
+                    "The minimum value that can be compressed is \(tmpData.count)," +
+                    "which is still greater than the limit: \(tmpData.count)!"
+            )
             completion(.init(isSuccess: false, imageData: imageData, compression: compression))
             return
         }
@@ -201,8 +202,8 @@ public extension Extendable where Base: UIImage {
 
 // MARK: - Draw Text
 
-public extension Extendable where Base: UIImage {
-    func drawText(
+extension Extendable where Base: UIImage {
+    public func drawText(
         _ text: String,
         attributes: [NSAttributedString.Key: Any]? = nil,
         at point: CGPoint? = nil
@@ -211,7 +212,7 @@ public extension Extendable where Base: UIImage {
         return drawText(attributedText, at: point)
     }
     
-    func drawText(_ text: NSAttributedString, at point: CGPoint? = nil) -> UIImage {
+    public func drawText(_ text: NSAttributedString, at point: CGPoint? = nil) -> UIImage {
         let size = base.size
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
@@ -220,7 +221,7 @@ public extension Extendable where Base: UIImage {
         base.draw(in: .init(origin: .zero, size: size))
         
         let origin: CGPoint
-        if let point = point {
+        if let point {
             origin = point
         } else {
             let textSize = text.size()
@@ -242,8 +243,8 @@ public extension Extendable where Base: UIImage {
 
 // MARK: - QRCode
 
-public extension Extendable where Base: UIImage {
-#if !os(watchOS)
+extension Extendable where Base: UIImage {
+    #if !os(watchOS)
     /// Create QR code
     ///
     /// - Parameters:
@@ -251,7 +252,7 @@ public extension Extendable where Base: UIImage {
     ///   - size: Size of the QR code, default is 100
     /// - Returns: Created QR code image
     @available(iOSApplicationExtension, unavailable, message: "This method is NS_EXTENSION_UNAVAILABLE.")
-    static func createQRCode(with string: String, size: CGFloat = 100) -> UIImage? {
+    public static func createQRCode(with string: String, size: CGFloat = 100) -> UIImage? {
         guard
             let data = string.data(using: .isoLatin1),
             let filter = CIFilter(name: "CIQRCodeGenerator")
@@ -283,11 +284,14 @@ public extension Extendable where Base: UIImage {
         
         context.interpolationQuality = .none
         
-        context.draw(cgImage, in: .init(
-            x: 0.0,
-            y: 0.0,
-            width: context.boundingBoxOfClipPath.width,
-            height: context.boundingBoxOfClipPath.height)
+        context.draw(
+            cgImage,
+            in: .init(
+                x: 0.0,
+                y: 0.0,
+                width: context.boundingBoxOfClipPath.width,
+                height: context.boundingBoxOfClipPath.height
+            )
         )
         
         guard let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
@@ -296,5 +300,5 @@ public extension Extendable where Base: UIImage {
         
         return UIImage(cgImage: cgImage, scale: scale, orientation: .downMirrored)
     }
-#endif
+    #endif
 }

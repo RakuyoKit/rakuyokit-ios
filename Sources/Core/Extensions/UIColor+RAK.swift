@@ -8,9 +8,9 @@
 
 import UIKit
 
-public extension Extendable where Base: UIColor {
-    static func random(alpha: CGFloat = 1.0) -> UIColor {
-        return UIColor(
+extension Extendable where Base: UIColor {
+    public static func random(alpha: CGFloat = 1.0) -> UIColor {
+        UIColor(
             red: CGFloat.random(in: 0 ..< 256) / CGFloat(255.0),
             green: CGFloat.random(in: 0 ..< 256) / CGFloat(255.0),
             blue: CGFloat.random(in: 0 ..< 256) / CGFloat(255.0),
@@ -21,12 +21,12 @@ public extension Extendable where Base: UIColor {
 
 // MARK: - Color Property
 
-public extension Extendable where Base: UIColor {
+extension Extendable where Base: UIColor {
     /// Returns the red value component of the current color
     ///
     /// Please ensure that the current color domain is in RGB mode,
     /// otherwise `nil` will be returned if the extraction fails.
-    var red: CGFloat? {
+    public var red: CGFloat? {
         let color = base.cgColor
         
         switch color.colorSpace?.model {
@@ -47,7 +47,7 @@ public extension Extendable where Base: UIColor {
     ///
     /// Please ensure that the current color domain is in RGB mode,
     /// otherwise `nil` will be returned if the extraction fails.
-    var green: CGFloat? {
+    public var green: CGFloat? {
         let color = base.cgColor
         
         switch color.colorSpace?.model {
@@ -67,7 +67,7 @@ public extension Extendable where Base: UIColor {
     ///
     /// Please ensure that the current color domain is in RGB mode,
     /// otherwise `nil` will be returned if the extraction fails.
-    var blue: CGFloat? {
+    public var blue: CGFloat? {
         let color = base.cgColor
         
         switch color.colorSpace?.model {
@@ -83,9 +83,9 @@ public extension Extendable where Base: UIColor {
         }
     }
     
-    var alpha: CGFloat { base.cgColor.alpha }
+    public var alpha: CGFloat { base.cgColor.alpha }
     
-    var hex: Int {
+    public var hex: Int {
         var red = CGFloat()
         var green = CGFloat()
         var blue = CGFloat()
@@ -93,8 +93,8 @@ public extension Extendable where Base: UIColor {
         
         base.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         
-        return Int((red * 255)) << 16 | Int((green * 255)) << 8 | Int((blue * 255)) << 0
+        return Int(red * 255) << 16 | Int(green * 255) << 8 | Int(blue * 255) << 0
     }
     
-    var hexString: String { .init(format: "%06x", hex) }
+    public var hexString: String { .init(format: "%06x", hex) }
 }

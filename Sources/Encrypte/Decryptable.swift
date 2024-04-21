@@ -11,6 +11,8 @@ import Foundation
 import CryptoSwift
 import RAKCore
 
+// MARK: - DecryptResult
+
 /// Decryption result.
 public enum DecryptResult<T: RAKCodable> {
     /// Decryption failed.
@@ -26,6 +28,8 @@ public enum DecryptResult<T: RAKCodable> {
     case transformFailure
 }
 
+// MARK: - Decryptable
+
 /// Provides decryption capability.
 public protocol Decryptable {
     /// The AES instance for decryption.
@@ -38,8 +42,8 @@ public protocol Decryptable {
     func decrypt<T: RAKCodable>(_ value: String) -> DecryptResult<T>
 }
 
-public extension Decryptable {
-    func decrypt<T: RAKCodable>(_ value: String) -> DecryptResult<T> {
+extension Decryptable {
+    public func decrypt<T: RAKCodable>(_ value: String) -> DecryptResult<T> {
         guard let decodedData = Data(base64Encoded: value) else {
             return .toBase64DataFailure
         }

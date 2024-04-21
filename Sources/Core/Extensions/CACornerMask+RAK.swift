@@ -11,15 +11,15 @@ import UIKit
 
 extension CACornerMask: NamespaceProviding { }
 
-public extension Extendable where Base == CACornerMask {
-    static let all: Base = [
+extension Extendable where Base == CACornerMask {
+    public static let all: Base = [
         .layerMinXMinYCorner,
         .layerMaxXMinYCorner,
         .layerMinXMaxYCorner,
         .layerMaxXMaxYCorner,
     ]
     
-    var uiRectCorner: UIRectCorner {
+    public var uiRectCorner: UIRectCorner {
         var result: UIRectCorner = []
         
         if base.contains(.layerMinXMinYCorner) { result.insert(.topLeft) }

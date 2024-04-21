@@ -4,7 +4,7 @@ import Foundation
 import Combine
 
 @available(iOS 13.0, *)
-internal final class DelegateProxyPublisher<Output>: Publisher {
+final class DelegateProxyPublisher<Output>: Publisher {
     typealias Failure = Never
     
     private let handler: (AnySubscriber<Output, Failure>) -> Void
@@ -20,8 +20,8 @@ internal final class DelegateProxyPublisher<Output>: Publisher {
 }
 
 @available(iOS 13.0, *)
-private extension DelegateProxyPublisher {
-    class Subscription<S>: Combine.Subscription where S: Subscriber, Failure == S.Failure, Output == S.Input {
+extension DelegateProxyPublisher {
+    fileprivate class Subscription<S>: Combine.Subscription where S: Subscriber, Failure == S.Failure, Output == S.Input {
         private var subscriber: S?
         
         init(subscriber: S, handler: @escaping (S) -> Void) {
@@ -29,7 +29,7 @@ private extension DelegateProxyPublisher {
             handler(subscriber)
         }
         
-        func request(_ demand: Subscribers.Demand) {
+        func request(_: Subscribers.Demand) {
             // We don't care for the demand.
         }
         

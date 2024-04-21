@@ -14,12 +14,12 @@ public enum KeyboardEvent {
     /// The name of the notification to observe system keyboard events.
     var notificationName: Notification.Name {
         switch self {
-        case .willShow: return UIResponder.keyboardWillShowNotification
-        case .didShow: return UIResponder.keyboardDidShowNotification
-        case .willHide: return UIResponder.keyboardWillHideNotification
-        case .didHide: return UIResponder.keyboardDidHideNotification
-        case .willChangeFrame: return UIResponder.keyboardWillChangeFrameNotification
-        case .didChangeFrame: return UIResponder.keyboardDidChangeFrameNotification
+        case .willShow: UIResponder.keyboardWillShowNotification
+        case .didShow: UIResponder.keyboardDidShowNotification
+        case .willHide: UIResponder.keyboardWillHideNotification
+        case .didHide: UIResponder.keyboardDidHideNotification
+        case .willChangeFrame: UIResponder.keyboardWillChangeFrameNotification
+        case .didChangeFrame: UIResponder.keyboardDidChangeFrameNotification
         }
     }
 }

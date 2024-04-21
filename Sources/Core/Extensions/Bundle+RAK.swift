@@ -8,9 +8,9 @@
 
 import Foundation
 
-public extension Extendable where Base: Bundle {
+extension Extendable where Base: Bundle {
     /// Where to read Bundle from
-    enum From {
+    public enum From {
         /// From within the main App
         case app
         
@@ -19,29 +19,29 @@ public extension Extendable where Base: Bundle {
         
         fileprivate var bundle: Bundle {
             switch self {
-            case .app: return .rak.app
-            default: return .main
+            case .app: .rak.app
+            default: .main
             }
         }
     }
     
-    static func appName(from: From = .app) -> String {
-        return getValue(by: "CFBundleDisplayName", from: from) ?? getValue(by: "CFBundleName", from: from) ?? ""
+    public static func appName(from: From = .app) -> String {
+        getValue(by: "CFBundleDisplayName", from: from) ?? getValue(by: "CFBundleName", from: from) ?? ""
     }
     
-    static func shortVersionString(from: From = .app) -> String {
-        return getValue(by: "CFBundleShortVersionString", from: from) ?? ""
+    public static func shortVersionString(from: From = .app) -> String {
+        getValue(by: "CFBundleShortVersionString", from: from) ?? ""
     }
     
-    static func bundleVersionString(from: From = .app) -> String {
-        return getValue(by: "CFBundleVersion", from: from) ?? ""
+    public static func bundleVersionString(from: From = .app) -> String {
+        getValue(by: "CFBundleVersion", from: from) ?? ""
     }
     
-    static func fullVersionString(from: From = .app) -> String {
-        return "\(shortVersionString(from: from))（\(bundleVersionString(from: from))）"
+    public static func fullVersionString(from: From = .app) -> String {
+        "\(shortVersionString(from: from))（\(bundleVersionString(from: from))）"
     }
     
-    static func extensionPointIdentifier(from: From = .app) -> String {
+    public static func extensionPointIdentifier(from: From = .app) -> String {
         let extensionInfo: [String: Any]? = getValue(by: "NSExtension", from: from)
         
         let identifier = extensionInfo?["NSExtensionPointIdentifier", default: ""]
@@ -51,11 +51,11 @@ public extension Extendable where Base: Bundle {
     }
 }
 
-// MARK: - Usage Description
+// MARK: - Extendable.UsageDescription
 
-public extension Extendable where Base: Bundle {
+extension Extendable where Base: Bundle {
     /// Description of permissions
-    enum UsageDescription {
+    public enum UsageDescription {
         /// Description for accessing camera permission
         public static var camera: String {
             getValue(by: "NSCameraUsageDescription", from: .app) ?? ""
@@ -80,28 +80,28 @@ public extension Extendable where Base: Bundle {
 
 // MARK: - Extension Judgment
 
-public extension Extendable where Base: Bundle {
+extension Extendable where Base: Bundle {
     /// Determine if the current execution environment is within a push extension.
-    static var inPushExtension: Bool {
+    public static var inPushExtension: Bool {
         extensionPointIdentifier(from: .own) == "com.apple.usernotifications.service"
     }
     
     /// Determine if the current execution environment is within a widget extension.
-    static var inWidgetExtension: Bool {
+    public static var inWidgetExtension: Bool {
         extensionPointIdentifier(from: .own) == "com.apple.widgetkit-extension"
     }
     
     /// Determine if the current execution environment is within a widget-editing extension.
-    static var inWidgetIntentsExtension: Bool {
+    public static var inWidgetIntentsExtension: Bool {
         extensionPointIdentifier(from: .own) == "com.apple.intents-service"
     }
 }
 
 // MARK: - Tools
 
-private extension Extendable where Base: Bundle {
+extension Extendable where Base: Bundle {
     /// Return the main bundle when in the app or an app extension.
-    static var app: Bundle {
+    fileprivate static var app: Bundle {
         var components = Bundle.main.bundleURL.path.split(separator: "/")
         var bundle: Bundle?
         
@@ -113,7 +113,7 @@ private extension Extendable where Base: Bundle {
         return bundle ?? .main
     }
     
-    static func getValue<T>(by key: String, from: From) -> T? {
+    fileprivate static func getValue<T>(by key: String, from: From) -> T? {
         let value = from.bundle.object(forInfoDictionaryKey: key)
         
         guard let safeValue = value else {

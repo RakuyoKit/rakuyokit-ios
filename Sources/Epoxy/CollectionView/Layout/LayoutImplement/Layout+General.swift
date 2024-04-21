@@ -10,10 +10,10 @@ import UIKit
 
 import RAKCore
 
-public extension Extendable where Base: Layout.Section {
+extension Extendable where Base: Layout.Section {
     /// Create a generic Section layout
-    static func create(
-        layoutEnvironment: Layout.Environment,
+    public static func create(
+        layoutEnvironment _: Layout.Environment,
         style: Layout.Style,
         supplementaryItem: SupplementaryItem? = nil,
         decoration: DecorationStyle? = nil,
@@ -22,7 +22,7 @@ public extension Extendable where Base: Layout.Section {
         let item = createItem(by: style)
         let group = createGroup(by: style, item: item)
         
-        return .init(group: group).then { (section) in
+        return .init(group: group).then { section in
             section.contentInsets = edgeInsets.edgeInsets
             section.boundarySupplementaryItems = createBoundarySupplementaryItems(by: supplementaryItem)
             
@@ -40,37 +40,39 @@ public extension Extendable where Base: Layout.Section {
 
 // MARK: - Public Tools
 
-public extension Extendable where Base: Layout.Section {
-    static func createSectionHeader(
+extension Extendable where Base: Layout.Section {
+    public static func createSectionHeader(
         pinToVisible isPin: Bool
     ) -> NSCollectionLayoutBoundarySupplementaryItem {
-        return createSupplementaryItem(
+        createSupplementaryItem(
             elementKind: UICollectionView.elementKindSectionHeader,
             alignment: .top,
-            pinToVisible: isPin)
+            pinToVisible: isPin
+        )
     }
     
-    static func createSectionFooter(
+    public static func createSectionFooter(
         pinToVisible isPin: Bool
     ) -> NSCollectionLayoutBoundarySupplementaryItem {
-        return createSupplementaryItem(
+        createSupplementaryItem(
             elementKind: UICollectionView.elementKindSectionFooter,
             alignment: .bottom,
-            pinToVisible: isPin)
+            pinToVisible: isPin
+        )
     }
 }
 
 // MARK: - Private Tools
 
-private extension Extendable where Base: Layout.Section {
-    static func createItem(by style: Layout.Style) -> Layout.Item {
-        return .init(layoutSize: {
+extension Extendable where Base: Layout.Section {
+    fileprivate static func createItem(by style: Layout.Style) -> Layout.Item {
+        .init(layoutSize: {
             switch style {
             case .flow(let size, _, _):
-                return size
+                size
                 
             case .list:
-                return .init(
+                .init(
                     widthDimension: .fractionalWidth(1),
                     heightDimension: .estimated(50)
                 )
@@ -78,14 +80,14 @@ private extension Extendable where Base: Layout.Section {
         }())
     }
     
-    static func createGroup(by style: Layout.Style, item: Layout.Item) -> Layout.Group {
+    fileprivate static func createGroup(by style: Layout.Style, item: Layout.Item) -> Layout.Group {
         let groupSize: Layout.Size = .init(
             widthDimension: .fractionalWidth(1),
             heightDimension: .estimated(50)
         )
         
         switch style {
-        case let .flow(size, _, customGroup):
+        case .flow(let size, _, let customGroup):
             if let _group = customGroup?(size) { return _group }
             return .horizontal(layoutSize: groupSize, subitems: [item])
             
@@ -94,10 +96,10 @@ private extension Extendable where Base: Layout.Section {
         }
     }
     
-    static func createBoundarySupplementaryItems(
+    fileprivate static func createBoundarySupplementaryItems(
         by supplementaryItem: SupplementaryItem?
     ) -> [NSCollectionLayoutBoundarySupplementaryItem] {
-        guard let supplementaryItem = supplementaryItem else { return [] }
+        guard let supplementaryItem else { return [] }
         
         var result: [NSCollectionLayoutBoundarySupplementaryItem] = []
         
@@ -122,31 +124,30 @@ private extension Extendable where Base: Layout.Section {
         return result
     }
     
-    static func createDecorationItems(
+    fileprivate static func createDecorationItems(
         by decoration: DecorationStyle?,
         edgeInsets: SectionEdgeInsets?
     ) -> [NSCollectionLayoutDecorationItem] {
-        guard let decoration = decoration else { return [] }
+        guard let decoration else { return [] }
         
-        let typeString: String = {
+        let typeString =
             switch decoration {
             case .whiteBackground:
-                return "\(WhiteBackgroundDecorationView.self)"
+                "\(WhiteBackgroundDecorationView.self)"
                 
             case .whiteBackgroundAndCornerRadius(let position):
                 switch position {
                 case .all:
-                    return "\(WhiteBackgroundAndCornerRadiusDecorationView.self)"
+                    "\(WhiteBackgroundAndCornerRadiusDecorationView.self)"
                 case .top:
-                    return "\(WhiteBackgroundAndTopCornerRadiusDecorationView.self)"
+                    "\(WhiteBackgroundAndTopCornerRadiusDecorationView.self)"
                 case .bottom:
-                    return "\(WhiteBackgroundAndBottomCornerRadiusDecorationView.self)"
+                    "\(WhiteBackgroundAndBottomCornerRadiusDecorationView.self)"
                 }
                 
             case .custom(let type):
-                return "\(type)"
+                "\(type)"
             }
-        }()
         
         let decorationItem = NSCollectionLayoutDecorationItem.background(
             elementKind: typeString
@@ -156,15 +157,16 @@ private extension Extendable where Base: Layout.Section {
         return [decorationItem]
     }
     
-    static func createSupplementaryItem(
+    fileprivate static func createSupplementaryItem(
         elementKind: String,
         alignment: NSRectAlignment,
         pinToVisible isPin: Bool
     ) -> NSCollectionLayoutBoundarySupplementaryItem {
-        return .init(
+        .init(
             layoutSize: .init(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .estimated(50)),
+                heightDimension: .estimated(50)
+            ),
             elementKind: elementKind,
             alignment: alignment
         )

@@ -37,7 +37,7 @@ extension ControlEventsPublisher {
             control.addTarget(self, action: #selector(interaction), for: event)
         }
         
-        func request(_ demand: Subscribers.Demand) { }
+        func request(_: Subscribers.Demand) { }
         
         func cancel() {
             subscriber = nil
@@ -46,7 +46,7 @@ extension ControlEventsPublisher {
         
         @objc
         private func interaction() {
-            guard let control = control else { return }
+            guard let control else { return }
             _ = subscriber?.receive(control)
         }
     }

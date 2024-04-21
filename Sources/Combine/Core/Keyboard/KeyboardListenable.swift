@@ -19,21 +19,21 @@ public protocol KeyboardListenable: NSObjectProtocol {
 
 // MARK: - Default
 
-public extension KeyboardListenable {
-    var listView: UIScrollView? { nil }
+extension KeyboardListenable {
+    public var listView: UIScrollView? { nil }
     
     @available(iOSApplicationExtension, unavailable, message: "This method is NS_EXTENSION_UNAVAILABLE.")
-    func keyboardChange(_ context: _KeyboardChangeContext) {
+    public func keyboardChange(_ context: _KeyboardChangeContext) {
         defaultKeyboardChangeBehavior(context)
     }
 }
 
 // MARK: - Logic
 
-public extension KeyboardListenable {
+extension KeyboardListenable {
     /// 添加键盘监听
     @available(iOSApplicationExtension, unavailable, message: "This method is NS_EXTENSION_UNAVAILABLE.")
-    func addKeyboardListener(handle: ((_ context: _KeyboardChangeContext) -> Void)? = nil) {
+    public func addKeyboardListener(handle: ((_ context: _KeyboardChangeContext) -> Void)? = nil) {
         NotificationCenter.default.rak.keyboardChange
             .sink { [weak self] in (handle ?? self?.keyboardChange)?($0) }
             .store(in: &cancellable)
@@ -41,9 +41,9 @@ public extension KeyboardListenable {
     
     /// 键盘监听事件的默认行为
     @available(iOSApplicationExtension, unavailable, message: "This method is NS_EXTENSION_UNAVAILABLE.")
-    func defaultKeyboardChangeBehavior(_ context: _KeyboardChangeContext) {
+    public func defaultKeyboardChangeBehavior(_ context: _KeyboardChangeContext) {
         // visionOS 应该不需要处理键盘弹起
-#if !os(visionOS)
+        #if !os(visionOS)
         guard let _listView = listView else { return }
         
         let height = UIApplication.shared.rak.statusBarHeight(in: view) + 44
@@ -59,7 +59,7 @@ public extension KeyboardListenable {
             _listView.contentInset = .zero
             _listView.scrollIndicatorInsets = .zero
         }
-#endif
+        #endif
     }
 }
 #endif

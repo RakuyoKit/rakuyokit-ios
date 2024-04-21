@@ -4,9 +4,9 @@ import UIKit
 import Combine
 import RAKCore
 
-public extension Extendable where Base: UIControl {
-    func controlEvents(_ event: UIControl.Event) -> AnyPublisher<Base, Never> {
-        return ControlEventsPublisher<Base>(control: base, event: event).eraseToAnyPublisher()
+extension Extendable where Base: UIControl {
+    public func controlEvents(_ event: UIControl.Event) -> AnyPublisher<Base, Never> {
+        ControlEventsPublisher<Base>(control: base, event: event).eraseToAnyPublisher()
     }
 }
 #endif

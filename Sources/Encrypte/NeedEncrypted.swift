@@ -13,6 +13,8 @@ import RAKConfig
 import RAKCore
 import RaLog
 
+// MARK: - NeedEncrypted
+
 /// Used to mark content that needs to be encrypted.
 @propertyWrapper
 public final class NeedEncrypted<T: RAKCodable>: Encryptable, Decryptable {
@@ -76,9 +78,9 @@ public final class NeedEncrypted<T: RAKCodable>: Encryptable, Decryptable {
     /// - Parameters:
     ///   - name: The name/description of the content to be encrypted.
     ///   - keyType: The type of `key`.
-    ///   - dynamicKey: The closure to be used each time a key is used, and then concatenated at the end of the key. 
+    ///   - dynamicKey: The closure to be used each time a key is used, and then concatenated at the end of the key.
     ///                 Default is `nil`.
-    ///   - isOnlyRemoveCacheFromMemoryWhenNil: When set to `nil`, only remove the cache from memory without removing it 
+    ///   - isOnlyRemoveCacheFromMemoryWhenNil: When set to `nil`, only remove the cache from memory without removing it
     ///                                         from local cache. Default is `false`.
     public init(
         name: String,
@@ -90,7 +92,7 @@ public final class NeedEncrypted<T: RAKCodable>: Encryptable, Decryptable {
         let suffix: String
         
         func createSuffix(with value: String) -> String {
-            return value.lowercased().replacingOccurrences(of: " ", with: "_")
+            value.lowercased().replacingOccurrences(of: " ", with: "_")
         }
         
         switch keyType {
@@ -125,9 +127,9 @@ public final class NeedEncrypted<T: RAKCodable>: Encryptable, Decryptable {
         let aesIV = controlLength("_iv")
         
         // swiftlint:disable:next force_try
-        self.aes = try! AES(key: aesKey, iv: aesIV, padding: .pkcs5)
+        aes = try! AES(key: aesKey, iv: aesIV, padding: .pkcs5)
         self.name = name
-        self.cacheKey = prefix + "_userdefaults_" + suffix
+        cacheKey = prefix + "_userdefaults_" + suffix
         self.dynamicKey = dynamicKey
         self.isOnlyRemoveCacheFromMemoryWhenNil = isOnlyRemoveCacheFromMemoryWhenNil
     }
@@ -143,15 +145,15 @@ extension NeedEncrypted {
     public func addObserver(_ observer: NSObject) -> (String, String) {
         let key = (successfulKey, failureKey)
         
-        [key.0, key.1].forEach {
-            userDefaults.addObserver(observer, forKeyPath: $0, options: .new, context: nil)
+        for item in [key.0, key.1] {
+            userDefaults.addObserver(observer, forKeyPath: item, options: .new, context: nil)
         }
         
         return key
     }
     
     func getWrappedValue(from userDefaults: UserDefaults) -> T? {
-        return get(from: userDefaults)
+        get(from: userDefaults)
     }
     
     func setValue(_ value: T?, to userDefaults: UserDefaults) {
@@ -165,9 +167,9 @@ extension NeedEncrypted {
 
 // MARK: - Private Functions
 
-private extension NeedEncrypted {
+extension NeedEncrypted {
     /// Used to read `UserDefaults` object.
-    var userDefaults: UserDefaults {
+    private var userDefaults: UserDefaults {
         let appGroupIdentifier = Config.appGroupIdentifier
         
         if appGroupIdentifier.isEmpty { return .standard }
@@ -175,20 +177,20 @@ private extension NeedEncrypted {
     }
     
     /// Key used to store successfully encrypted data in `UserDefaults`.
-    var successfulKey: String {
-        guard let dynamicKey = dynamicKey else { return cacheKey }
+    private var successfulKey: String {
+        guard let dynamicKey else { return cacheKey }
         return cacheKey + "_" + (dynamicKey() ?? "nil")
     }
     
     /// Key used to store **failure** encrypted data in `UserDefaults`.
-    var failureKey: String {
-        // To prevent cracking the package and getting the header file, 
+    private var failureKey: String {
+        // To prevent cracking the package and getting the header file,
         // the value is set to `success`, but it is used to mark encryption failure.
         successfulKey + "_success"
     }
     
     /// Whether the current runtime environment is in an extension.
-    var inExtension: Bool {
+    private var inExtension: Bool {
         Bundle.rak.map {
             $0.inPushExtension || $0.inWidgetExtension || $0.inWidgetIntentsExtension
         }
@@ -201,9 +203,9 @@ private extension NeedEncrypted {
     /// - Parameters:
     ///   - content: The content to be encrypted and stored.
     ///   - userDefaults: The `UserDefaults` object for storage.
-    func save(_ content: T, to userDefaults: UserDefaults) {
+    private func save(_ content: T, to userDefaults: UserDefaults) {
         // Storage method
-        func _save<V: RAKCodable>(_ tmpCache: V) {
+        func _save(_ tmpCache: some RAKCodable) {
             cache = content
             
             // Encryption successful
@@ -220,9 +222,11 @@ private extension NeedEncrypted {
                     Log.success("Successfully cached unencrypted \(name).")
                     
                 } catch {
-                    Log.error("When storing cache: \(tmpCache)," +
-                              "failed to convert it to a JSON string," +
-                              "cannot proceed with storage.")
+                    Log.error(
+                        "When storing cache: \(tmpCache)," +
+                            "failed to convert it to a JSON string," +
+                            "cannot proceed with storage."
+                    )
                 }
             } else {
                 Log.error("When storing cache: \(tmpCache), failed to convert the type, cannot proceed with storage.")
@@ -242,7 +246,7 @@ private extension NeedEncrypted {
     ///
     /// - Parameter userDefaults: The `UserDefaults` object for storage.
     /// - Returns: Decrypted data.
-    func get(from userDefaults: UserDefaults) -> T? {
+    private func get(from userDefaults: UserDefaults) -> T? {
         // Directly read the cache
         if let _cache = cache { return _cache }
         
@@ -264,7 +268,7 @@ private extension NeedEncrypted {
     }
     
     /// Used to get successfully encrypted data.
-    func getSuccessfulEncryptionCache(
+    private func getSuccessfulEncryptionCache(
         from userDefaults: UserDefaults
     ) -> EncrypteWrapper<T>? {
         guard let cacheString = userDefaults.string(forKey: successfulKey) else {
@@ -292,7 +296,7 @@ private extension NeedEncrypted {
     }
     
     /// Used to get failure encrypted data.
-    func getFailureEncryptionCache(
+    private func getFailureEncryptionCache(
         from userDefaults: UserDefaults
     ) -> EncrypteWrapper<T>? {
         guard let cacheString = userDefaults.string(forKey: failureKey) else {
@@ -311,10 +315,10 @@ private extension NeedEncrypted {
     }
     
     /// Clear data.
-    func remove(from userDefaults: UserDefaults) {
+    private func remove(from userDefaults: UserDefaults) {
         cache = nil
         
-        guard !isOnlyRemoveCacheFromMemoryWhenNil else { return}
+        guard !isOnlyRemoveCacheFromMemoryWhenNil else { return }
         
         userDefaults.removeObject(forKey: successfulKey)
         userDefaults.removeObject(forKey: failureKey)

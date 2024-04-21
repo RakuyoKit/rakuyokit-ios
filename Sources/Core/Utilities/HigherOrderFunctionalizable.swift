@@ -10,18 +10,20 @@ import Foundation
 
 import Then
 
+// MARK: - HigherOrderFunctionalizable
+
 public protocol HigherOrderFunctionalizable: Then { }
 
-public extension HigherOrderFunctionalizable {
-    static func `do`(_ block: (Self.Type) throws -> Void) rethrows {
+extension HigherOrderFunctionalizable {
+    public static func `do`(_ block: (Self.Type) throws -> Void) rethrows {
         try block(Self.self)
     }
     
-    static func map<T>(_ transform: (Self.Type) throws -> T) rethrows -> T {
-        return try transform(Self.self)
+    public static func map<T>(_ transform: (Self.Type) throws -> T) rethrows -> T {
+        try transform(Self.self)
     }
     
-    func map<T>(_ transform: (Self) throws -> T) rethrows -> T {
-        return try transform(self)
+    public func map<T>(_ transform: (Self) throws -> T) rethrows -> T {
+        try transform(self)
     }
 }

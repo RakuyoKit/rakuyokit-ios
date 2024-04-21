@@ -10,9 +10,9 @@ import UIKit
 
 import RAKCore
 
-public extension Gradient {
+extension Gradient {
     /// Wrapper for an array of gradient colors
-    struct Colors {
+    public struct Colors {
         /// Array of colors
         public let colors: [UIColor]
         

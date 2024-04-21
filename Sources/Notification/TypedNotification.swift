@@ -7,29 +7,39 @@
 
 import Foundation
 
+// MARK: - PassiveTypedNotification
+
 public protocol PassiveTypedNotification {
     associatedtype Payload: PassiveNotificationPayload
     
     static var name: Notification.Name { get }
 }
 
-public extension PassiveTypedNotification {
-    static var name: Notification.Name {
+extension PassiveTypedNotification {
+    public static var name: Notification.Name {
         .init(rawValue: String(reflecting: Self.self))
     }
 }
+
+// MARK: - TypedNotification
 
 public protocol TypedNotification: PassiveTypedNotification where Payload: NotificationPayload {
     var payload: Payload { get }
 }
 
+// MARK: - EmptyPayloadPassiveTypedNotification
+
 public protocol EmptyPayloadPassiveTypedNotification: PassiveTypedNotification
     where Payload == EmptyNotificationPayload { }
 
+// MARK: - EmptyPayloadTypedNotification
+
 public protocol EmptyPayloadTypedNotification: TypedNotification where Payload == EmptyNotificationPayload { }
-public extension EmptyPayloadTypedNotification {
-    var payload: Payload { .empty }
+extension EmptyPayloadTypedNotification {
+    public var payload: Payload { .empty }
 }
 
-// For auto generating of notification
+// MARK: - AutoPassiveTypedNotification
+
+/// For auto generating of notification
 public protocol AutoPassiveTypedNotification { }

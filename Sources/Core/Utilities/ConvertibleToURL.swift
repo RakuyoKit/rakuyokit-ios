@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - ConvertibleToURL
+
 /// Used to convert certain types to URL types
 ///
 /// For urls that are not **file types**.
@@ -16,13 +18,13 @@ public protocol ConvertibleToURL {
     var url: URL? { get }
 }
 
-// MARK: - URL
+// MARK: - URL + ConvertibleToURL
 
 extension URL: ConvertibleToURL {
     public var url: URL? { self }
 }
 
-// MARK: - URL
+// MARK: - String + ConvertibleToURL
 
 extension String: ConvertibleToURL {
     public var url: URL? { rak.toURL }

@@ -15,7 +15,7 @@ import RAKConfig
 public class NavigationController: UINavigationController {
     private var popDelegateProxy: NavigationControllerPopDelegateProxy?
     
-    public override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = Config.color.white
@@ -31,36 +31,36 @@ public class NavigationController: UINavigationController {
 }
 
 extension NavigationController {
-    open override var childForStatusBarStyle: UIViewController? { topViewController }
+    override open var childForStatusBarStyle: UIViewController? { topViewController }
     
-    open override var childForStatusBarHidden: UIViewController? { topViewController }
+    override open var childForStatusBarHidden: UIViewController? { topViewController }
     
-    open override var childForHomeIndicatorAutoHidden: UIViewController? { topViewController }
+    override open var childForHomeIndicatorAutoHidden: UIViewController? { topViewController }
     
-    open override var childViewControllerForPointerLock: UIViewController? { topViewController }
+    override open var childViewControllerForPointerLock: UIViewController? { topViewController }
     
-    open override var childForScreenEdgesDeferringSystemGestures: UIViewController? { topViewController }
+    override open var childForScreenEdgesDeferringSystemGestures: UIViewController? { topViewController }
     
     /// The pop-up style is managed by the sub-controller
-    open override var modalPresentationStyle: UIModalPresentationStyle {
+    override open var modalPresentationStyle: UIModalPresentationStyle {
         get { topViewController?.modalPresentationStyle ?? super.modalPresentationStyle }
         set { topViewController?.modalPresentationStyle = newValue }
     }
     
-    /* Override the related methods of screen rotation so that 
-     the screen rotation is controlled by `topViewController` */
+    // Override the related methods of screen rotation so that
+    // the screen rotation is controlled by `topViewController`
     
-    open override var shouldAutorotate: Bool {
+    override open var shouldAutorotate: Bool {
         topViewController?.shouldAutorotate ?? super.shouldAutorotate
     }
     
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         topViewController?.supportedInterfaceOrientations ?? super.supportedInterfaceOrientations
     }
     
-    open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         topViewController?.preferredInterfaceOrientationForPresentation ??
-        super.preferredInterfaceOrientationForPresentation
+            super.preferredInterfaceOrientationForPresentation
     }
 }
 
@@ -98,8 +98,8 @@ private class NavigationControllerPopDelegateProxy: NSObject, UIGestureRecognize
     }
     
     // swiftlint:disable:next implicitly_unwrapped_optional
-    override func forwardingTarget(for aSelector: Selector!) -> Any? {
-        return popGestureRecognizerDelegate
+    override func forwardingTarget(for _: Selector!) -> Any? {
+        popGestureRecognizerDelegate
     }
 }
 #endif

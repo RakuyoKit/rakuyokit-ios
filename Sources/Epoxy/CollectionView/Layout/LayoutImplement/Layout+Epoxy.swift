@@ -11,6 +11,6 @@ import UIKit
 import EpoxyCollectionView
 import RAKCore
 
-public extension Extendable where Base: Layout.Compositional {
-    static var epoxy: Extendable<Layout.Compositional> { Base.epoxy.rak }
+extension Extendable where Base: Layout.Compositional {
+    public static var epoxy: Extendable<Layout.Compositional> { Base.epoxy.rak }
 }

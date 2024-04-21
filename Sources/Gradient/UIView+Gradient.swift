@@ -11,15 +11,15 @@ import UIKit
 import RAKCore
 import Then
 
-public extension Extendable where Base: UIView {
+extension Extendable where Base: UIView {
     /// Specifies the direction of colors during gradient rendering.
     ///
-    /// The values of this enumeration are set not according to the documentation of `startPoint`, 
+    /// The values of this enumeration are set not according to the documentation of `startPoint`,
     /// but rather determined by **visual perception**.
     ///
     /// For example, if our color array is `[.red, .black, .green]` and the direction is set to `from .top to .bottom`,
     /// the effect would be: red appears at the top of the view, and green appears at the bottom of the view.
-    typealias Direction = Gradient.Direction
+    public typealias Direction = Gradient.Direction
     
     /// Conveniently creates a gradient layer using preset directions from the `Direction` enumeration.
     ///
@@ -28,8 +28,8 @@ public extension Extendable where Base: UIView {
     ///   - end: The end direction.
     ///   - colors: The colors for the gradient.
     /// - Returns: The created gradient layer.
-    func createGradientLayer(from start: Direction, to end: Direction, colors: [UIColor]) -> CAGradientLayer {
-        return createGradientLayer(by: .init(start: start, end: end, colors: .init(colors)))
+    public func createGradientLayer(from start: Direction, to end: Direction, colors: [UIColor]) -> CAGradientLayer {
+        createGradientLayer(by: .init(start: start, end: end, colors: .init(colors)))
     }
     
     /// Conveniently applies a gradient to the view using preset directions from the `Direction` enumeration.
@@ -40,27 +40,27 @@ public extension Extendable where Base: UIView {
     ///   - colors: The colors for the gradient.
     /// - Returns: The created gradient layer.
     @discardableResult
-    func setGradientFrom(_ start: Direction, to end: Direction, colors: [UIColor]) -> CAGradientLayer {
-        return applyGradient(with: .init(start: start, end: end, colors: .init(colors)))
+    public func setGradientFrom(_ start: Direction, to end: Direction, colors: [UIColor]) -> CAGradientLayer {
+        applyGradient(with: .init(start: start, end: end, colors: .init(colors)))
     }
 }
 
-public extension Extendable where Base: UIView {
+extension Extendable where Base: UIView {
     /// Creates a gradient layer for the view.
     ///
     /// - Parameter gradient: The gradient configuration.
     /// - Returns: The created gradient layer.
-    func createGradientLayer(by gradient: Gradient) -> CAGradientLayer {
+    public func createGradientLayer(by gradient: Gradient) -> CAGradientLayer {
         let start = gradient.startDirection
         let end = gradient.endDirection
         
         let layer = CAGradientLayer()
         
         guard
-            start.x >= 0 && start.x <= 1,
-            start.y >= 0 && start.y <= 1,
-            end.x >= 0 && end.x <= 1,
-            end.y >= 0 && end.y <= 1
+            start.x >= 0, start.x <= 1,
+            start.y >= 0, start.y <= 1,
+            end.x >= 0, end.x <= 1,
+            end.y >= 0, end.y <= 1
         else {
             assertionFailure("Values for start(\(start)) and end(\(end)) must be within the range of 0 to 1!")
             return layer
@@ -87,7 +87,7 @@ public extension Extendable where Base: UIView {
     /// - Parameter gradient: The gradient configuration.
     /// - Returns: The created gradient layer.
     @discardableResult
-    func applyGradient(with gradient: Gradient) -> CAGradientLayer {
+    public func applyGradient(with gradient: Gradient) -> CAGradientLayer {
         removeGradientLayer()
         
         let gradientLayer = createGradientLayer(by: gradient)
@@ -101,7 +101,7 @@ public extension Extendable where Base: UIView {
     }
     
     /// Removes the gradient view.
-    func removeGradientLayer() {
+    public func removeGradientLayer() {
         guard let sublayers = base.layer.sublayers else { return }
         
         func removeFromSuperlayer(_ layer: CALayer) {

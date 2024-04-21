@@ -10,8 +10,8 @@ import UIKit
 
 import EpoxyCollectionView
 
-public extension SectionModel {
-    func layout(_ wrapper: SectionProviderWrapper) -> Self {
-        return compositionalLayoutSectionProvider(wrapper.provider)
+extension SectionModel {
+    public func layout(_ wrapper: SectionProviderWrapper) -> Self {
+        compositionalLayoutSectionProvider(wrapper.provider)
     }
 }

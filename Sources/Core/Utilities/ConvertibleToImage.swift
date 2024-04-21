@@ -1,8 +1,12 @@
 import UIKit
 
+// MARK: - ConversionImageError
+
 public enum ConversionImageError: Error {
     case failure
 }
+
+// MARK: - ConvertibleToImage
 
 public protocol ConvertibleToImage {
     typealias CompletionBlock = (Result<UIImage, ConversionImageError>) -> Void
@@ -20,14 +24,14 @@ public protocol ConvertibleToImage {
 
 // MARK: - Default
 
-public extension ConvertibleToImage {
-    func getImage(completion: @escaping CompletionBlock) {
+extension ConvertibleToImage {
+    public func getImage(completion: @escaping CompletionBlock) {
         getImage(start: nil, completion: completion)
     }
     
     @available(watchOS 6.0.0, *)
-    func getImage() async throws -> UIImage {
-        try await withCheckedThrowingContinuation { (continuation) in
+    public func getImage() async throws -> UIImage {
+        try await withCheckedThrowingContinuation { continuation in
             getImage { continuation.resume(with: $0) }
         }
     }

@@ -8,13 +8,13 @@
 
 import UIKit
 
-public extension Layout.Size {
+extension Layout.Size {
     /// A simplified version of `.init(widthDimension:heightDimension:)`.
     ///
     /// - Parameters:
     ///   - width: The width dimension. Default is `.fractionalWidth(1)`.
     ///   - height: The height dimension. Default is `.fractionalHeight(1)`.
-    convenience init(
+    public convenience init(
         width: Layout.Dimension = .fractionalWidth(1),
         height: Layout.Dimension = .fractionalHeight(1)
     ) {

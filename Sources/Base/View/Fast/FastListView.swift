@@ -13,7 +13,7 @@ import UIKit
 public protocol FastListView: NSObjectProtocol {
     var registeredIdentifiers: [String] { get set }
     
-    /* The following methods are used to bridge the differences between `UITableView` and `UICollectionView`. */
+    // The following methods are used to bridge the differences between `UITableView` and `UICollectionView`.
 
     func register(_ cell: (some FastCell).Type, with identifier: String, isCodeCell: Bool)
     
@@ -39,7 +39,7 @@ extension UITableView: FastListView {
     }
     
     public func dequeueCell<Cell: FastCell>(with identifier: String, for indexPath: IndexPath) -> Cell? {
-        return dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? Cell
+        dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? Cell
     }
 }
 
@@ -62,7 +62,7 @@ extension UICollectionView: FastListView {
     }
     
     public func dequeueCell<Cell: FastCell>(with identifier: String, for indexPath: IndexPath) -> Cell? {
-        return dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? Cell
+        dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? Cell
     }
 }
 #endif

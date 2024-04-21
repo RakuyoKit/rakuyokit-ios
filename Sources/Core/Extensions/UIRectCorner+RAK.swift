@@ -8,14 +8,16 @@
 
 import UIKit
 
+// MARK: - UIRectCorner + NamespaceProviding
+
 extension UIRectCorner: NamespaceProviding { }
 
-public extension Extendable where Base == UIRectCorner {
-    static var top: Self {
+extension Extendable where Base == UIRectCorner {
+    public static var top: Self {
         Base([.topLeft, .topRight]).rak
     }
     
-    static var bottom: Self {
+    public static var bottom: Self {
         Base([.bottomLeft, .bottomRight]).rak
     }
 }

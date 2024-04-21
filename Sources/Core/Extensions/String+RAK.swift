@@ -10,8 +10,8 @@ import UIKit
 
 // MARK: - Conversion
 
-public extension Extendable where Base == String {
-    var toURL: URL? {
+extension Extendable where Base == String {
+    public var toURL: URL? {
         guard
             let urlString = base.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         else {
@@ -20,15 +20,15 @@ public extension Extendable where Base == String {
         return .init(string: urlString)
     }
     
-    var toHex: Int {
+    public var toHex: Int {
         var sum = 0
         
-        base.uppercased().utf8.forEach {
+        for item in base.uppercased().utf8 {
             // 0-9 starting from 48
-            sum = sum * 16 + Int($0) - 48
+            sum = sum * 16 + Int(item) - 48
             
             // A-Z starts at 65, but has an initial value of 10, so it should be minus 55
-            if $0 >= 65 { sum -= 7 }
+            if item >= 65 { sum -= 7 }
         }
         
         return sum
@@ -55,7 +55,7 @@ extension Extendable where Base == String {
         // Check if the last character is a surrogate
         // Surrogates are often used to represent Unicode characters beyond the Basic Multilingual Plane (BMP),
         // such as some emojis
-        while endIndex > startIndex && UTF16.isTrailSurrogate(sequence[endIndex]) {
+        while endIndex > startIndex, UTF16.isTrailSurrogate(sequence[endIndex]) {
             endIndex = sequence.index(before: endIndex)
         }
         
@@ -73,12 +73,12 @@ extension Extendable where Base == String {
     
     /// Converts an `NSRange` object to a `Range<String.Index>` half-open range applicable to the string
     public func range(from range: NSRange) -> Range<Base.Index> {
-        return _range(from: range, type: ..<)
+        _range(from: range, type: ..<)
     }
     
     /// Converts an `NSRange` object to a `ClosedRange<String.Index>` closed range that applies to the string
     public func closedRange(from range: NSRange) -> ClosedRange<Base.Index> {
-        return _range(from: range, type: ...)
+        _range(from: range, type: ...)
     }
     
     /// Split string according to fixed length
@@ -103,7 +103,7 @@ extension Extendable where Base == String {
     /// - Parameter length: length of each part
     /// - Returns: The result after splitting
     public func splitNumeric(by length: Int) -> [Base] {
-        return stride(from: 0, to: base.count, by: length).map {
+        stride(from: 0, to: base.count, by: length).map {
             let startIndex = base.index(base.startIndex, offsetBy: $0)
             let endIndex = base.index(startIndex, offsetBy: length, limitedBy: base.endIndex) ?? base.endIndex
             return Base(base[startIndex ..< endIndex])
@@ -120,27 +120,27 @@ extension Extendable where Base == String {
 
 // MARK: - NSString bridged
 
-public extension Extendable where Base == String {
-    func range(of searchString: Base) -> NSRange {
-        return bridgeToObjC.range(of: searchString)
+extension Extendable where Base == String {
+    public func range(of searchString: Base) -> NSRange {
+        bridgeToObjC.range(of: searchString)
     }
     
-    func size(withFont font: UIFont) -> CGSize {
-        return size(withAttributes: [.font: font])
+    public func size(withFont font: UIFont) -> CGSize {
+        size(withAttributes: [.font: font])
     }
     
-    func size(withAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> CGSize {
+    public func size(withAttributes attrs: [NSAttributedString.Key: Any]? = nil) -> CGSize {
         let size = bridgeToObjC.size(withAttributes: attrs)
         
         // The documentation for `size(withAttributes:)` mentions that the `ceil` method should be used to round the result.
         return .init(width: ceil(size.width), height: ceil(size.height))
     }
     
-    func draw(at point: CGPoint, withAttributes attrs: [NSAttributedString.Key: Any]? = nil) {
+    public func draw(at point: CGPoint, withAttributes attrs: [NSAttributedString.Key: Any]? = nil) {
         bridgeToObjC.draw(at: point, withAttributes: attrs)
     }
     
-    func draw(in rect: CGRect, withAttributes attrs: [NSAttributedString.Key: Any]? = nil) {
+    public func draw(in rect: CGRect, withAttributes attrs: [NSAttributedString.Key: Any]? = nil) {
         bridgeToObjC.draw(in: rect, withAttributes: attrs)
     }
 }

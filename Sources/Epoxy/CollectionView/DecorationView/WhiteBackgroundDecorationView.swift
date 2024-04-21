@@ -12,7 +12,7 @@ import RAKConfig
 
 /// Set a white background View for UICollectionView Section
 open class WhiteBackgroundDecorationView: BaseDecorationView {
-    open override func config() {
+    override open func config() {
         super.config()
         
         backgroundColor = Config.color.white

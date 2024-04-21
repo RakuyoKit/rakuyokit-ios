@@ -12,8 +12,8 @@ import RAKCore
 
 // MARK: - Post
 
-public extension NotificationCenter {
-    func post<T: TypedNotification>(
+extension NotificationCenter {
+    public func post<T: TypedNotification>(
         typedNotification notification: T,
         object: Any? = nil
     ) {
@@ -21,8 +21,8 @@ public extension NotificationCenter {
         post(name: T.name, object: object, userInfo: userInfo)
     }
     
-    func post<T: TypedNotification>(
-        typedNotification notification: T.Type,
+    public func post<T: TypedNotification>(
+        typedNotification _: T.Type,
         object: Any? = nil
     ) where T.Payload == EmptyNotificationPayload {
         post(name: T.name, object: object, userInfo: nil)
@@ -31,10 +31,10 @@ public extension NotificationCenter {
 
 // MARK: - Add Observer
 
-public extension NotificationCenter {
+extension NotificationCenter {
     /// Subscribe to a notification.
-    func addObserver<T: PassiveTypedNotification>(
-        forType notificationType: T.Type,
+    public func addObserver<T: PassiveTypedNotification>(
+        forType _: T.Type,
         object: Any? = nil,
         queue: OperationQueue? = nil,
         using block: @escaping (T.Payload) -> Void
@@ -46,13 +46,13 @@ public extension NotificationCenter {
     }
     
     /// Subscribe to a notification when the notification does not contain any parameters.
-    func addObserver<T: PassiveTypedNotification>(
-        forType notificationType: T.Type,
+    public func addObserver<T: PassiveTypedNotification>(
+        forType _: T.Type,
         object: Any? = nil,
         queue: OperationQueue? = nil,
         using block: @escaping EmptyClosure
     ) -> NotificationObserver where T.Payload == EmptyNotificationPayload {
-        let token = addObserver(forName: T.name, object: object, queue: queue) { noti in
+        let token = addObserver(forName: T.name, object: object, queue: queue) { _ in
             block()
         }
         return .init(token: token, in: self)
@@ -61,12 +61,12 @@ public extension NotificationCenter {
 
 // MARK: - Add Observer + Combine
 
-public extension NotificationCenter {
-    func publisher<T: PassiveTypedNotification>(
-        forType notificationType: T.Type,
+extension NotificationCenter {
+    public func publisher<T: PassiveTypedNotification>(
+        forType _: T.Type,
         object: AnyObject? = nil
     ) -> AnyPublisher<T.Payload, Never> {
-        return publisher(for: T.name, object: object)
+        publisher(for: T.name, object: object)
             .map { T.Payload($0) }
             .receive(on: RunLoop.main) // Default is RunLoop.main. Override if needed in other calling contexts.
             .eraseToAnyPublisher()

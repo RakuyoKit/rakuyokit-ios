@@ -11,12 +11,12 @@ import UIKit
 import EpoxyCollectionView
 import EpoxyCore
 
-public extension EpoxyModeled where Self: SupplementaryItemsProviding {
-    func header(_ value: () -> SupplementaryItemModeling) -> Self {
-        return supplementaryItems(ofKind: UICollectionView.elementKindSectionHeader, [value()])
+extension EpoxyModeled where Self: SupplementaryItemsProviding {
+    public func header(_ value: () -> SupplementaryItemModeling) -> Self {
+        supplementaryItems(ofKind: UICollectionView.elementKindSectionHeader, [value()])
     }
     
-    func footer(_ value: () -> SupplementaryItemModeling) -> Self {
-        return supplementaryItems(ofKind: UICollectionView.elementKindSectionFooter, [value()])
+    public func footer(_ value: () -> SupplementaryItemModeling) -> Self {
+        supplementaryItems(ofKind: UICollectionView.elementKindSectionFooter, [value()])
     }
 }

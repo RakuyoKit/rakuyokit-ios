@@ -2,13 +2,15 @@ import Foundation
 
 import RAKCore
 
-public extension LocalCache {
+// MARK: - LocalCache.Storage
+
+extension LocalCache {
     /// `UserDefaults` manager
     ///
     /// All `UserDefaults` in the project are operated through `LocalCache.Storage`
-    enum Storage { }
+    public enum Storage { }
 }
 
-// MARK: - HigherOrderFunctionalizable
+// MARK: - LocalCache.Storage + HigherOrderFunctionalizable
 
 extension LocalCache.Storage: HigherOrderFunctionalizable { }

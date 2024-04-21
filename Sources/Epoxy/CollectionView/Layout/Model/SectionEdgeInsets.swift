@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - SectionEdgeInsets
+
 /// Spacing around the section.
 public enum SectionEdgeInsets {
     // swiftlint:disable sorted_enum_cases
@@ -36,40 +38,40 @@ public enum SectionEdgeInsets {
     // swiftlint:enable sorted_enum_cases
 }
 
-public extension SectionEdgeInsets {
-    var edgeInsets: NSDirectionalEdgeInsets {
+extension SectionEdgeInsets {
+    public var edgeInsets: NSDirectionalEdgeInsets {
         switch self {
         case .top(let value):
-            return .init(top: value, leading: 0, bottom: 0, trailing: 0)
+            .init(top: value, leading: 0, bottom: 0, trailing: 0)
             
         case .bottom(let value):
-            return .init(top: 0, leading: 0, bottom: value, trailing: 0)
+            .init(top: 0, leading: 0, bottom: value, trailing: 0)
             
         case .topBottom(let value):
-            return .init(top: value, leading: 0, bottom: value, trailing: 0)
+            .init(top: value, leading: 0, bottom: value, trailing: 0)
             
         case .bothSides(let value):
-            return .init(top: 0, leading: value, bottom: 0, trailing: value)
+            .init(top: 0, leading: value, bottom: 0, trailing: value)
             
         case .card(let value):
-            return .init(top: 0, leading: 16, bottom: value, trailing: 16)
+            .init(top: 0, leading: 16, bottom: value, trailing: 16)
             
-        case let .all(top, leading, bottom, trailing):
-            return .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
+        case .all(let top, let leading, let bottom, let trailing):
+            .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
             
         case .custom(let edge):
-            return edge
+            edge
         }
     }
 }
 
-public extension Optional where Wrapped == SectionEdgeInsets {
-    var edgeInsets: NSDirectionalEdgeInsets {
+extension SectionEdgeInsets? {
+    public var edgeInsets: NSDirectionalEdgeInsets {
         switch self {
         case .none:
-            return .zero
+            .zero
         case .some(let wrapped):
-            return wrapped.edgeInsets
+            wrapped.edgeInsets
         }
     }
 }

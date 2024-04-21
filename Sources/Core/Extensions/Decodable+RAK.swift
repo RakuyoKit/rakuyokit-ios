@@ -8,9 +8,9 @@
 
 import Foundation
 
-public extension Extendable where Base: RAKDecodable {
+extension Extendable where Base: RAKDecodable {
     /// Convert JSON string to object or array.
-    static func decodeJSON(from string: String?, designatedPath: String? = nil) -> Base? {
+    public static func decodeJSON(from string: String?, designatedPath: String? = nil) -> Base? {
         guard
             let data = string?.data(using: .utf8),
             let jsonData = getInnerObject(inside: data, by: designatedPath)
@@ -21,13 +21,13 @@ public extension Extendable where Base: RAKDecodable {
     }
     
     /// Convert binary JSON to object or array.
-    static func decodeJSON(from data: Data?, designatedPath: String? = nil) -> Base? {
+    public static func decodeJSON(from data: Data?, designatedPath _: String? = nil) -> Base? {
         guard let jsonData = data else { return nil }
         return try? JSONDecoder().decode(Base.self, from: jsonData)
     }
     
     /// Convert jsonObject to object or array.
-    static func decodeJSON(from jsonObject: Any?, designatedPath: String? = nil) -> Base? {
+    public static func decodeJSON(from jsonObject: Any?, designatedPath: String? = nil) -> Base? {
         if let jsonString = jsonObject as? String {
             return decodeJSON(from: jsonString, designatedPath: designatedPath)
         }
@@ -37,7 +37,7 @@ public extension Extendable where Base: RAKDecodable {
         }
         
         guard
-            let jsonObject = jsonObject,
+            let jsonObject,
             JSONSerialization.isValidJSONObject(jsonObject),
             let data = try? JSONSerialization.data(withJSONObject: jsonObject, options: []),
             let jsonData = getInnerObject(inside: data, by: designatedPath)
@@ -51,7 +51,7 @@ public extension Extendable where Base: RAKDecodable {
 
 // MARK: - internal
 
-internal extension Extendable where Base: RAKDecodable {
+extension Extendable where Base: RAKDecodable {
     /// Borrowed from HandyJSON, this method retrieves data within the designatedPath from an object.
     ///
     /// - Parameters:
@@ -74,14 +74,14 @@ internal extension Extendable where Base: RAKDecodable {
         var abort = false
         var next = jsonObject as? [String: Any]
         
-        paths.forEach {
-            if $0.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty || abort {
-                return
+        for path in paths {
+            if path.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty || abort {
+                continue
             }
             
-            guard let _next = next?[$0] else {
+            guard let _next = next?[path] else {
                 abort = true
-                return
+                continue
             }
             
             result = _next

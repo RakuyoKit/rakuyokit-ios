@@ -8,20 +8,10 @@
 
 import UIKit
 
+// MARK: - DecorationStyle
+
 /// Decoration view styles
 public enum DecorationStyle {
-    /// Rounded corner styles
-    public enum CornerRadiusPosition {
-        /// All positions
-        case all
-        
-        /// Bottom
-        case bottom
-        
-        /// Top
-        case top
-    }
-    
     /// Custom decoration view
     case custom(_ viewType: UICollectionReusableView.Type)
     
@@ -30,4 +20,20 @@ public enum DecorationStyle {
     
     /// White background with 10px corner radius
     case whiteBackgroundAndCornerRadius(position: CornerRadiusPosition = .all)
+}
+
+// MARK: DecorationStyle.CornerRadiusPosition
+
+extension DecorationStyle {
+    /// Rounded corner styles
+    public enum CornerRadiusPosition {
+        /// All positions
+        case all
+
+        /// Bottom
+        case bottom
+
+        /// Top
+        case top
+    }
 }

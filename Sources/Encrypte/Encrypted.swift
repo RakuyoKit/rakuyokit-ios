@@ -8,21 +8,23 @@
 
 import Foundation
 
+// MARK: - Encrypted
+
 public enum Encrypted {
     public typealias DynamicKeyBlock = () -> String?
 }
 
 // MARK: - Get
 
-public extension Encrypted {
-    static func getWrappedValue<T: Codable>(
+extension Encrypted {
+    public static func getWrappedValue<T: Codable>(
         from userDefaults: UserDefaults,
         with needEncrypted: inout NeedEncrypted<T>
     ) -> T? {
-        return needEncrypted.getWrappedValue(from: userDefaults)
+        needEncrypted.getWrappedValue(from: userDefaults)
     }
     
-    static func getWrappedValue<T: Codable>(
+    public static func getWrappedValue<T: Codable>(
         from userDefaults: UserDefaults,
         name: String,
         keyType: NeedEncrypted<T>.KeyType,
@@ -41,8 +43,8 @@ public extension Encrypted {
 
 // MARK: - Set
 
-public extension Encrypted {
-    static func setValue<T: Codable>(
+extension Encrypted {
+    public static func setValue<T: Codable>(
         _ value: T?,
         to userDefaults: UserDefaults,
         with needEncrypted: inout NeedEncrypted<T>
@@ -50,7 +52,7 @@ public extension Encrypted {
         needEncrypted.setValue(value, to: userDefaults)
     }
     
-    static func setValue<T: Codable>(
+    public static func setValue<T: Codable>(
         _ value: T?,
         to userDefaults: UserDefaults,
         name: String,

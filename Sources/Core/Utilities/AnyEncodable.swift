@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - AnyEncodable
+
 public struct AnyEncodable {
     private let encodable: Encodable
     
@@ -16,7 +18,7 @@ public struct AnyEncodable {
     }
 }
 
-// MARK: - Encodable
+// MARK: Encodable
 
 extension AnyEncodable: Encodable {
     public func encode(to encoder: Encoder) throws {

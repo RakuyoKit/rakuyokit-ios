@@ -17,7 +17,7 @@ public struct ControlPropertyPublisher<Control: UIControl, Value>: Publisher {
         keyPath: KeyPath<Control, Value>
     ) {
         self.control = control
-        self.controlEvents = events
+        controlEvents = events
         self.keyPath = keyPath
     }
     
@@ -52,10 +52,12 @@ extension ControlPropertyPublisher {
         
         func request(_ demand: Subscribers.Demand) {
             // 在第一次需求请求时发出初始值
-            if !didEmitInitial,
-               demand > .none,
-               let control = control,
-               let subscriber = subscriber {
+            if
+                !didEmitInitial,
+                demand > .none,
+                let control,
+                let subscriber
+            {
                 _ = subscriber.receive(control[keyPath: keyPath])
                 didEmitInitial = true
             }
@@ -68,14 +70,14 @@ extension ControlPropertyPublisher {
         
         @objc
         private func handleEvent() {
-            guard let control = control else { return }
+            guard let control else { return }
             _ = subscriber?.receive(control[keyPath: keyPath])
         }
     }
 }
 
-public extension UIControl.Event {
-    static var defaultValueEvents: UIControl.Event {
+extension UIControl.Event {
+    public static var defaultValueEvents: UIControl.Event {
         [.allEditingEvents, .valueChanged]
     }
 }

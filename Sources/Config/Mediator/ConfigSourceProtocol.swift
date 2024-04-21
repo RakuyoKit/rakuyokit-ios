@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - ConfigSourceProtocol
+
 /// Data source protocol.
 ///
 /// Config types of different App clients need to follow this protocol and implement the following methods.
@@ -24,22 +26,22 @@ public protocol ConfigSourceProtocol {
 
 // MARK: - Default value
 
-public extension ConfigSourceProtocol {
-    var color: ColorConfig { .placeholder }
+extension ConfigSourceProtocol {
+    public var color: ColorConfig { .placeholder }
     
-    var appStoreConnectAppleID: String { "" }
+    public var appStoreConnectAppleID: String { "" }
     
-    var appGroupIdentifier: String { "" }
+    public var appGroupIdentifier: String { "" }
 }
 
 // MARK: - Public Tools
 
-public extension ConfigSourceProtocol {
+extension ConfigSourceProtocol {
     /// App download link.
     ///
     /// - Parameter area: Default is `cn` (China)
     /// - Returns: download link.
-    func appDownloadURL(with area: String = "cn") -> URL? {
+    public func appDownloadURL(with area: String = "cn") -> URL? {
         let baseURLString = "https://itunes.apple.com/\(area)/app/id"
         let urlString = baseURLString + appStoreConnectAppleID
         

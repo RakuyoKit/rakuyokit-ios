@@ -34,17 +34,17 @@ open class BaseViewController: RotatableViewController {
 // MARK: - Life cycle
 
 extension BaseViewController {
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
         Self.statusBarStyle
     }
     
-    open override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         viewWillAppear(animated, isFirstEnter: isFirstEnter)
     }
     
-    open override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         viewDidAppear(animated, isFirstEnter: isFirstEnter)
@@ -56,13 +56,13 @@ extension BaseViewController {
         logAppear()
     }
     
-    open override func viewDidDisappear(_ animated: Bool) {
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         logDisappear()
     }
     
-    open override func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
         Log.warning("\(self) encountered a memory warning!")
@@ -73,10 +73,10 @@ extension BaseViewController {
 
 extension BaseViewController {
     @objc
-    open func viewWillAppear(_ animated: Bool, isFirstEnter: Bool) { }
+    open func viewWillAppear(_: Bool, isFirstEnter _: Bool) { }
     
     @objc
-    open func viewDidAppear(_ animated: Bool, isFirstEnter: Bool) { }
+    open func viewDidAppear(_: Bool, isFirstEnter _: Bool) { }
 }
 
 // MARK: - Log

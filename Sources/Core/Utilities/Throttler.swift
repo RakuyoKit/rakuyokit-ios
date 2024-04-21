@@ -8,11 +8,13 @@
 
 import Foundation
 
+// MARK: - DispatchSemaphoreWrapper
+
 public struct DispatchSemaphoreWrapper {
     private let semaphore: DispatchSemaphore
     
     public init(withValue value: Int) {
-        self.semaphore = DispatchSemaphore(value: value)
+        semaphore = DispatchSemaphore(value: value)
     }
     
     public func sync<R>(execute: () throws -> R) rethrows -> R {
@@ -21,6 +23,8 @@ public struct DispatchSemaphoreWrapper {
         return try execute()
     }
 }
+
+// MARK: - Throttler
 
 public final class Throttler {
     fileprivate let semaphore: DispatchSemaphoreWrapper
@@ -33,8 +37,8 @@ public final class Throttler {
     private lazy var previousRun = Date.distantPast
     
     public init(seconds: Double) {
-        self.maxInterval = seconds
-        self.semaphore = DispatchSemaphoreWrapper(withValue: 1)
+        maxInterval = seconds
+        semaphore = DispatchSemaphoreWrapper(withValue: 1)
     }
     
     public func execute(_ block: @escaping EmptyClosure) {
@@ -50,8 +54,8 @@ public final class Throttler {
     }
 }
 
-private extension Date {
-    static func second(from referenceDate: Date) -> TimeInterval {
-        return Date().timeIntervalSince(referenceDate).rounded()
+extension Date {
+    fileprivate static func second(from referenceDate: Date) -> TimeInterval {
+        Date().timeIntervalSince(referenceDate).rounded()
     }
 }
