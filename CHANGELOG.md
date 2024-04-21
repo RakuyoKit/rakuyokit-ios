@@ -4,7 +4,11 @@ All notable changes to this project are documented in this file.
 
 -----
 
-## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.4...HEAD)
+## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.5...HEAD)
+
+-----
+
+## [1.0.5 - Regular upgrade](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.0.5) (2024-4-21)
 
 ### Changed
 
