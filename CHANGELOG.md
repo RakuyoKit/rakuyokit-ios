@@ -6,6 +6,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.4...HEAD)
 
+### Changed
+
+- `Device.codeName` supports obtaining the real device identification corresponding to the current simulator. [#10](https://github.com/RakuyoKit/RakuyoKit/pull/10) @rakuyoMo
+
 -----
 
 ## [1.0.4 - Format and Lint](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.0.4) (2024-4-21)
