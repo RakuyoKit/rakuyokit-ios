@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RakuyoKit/RaLog.git",
       "state" : {
-        "revision" : "e8009a522ee83924b25087d8bae7f3a85ac882c8",
-        "version" : "1.7.1"
+        "revision" : "08bf4dcd436143fbb082c7910254d850e20469c1",
+        "version" : "1.7.2"
       }
     },
     {
