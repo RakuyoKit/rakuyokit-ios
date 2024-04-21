@@ -4,7 +4,21 @@ All notable changes to this project are documented in this file.
 
 -----
 
-## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.3...HEAD)
+## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.4...HEAD)
+
+-----
+
+## [1.0.4 - Format and Lint](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.0.4) (2024-4-21)
+
+### Added
+
+- Added Github Action to detect whether builds and Lint are compliant. [#8](https://github.com/RakuyoKit/RakuyoKit/pull/8) @rakuyoMo
+
+### Changed
+
+- RakuyoKit no longer includes RAKEpoxy by default. [#6](https://github.com/RakuyoKit/RakuyoKit/pull/6) @rakuyoMo
+- Update RaLog to 1.7.2. [#7](https://github.com/RakuyoKit/RakuyoKit/pull/7) @rakuyoMo
+- Use `RakuyoKit/swift` replace SwiftLint. [#8](https://github.com/RakuyoKit/RakuyoKit/pull/8) [#9](https://github.com/RakuyoKit/RakuyoKit/pull/9) @rakuyoMo
 
 -----
 
