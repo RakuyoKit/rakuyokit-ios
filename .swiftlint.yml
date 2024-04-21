@@ -1,6 +1,0 @@
-parent_config: .swiftlint_rules.yml
-
-included:
-    - ./LenticularStickers/Sources
-    - ./LenticularStickers/Tests
-    
