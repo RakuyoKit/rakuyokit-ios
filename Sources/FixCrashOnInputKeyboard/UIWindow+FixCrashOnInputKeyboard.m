@@ -3,7 +3,7 @@
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
-//  Copyright © 2024 Rakuyo. All rights reserved.
+//  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
 #if !TARGET_OS_OSX && !TARGET_OS_WATCH
