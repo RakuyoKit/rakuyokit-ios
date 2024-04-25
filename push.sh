@@ -1,6 +1,6 @@
 #!/bin/zsh
 # Authoer: Rakuyo
-# Update Date: 2024.04.10
+# Update Date: 2024.04.25
 
 project_path=$(cd `dirname $0` ; pwd)
 
@@ -10,20 +10,34 @@ echo "Please enter version："
 read version
 echo "Start publishing a new version: ${version}"
 
+git_merge() {
+    local from_branch=$1
+    local to_branch=$2
+    local merge_message=$3
+
+    git checkout "$to_branch"
+    git merge --no-ff -m "$merge_message" "$from_branch"
+    git_push "$to_branch"
+}
+
+git_push() {
+    git push origin "$1"
+}
+
 release(){
+    main_branch="main"
     release_branch=release/${version}
-    
-    git checkout -b ${release_branch} main
-    
-    git_message="[Release] version: ${version}"
-    
+
+    git checkout -b ${release_branch} ${main_branch}
+
+    git_message="release: version ${version}"
     git add . && git commit -m "${git_message}"
-    
-    git checkout main
-    git merge --no-ff -m 'Merge branch '${release_branch}'' ${release_branch}
-    git push origin main
+
+    git_merge "$release_branch" "$main_branch" "Merge branch '$release_branch'"
+
     git tag ${version}
-    git push origin ${version}
+    git_push ${version}
+
     git branch -d ${release_branch}
 }
 
