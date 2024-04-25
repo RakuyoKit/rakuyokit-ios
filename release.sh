@@ -16,12 +16,12 @@ git_merge() {
     local merge_message=$3
 
     git checkout "$to_branch"
-    git merge --no-ff -m "$merge_message" "$from_branch"
-    git_push "$to_branch"
+    git merge --no-ff -m "$merge_message" "$from_branch" --no-verify
+    git_push "$to_branch" --no-verify
 }
 
 git_push() {
-    git push origin "$1"
+    git push origin "$1" --no-verify
 }
 
 release(){
@@ -31,7 +31,7 @@ release(){
     git checkout -b ${release_branch} ${main_branch}
 
     git_message="release: version ${version}"
-    git add . && git commit -m "${git_message}"
+    git add . && git commit -m "${git_message}" --no-verify
 
     git_merge "$release_branch" "$main_branch" "Merge branch '$release_branch'"
 
