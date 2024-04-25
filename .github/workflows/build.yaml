@@ -10,12 +10,8 @@
 name: Swift Build
 
 on:
-  push:
-    branches: [main]
-    paths: ["**/*.swift"]
   pull_request:
     branches: [main]
-    paths: ["**/*.swift"]
   workflow_dispatch:
 
 jobs:
