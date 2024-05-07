@@ -8,19 +8,27 @@
 
 import UIKit
 
-extension CGFloat {
+extension Extendable where Base == CGFloat {
     /// Get 0.5pt value
-    public static var halfPoint: Self { CGFloat(1).scale }
-    
-    /// `self / scale`
-    public var scale: Self {
-        let _scale: Self = {
+    public static var halfPoint: Base { Base(1).rak.scale }
+
+    /// `float / scale`
+    public var scale: Base {
+        let _scale: Base = {
             #if os(watchOS)
             return 1
             #else
             return UIScreen.rak.scale
             #endif
         }()
-        return self / _scale
+        return base / _scale
+    }
+
+    /// Align floating point values to the pixels of the current device
+    ///
+    /// - Parameter rule: A rule for rounding a floating-point number
+    /// - Returns: The result after alignment
+    public func alignPixel(with rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Base {
+        { (base * $0).rounded(rule) / $0 }(scale)
     }
 }

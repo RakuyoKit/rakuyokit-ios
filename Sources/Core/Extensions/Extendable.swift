@@ -68,6 +68,7 @@ import class  Foundation.NSObject;      extension NSObject          : NamespaceP
 import struct Foundation.Date;          extension Date              : NamespaceProviding { }
 import struct Foundation.URL;           extension URL               : NamespaceProviding { }
 import struct Foundation.Data;          extension Data              : NamespaceProviding { }
+import struct UIKit.CGFloat;            extension CGFloat           : NamespaceProviding { }
 import struct UIKit.CGPoint;            extension CGPoint           : NamespaceProviding { }
 import struct UIKit.CGSize;             extension CGSize            : NamespaceProviding { }
 import struct UIKit.CGRect;             extension CGRect            : NamespaceProviding { }
