@@ -23,4 +23,12 @@ extension Extendable where Base == CGFloat {
         }()
         return base / _scale
     }
+
+    /// Align floating point values to the pixels of the current device
+    ///
+    /// - Parameter rule: A rule for rounding a floating-point number
+    /// - Returns: The result after alignment
+    public func alignPixel(with rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Base {
+        { (base * $0).rounded(rule) / $0 }(scale)
+    }
 }
