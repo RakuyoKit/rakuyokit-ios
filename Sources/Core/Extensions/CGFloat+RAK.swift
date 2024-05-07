@@ -8,19 +8,19 @@
 
 import UIKit
 
-extension CGFloat {
+extension Extendable where Base == CGFloat {
     /// Get 0.5pt value
-    public static var halfPoint: Self { CGFloat(1).scale }
-    
-    /// `self / scale`
-    public var scale: Self {
-        let _scale: Self = {
+    public static var halfPoint: Base { Base(1).rak.scale }
+
+    /// `float / scale`
+    public var scale: Base {
+        let _scale: Base = {
             #if os(watchOS)
             return 1
             #else
             return UIScreen.rak.scale
             #endif
         }()
-        return self / _scale
+        return base / _scale
     }
 }
