@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import UIKit
 
 import Combine
@@ -20,3 +21,4 @@ extension Publisher where Self.Output: UITextField {
         }
     }
 }
+#endif

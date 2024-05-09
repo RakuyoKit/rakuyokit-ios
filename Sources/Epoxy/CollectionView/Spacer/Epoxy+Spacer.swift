@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(tvOS) && !os(visionOS)
 import UIKit
 
 import EpoxyCollectionView
@@ -24,3 +25,4 @@ extension SectionModel {
         return .init(dataID: _spacerDataID, items: [item]).layout(.list())
     }
 }
+#endif

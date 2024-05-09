@@ -13,8 +13,10 @@ public protocol KeyboardListenable: NSObjectProtocol {
     /// 可取消的绑定
     var cancellable: Set<AnyCancellable> { get set }
     
+    #if !os(tvOS)
     /// 键盘监听之后的逻辑
     func keyboardChange(_ context: _KeyboardChangeContext)
+    #endif
 }
 
 // MARK: - Default
@@ -22,15 +24,18 @@ public protocol KeyboardListenable: NSObjectProtocol {
 extension KeyboardListenable {
     public var listView: UIScrollView? { nil }
     
+    #if !os(tvOS)
     @available(iOSApplicationExtension, unavailable, message: "This method is NS_EXTENSION_UNAVAILABLE.")
     public func keyboardChange(_ context: _KeyboardChangeContext) {
         defaultKeyboardChangeBehavior(context)
     }
+    #endif
 }
 
 // MARK: - Logic
 
 extension KeyboardListenable {
+    #if !os(tvOS)
     /// 添加键盘监听
     @available(iOSApplicationExtension, unavailable, message: "This method is NS_EXTENSION_UNAVAILABLE.")
     public func addKeyboardListener(handle: ((_ context: _KeyboardChangeContext) -> Void)? = nil) {
@@ -61,5 +66,6 @@ extension KeyboardListenable {
         }
         #endif
     }
+    #endif
 }
 #endif

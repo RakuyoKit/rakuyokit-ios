@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
 extension Layout.Size {
@@ -21,3 +22,4 @@ extension Layout.Size {
         self.init(widthDimension: width, heightDimension: height)
     }
 }
+#endif

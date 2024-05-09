@@ -1,3 +1,4 @@
+#if !os(watchOS) && !os(tvOS)
 import UIKit
 
 import Combine
@@ -20,3 +21,4 @@ extension Extendable where Base: NotificationCenter {
             .eraseToAnyPublisher()
     }
 }
+#endif

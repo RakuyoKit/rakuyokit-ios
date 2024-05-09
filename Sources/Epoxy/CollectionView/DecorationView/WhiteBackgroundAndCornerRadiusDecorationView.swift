@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(tvOS)
 import UIKit
 
 import RAKConfig
@@ -50,3 +51,4 @@ open class WhiteBackgroundAndBottomCornerRadiusDecorationView: WhiteBackgroundAn
         ]
     }
 }
+#endif

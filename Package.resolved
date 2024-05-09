@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
       "state" : {
-        "revision" : "7892a123f7e8d0fe62f9f03728b17bbd4f94df5c",
-        "version" : "1.8.1"
+        "revision" : "c9c3df6ab812de32bae61fc0cd1bf6d45170ebf0",
+        "version" : "1.8.2"
       }
     },
     {
@@ -19,12 +19,21 @@
       }
     },
     {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift.git",
+      "state" : {
+        "revision" : "639fa9168d36931b36a79e60dc06b7d23852f1f4",
+        "version" : "6.27.0"
+      }
+    },
+    {
       "identity" : "ralog",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RakuyoKit/RaLog.git",
       "state" : {
-        "revision" : "08bf4dcd436143fbb082c7910254d850e20469c1",
-        "version" : "1.7.2"
+        "revision" : "30f50a95eb90d85f2c9bfd7321bfbbcc545b8fcc",
+        "version" : "1.7.3"
       }
     },
     {

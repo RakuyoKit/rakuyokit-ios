@@ -20,6 +20,7 @@ public class NavigationController: UINavigationController {
         
         view.backgroundColor = Config.color.white
         
+        #if !os(tvOS)
         if let delegate = interactivePopGestureRecognizer?.delegate {
             popDelegateProxy = NavigationControllerPopDelegateProxy(
                 navigationController: self,
@@ -27,10 +28,12 @@ public class NavigationController: UINavigationController {
             )
             interactivePopGestureRecognizer?.delegate = popDelegateProxy
         }
+        #endif
     }
 }
 
 extension NavigationController {
+    #if !os(tvOS)
     override open var childForStatusBarStyle: UIViewController? { topViewController }
     
     override open var childForStatusBarHidden: UIViewController? { topViewController }
@@ -40,13 +43,15 @@ extension NavigationController {
     override open var childViewControllerForPointerLock: UIViewController? { topViewController }
     
     override open var childForScreenEdgesDeferringSystemGestures: UIViewController? { topViewController }
-    
+    #endif
+
     /// The pop-up style is managed by the sub-controller
     override open var modalPresentationStyle: UIModalPresentationStyle {
         get { topViewController?.modalPresentationStyle ?? super.modalPresentationStyle }
         set { topViewController?.modalPresentationStyle = newValue }
     }
     
+    #if !os(tvOS)
     // Override the related methods of screen rotation so that
     // the screen rotation is controlled by `topViewController`
     
@@ -62,6 +67,7 @@ extension NavigationController {
         topViewController?.preferredInterfaceOrientationForPresentation ??
             super.preferredInterfaceOrientationForPresentation
     }
+    #endif
 }
 
 private class NavigationControllerPopDelegateProxy: NSObject, UIGestureRecognizerDelegate {

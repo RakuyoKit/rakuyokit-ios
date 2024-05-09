@@ -1,5 +1,6 @@
 import Foundation
 
+import RAKCodable
 import RAKCore
 import RAKEncrypte
 import Then
@@ -13,11 +14,11 @@ public protocol NeedMigratedCache {
 }
 
 extension NeedMigratedCache {
-    public static func migrateValueFromSandboxToAppGroup(_ value: NeedEncrypted<some RAKCodable>) {
+    public static func migrateValueFromSandboxToAppGroup(_ value: NeedEncrypted<some Codable>) {
         value.wrappedValue = getOldUserDefaultsValue(name: value.name)
     }
     
-    public static func getOldUserDefaultsValue<T: RAKCodable>(name: String) -> T? {
+    public static func getOldUserDefaultsValue<T: Codable>(name: String) -> T? {
         let userDefaults: UserDefaults = .standard
         var encrypted: NeedEncrypted<T> = .init(name: name)
         

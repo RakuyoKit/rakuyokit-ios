@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Extendable where Base: MutableCollection {
+extension GenericExtendable where Base: MutableCollection {
     @inlinable
     public mutating func changedEach(_ body: (inout Base.Element) throws -> Void) rethrows {
         try base.indices.forEach { try body(&base[$0]) }

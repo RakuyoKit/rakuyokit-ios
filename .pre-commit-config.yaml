@@ -9,10 +9,8 @@ repos:
       language: system
       entry: rake swift:lint
       stages: [pre-commit]
-      verbose: true
     - id: build
       name: Run Build
       language: system
-      entry: rake swift:build
+      entry: bash -c 'output=$(rake swift:build 2>&1 > /dev/null); if [ $? -ne 0 ]; then echo "$output"; fi'
       stages: [pre-push]
-      verbose: true

@@ -6,22 +6,24 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
 import Combine
 
 import RaLog
 
-#if !os(watchOS)
 /// Base class for view controllers.
 ///
 /// Renamed with `@objc` to resolve symbol redefinition issues encountered in the `XXModule-swift.h` file
 /// when inheriting `SwissArmyKnife.BaseViewController` to implement its own `BaseViewController`.
 @objc(RAKBaseViewController)
 open class BaseViewController: RotatableViewController {
+    #if !os(tvOS)
     /// Default status bar style: black.
     public static let statusBarStyle: UIStatusBarStyle = .default
-    
+    #endif
+
     /// Cancellable bindings.
     open lazy var cancellable = Set<AnyCancellable>()
     
@@ -34,10 +36,12 @@ open class BaseViewController: RotatableViewController {
 // MARK: - Life cycle
 
 extension BaseViewController {
+    #if !os(tvOS)
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         Self.statusBarStyle
     }
-    
+    #endif
+
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

@@ -1,3 +1,4 @@
+#if !os(watchOS) && !os(tvOS)
 import UIKit
 
 /// The type of system keyboard events.
@@ -23,3 +24,4 @@ public enum KeyboardEvent {
         }
     }
 }
+#endif

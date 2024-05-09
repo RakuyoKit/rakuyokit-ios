@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE4B5D382BECB3EA00DAB984 /* CoreConfig+Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4B5D372BECB3EA00DAB984 /* CoreConfig+Demo.swift */; };
 		AE8EA1902BC6656100A26563 /* RakuyoKitDemoDependencies in Frameworks */ = {isa = PBXBuildFile; productRef = AE8EA18F2BC6656100A26563 /* RakuyoKitDemoDependencies */; };
 		AECCF2A12BC63AA000D45535 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECCF2A02BC63AA000D45535 /* AppDelegate.swift */; };
 		AECCF2A32BC63AA000D45535 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECCF2A22BC63AA000D45535 /* SceneDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE4B5D372BECB3EA00DAB984 /* CoreConfig+Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreConfig+Demo.swift"; sourceTree = "<group>"; };
 		AECCF29D2BC63AA000D45535 /* RakuyoKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RakuyoKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AECCF2A02BC63AA000D45535 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AECCF2A22BC63AA000D45535 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				AECCF2A92BC63AA100D45535 /* Assets.xcassets */,
 				AECCF2AB2BC63AA100D45535 /* LaunchScreen.storyboard */,
 				AECCF2AE2BC63AA100D45535 /* Info.plist */,
+				AE4B5D372BECB3EA00DAB984 /* CoreConfig+Demo.swift */,
 			);
 			path = RakuyoKitDemo;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 				AECCF2A52BC63AA000D45535 /* ViewController.swift in Sources */,
 				AECCF2A12BC63AA000D45535 /* AppDelegate.swift in Sources */,
 				AECCF2A32BC63AA000D45535 /* SceneDelegate.swift in Sources */,
+				AE4B5D382BECB3EA00DAB984 /* CoreConfig+Demo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

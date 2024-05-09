@@ -1,4 +1,4 @@
-#if !(os(iOS) && (arch(i386) || arch(arm)))
+#if !os(watchOS)
 import UIKit
 
 import _RAKCombineRuntime

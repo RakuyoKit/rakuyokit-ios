@@ -35,7 +35,7 @@ extension Extendable where Base: UIAlertController {
             let idiom = UIDevice.current.userInterfaceIdiom
             
             var isPad = idiom == .pad
-            if #available(iOS 14.0, *) { isPad = isPad || idiom == .mac }
+            if #available(iOS 14.0, tvOS 14.0, *) { isPad = isPad || idiom == .mac }
             
             guard isPad else { return }
             
