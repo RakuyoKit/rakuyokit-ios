@@ -6,7 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
-#if !os(watchOS) && !os(visionOS)
+#if !os(watchOS) && !os(visionOS) && !(os(tvOS) && targetEnvironment(simulator))
 import UIKit
 
 import EpoxyCore
