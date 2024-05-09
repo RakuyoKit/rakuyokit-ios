@@ -16,6 +16,7 @@ extension Extendable where Base: UIApplication {
     
     public var rootViewController: UIViewController? { keyWindow?.rootViewController }
     
+    #if !os(tvOS)
     /// Get the height of the status bar
     public func statusBarHeight(in view: UIView? = nil) -> CGFloat {
         let height = view?.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
@@ -32,6 +33,7 @@ extension Extendable where Base: UIApplication {
             .map(\.height)
             .max() ?? 0
     }
+    #endif
 }
 
 // MARK: - Open URL

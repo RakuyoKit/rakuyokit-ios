@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import UIKit
 
 // swiftlint:disable type_name
@@ -53,3 +54,4 @@ public struct _KeyboardChangeContext {
         self.event = event
     }
 }
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
 import RAKConfig
@@ -18,3 +19,4 @@ open class WhiteBackgroundDecorationView: BaseDecorationView {
         backgroundColor = Config.color.white
     }
 }
+#endif

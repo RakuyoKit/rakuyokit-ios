@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
 import EpoxyCore
@@ -97,3 +98,4 @@ extension SpacerRow.Style: ExpressibleByIntegerLiteral {
         self.init(height: CGFloat(value))
     }
 }
+#endif

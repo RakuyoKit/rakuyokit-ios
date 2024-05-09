@@ -7,7 +7,7 @@ let package = Package(
     platforms: [
         .iOS(.v13),
         .tvOS(.v13),
-        .watchOS(.v5),
+        .watchOS(.v6),
         .visionOS(.v1),
     ],
     products: [
@@ -107,7 +107,7 @@ let package = Package(
             name: "RAKEpoxy",
             dependencies: [
                 "RAKConfig",
-                .product(name: "Epoxy", package: "epoxy-ios"),
+                .product(name: "Epoxy", package: "epoxy-ios", condition: .when(platforms: [.iOS])),
             ],
             path: "Sources/Epoxy"
         ),

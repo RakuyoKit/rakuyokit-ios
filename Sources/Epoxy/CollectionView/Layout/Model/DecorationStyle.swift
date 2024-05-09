@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
 // MARK: - DecorationStyle
@@ -37,3 +38,4 @@ extension DecorationStyle {
         case top
     }
 }
+#endif

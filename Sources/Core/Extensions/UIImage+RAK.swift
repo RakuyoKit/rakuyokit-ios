@@ -87,6 +87,7 @@ extension Extendable where Base: UIImage {
 // MARK: - Adjustment
 
 extension Extendable where Base: UIImage {
+    #if !os(watchOS)
     /// Scale image to new size.
     public func resized(to newSize: CGSize) -> UIImage {
         UIGraphicsImageRenderer(size: newSize).image { _ in
@@ -106,6 +107,7 @@ extension Extendable where Base: UIImage {
             base.draw(in: .init(origin: scaledPoint, size: scaledSize))
         }
     }
+    #endif
 }
 
 // MARK: - Compresse

@@ -250,8 +250,87 @@ extension ColorConfig {
     }()
 
     #elseif os(tvOS)
-    
+    // swiftlint:disable:next closure_body_length
+    public static let placeholder: Self = {
+        let toolConfig = Tool(
+            backgroundGray: .init(
+                main: .white,
+                secondary: .white,
+                tertiary: .white
+            ),
+            auxiliaryGray: .init(
+                main: .darkGray,
+                secondary: .gray,
+                tertiary: .lightGray
+            ),
+            white: .white,
+            black: .black
+        )
+
+        let semanticConfig = Semantic(
+            theme: .init(
+                main: .blue,
+                secondary: .blue.withAlphaComponent(0.8)
+            ),
+            text: .init(
+                main: .black,
+                secondary: .darkGray,
+                tertiary: .gray
+            ),
+            separator: .lightGray,
+            emphasis: .init(
+                main: .red,
+                secondary: .orange,
+                tertiary: .yellow
+            ),
+            border: toolConfig.auxiliaryGray.main,
+            shadow: toolConfig.black.color.withAlphaComponent(0.2),
+            unavailableText: .darkGray
+        )
+
+        return Self(tool: toolConfig, semantic: semanticConfig)
+    }()
+
     #elseif os(watchOS)
-    
+    // swiftlint:disable:next closure_body_length
+    public static let placeholder: Self = {
+        let toolConfig = Tool(
+            backgroundGray: .init(
+                main: .white,
+                secondary: .white,
+                tertiary: .white
+            ),
+            auxiliaryGray: .init(
+                main: .darkGray,
+                secondary: .gray,
+                tertiary: .lightGray
+            ),
+            white: .white,
+            black: .black
+        )
+
+        let semanticConfig = Semantic(
+            theme: .init(
+                main: .blue,
+                secondary: .blue.withAlphaComponent(0.8)
+            ),
+            text: .init(
+                main: .black,
+                secondary: .darkGray,
+                tertiary: .gray
+            ),
+            separator: .lightGray,
+            emphasis: .init(
+                main: .red,
+                secondary: .orange,
+                tertiary: .yellow
+            ),
+            border: toolConfig.auxiliaryGray.main,
+            shadow: toolConfig.black.color.withAlphaComponent(0.2),
+            unavailableText: .darkGray
+        )
+
+        return Self(tool: toolConfig, semantic: semanticConfig)
+    }()
     #endif
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
 import EpoxyCollectionView
@@ -14,3 +15,4 @@ import RAKCore
 extension Extendable where Base: Layout.Compositional {
     public static var epoxy: Extendable<Layout.Compositional> { Base.epoxy.rak }
 }
+#endif
