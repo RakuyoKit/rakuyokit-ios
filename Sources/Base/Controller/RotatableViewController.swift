@@ -6,11 +6,12 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
-#if !os(watchOS)
 /// Base class for view controllers that provide rotation control.
 open class RotatableViewController: UIViewController {
+    #if !os(tvOS)
     /// Indicates whether the interface should autorotate.
     ///
     /// This should be set to `true` so that the interface can switch to portrait mode after launching in landscape.
@@ -27,7 +28,7 @@ open class RotatableViewController: UIViewController {
         return presentedViewController?.supportedInterfaceOrientations ?? `default`
     }
     
-    #if !os(visionOS) && !os(tvOS)
+    #if !os(visionOS)
     /// Specifies the preferred orientation for presenting the view controller.
     ///
     /// By default, iPhone presents view controllers vertically.
@@ -35,6 +36,7 @@ open class RotatableViewController: UIViewController {
     override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         Self.normalPreferredInterfaceOrientation
     }
+    #endif
     #endif
 }
 

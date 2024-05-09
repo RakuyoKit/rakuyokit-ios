@@ -1,4 +1,4 @@
-#if !os(watchOS)
+#if !os(watchOS) && !os(tvOS)
 import UIKit
 
 // swiftlint:disable type_name
