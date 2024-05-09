@@ -22,10 +22,12 @@ let package = Package(
         .library(name: "RAKGradient", targets: ["RAKGradient"]),
         .library(name: "RAKCombine", targets: ["RAKCombine"]),
         .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
+        .library(name: "RAKGRDB", targets: ["RAKGRDB"]),
     ],
     dependencies: [
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.2"),
         .package(url: "https://github.com/airbnb/epoxy-ios.git", from: "0.10.0"),
+        .package(url: "https://github.com/groue/GRDB.swift.git", from: "6.27.0"),
         .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.7.3"),
         .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
     ],
@@ -119,7 +121,16 @@ let package = Package(
             ],
             path: "Sources/Epoxy"
         ),
-        
+
+        .target(
+            name: "RAKGRDB",
+            dependencies: [
+                "RAKCore",
+                .product(name: "GRDB", package: "GRDB.swift"),
+            ],
+            path: "Sources/GRDB"
+        ),
+
         .testTarget(
             name: "RakuyoKitTests",
             dependencies: ["RakuyoKit"]
