@@ -1,6 +1,6 @@
 //
-//  QueryInterfaceRequest+LS.swift
-//  LocalData
+//  QueryInterfaceRequest+RAK.swift
+//  RakuyoKit
 //
 //  Created by Rakuyo on 2024/5/9.
 //  Copyright © 2024 LenticularStickers. All rights reserved.

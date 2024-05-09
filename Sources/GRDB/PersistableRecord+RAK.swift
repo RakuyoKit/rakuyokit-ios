@@ -1,6 +1,6 @@
 //
-//  PersistableRecord+LS.swift
-//  LocalData
+//  PersistableRecord+RAK.swift
+//  RakuyoKit
 //
 //  Created by Rakuyo on 2024/5/7.
 //  Copyright © 2024 LenticularStickers. All rights reserved.
