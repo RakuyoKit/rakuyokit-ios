@@ -24,10 +24,10 @@ let package = Package(
         .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.7.2"),
-        .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.2"),
         .package(url: "https://github.com/airbnb/epoxy-ios.git", from: "0.10.0"),
-        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.1"),
+        .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.7.3"),
+        .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
     ],
     targets: [
         .target(
