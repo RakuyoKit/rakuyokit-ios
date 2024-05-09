@@ -9,14 +9,16 @@
 #if !os(watchOS)
 import UIKit
 
-#if !os(visionOS)
+#if os(visionOS)
+public final class UIScreen: NSObject { }
+#else
 extension Extendable where Base: UIScreen {
     /// Used instead of `UIScreen.main`
     @available(iOSApplicationExtension, unavailable, message: "This method is NS_EXTENSION_UNAVAILABLE.")
     public static var main: UIScreen? {
         UIApplication.shared.rak.mainScene?.screen
     }
-    
+
     /// Used instead of `UIScreen.main.bounds`
     @available(iOSApplicationExtension, unavailable, message: "This method is NS_EXTENSION_UNAVAILABLE.")
     public static var mainBounds: CGRect {
