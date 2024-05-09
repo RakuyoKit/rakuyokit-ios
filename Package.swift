@@ -15,6 +15,7 @@ let package = Package(
         .library(name: "RAKCore", targets: ["RAKCore", "RAKFixCrashOnInputKeyboard"]),
         .library(name: "RAKConfig", targets: ["RAKConfig"]),
         .library(name: "RAKBase", targets: ["RAKBase"]),
+        .library(name: "RAKCodable", targets: ["RAKCodable"]),
         .library(name: "RAKNotification", targets: ["RAKNotification"]),
         .library(name: "RAKEncrypte", targets: ["RAKEncrypte"]),
         .library(name: "RAKLocalCache", targets: ["RAKLocalCache"]),
@@ -33,6 +34,7 @@ let package = Package(
             name: "RakuyoKit",
             dependencies: [
                 "RAKBase",
+                "RAKCodable",
                 "RAKCombine",
                 "RAKConfig",
                 "RAKCore",
@@ -65,6 +67,12 @@ let package = Package(
         ),
         
         .target(
+            name: "RAKCodable",
+            dependencies: ["RAKCore"],
+            path: "Sources/CodableExtend"
+        ),
+
+        .target(
             name: "RAKNotification",
             dependencies: ["RAKCore"],
             path: "Sources/Notification"
@@ -72,7 +80,7 @@ let package = Package(
         
         .target(
             name: "RAKEncrypte",
-            dependencies: ["RAKConfig", "CryptoSwift"],
+            dependencies: ["RAKConfig", "RAKCodable", "CryptoSwift"],
             path: "Sources/Encrypte"
         ),
         

@@ -52,3 +52,22 @@ extension GenericNamespaceProviding {
         set { /* this enables using `Extendable` to "mutate" base object */ }
     }
 }
+
+// MARK: - Extend `rak` proxy.
+
+// swiftformat:disable all
+import struct Swift.Array
+extension Array: GenericNamespaceProviding {
+    public typealias GenericType = Element
+}
+
+import struct Swift.ContiguousArray
+extension ContiguousArray: GenericNamespaceProviding {
+    public typealias GenericType = Element
+}
+
+import struct Swift.Set
+extension Set: GenericNamespaceProviding {
+    public typealias GenericType = Element
+}
+// swiftformat:enable all

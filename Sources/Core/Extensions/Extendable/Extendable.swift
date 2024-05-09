@@ -60,9 +60,6 @@ import struct Swift.Bool;               extension Bool              : NamespaceP
 import struct Swift.Int;                extension Int               : NamespaceProviding { }
 import struct Swift.Double;             extension Double            : NamespaceProviding { }
 import struct Swift.Float;              extension Float             : NamespaceProviding { }
-import struct Swift.Array;              extension Array             : NamespaceProviding { }
-import struct Swift.ContiguousArray;    extension ContiguousArray   : NamespaceProviding { }
-import struct Swift.Set;                extension Set               : NamespaceProviding { }
 import struct Swift.Dictionary;         extension Dictionary        : NamespaceProviding { }
 import class  Foundation.NSObject;      extension NSObject          : NamespaceProviding { }
 import struct Foundation.Date;          extension Date              : NamespaceProviding { }

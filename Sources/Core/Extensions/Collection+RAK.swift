@@ -16,7 +16,7 @@ extension Collection {
     }
 }
 
-extension Extendable where Base: Collection {
+extension GenericExtendable where Base: Collection {
     public func ifNotEmpty<U>(_ transform: (Base) throws -> U) rethrows -> U? {
         guard base.isNotEmpty else { return nil }
         return try transform(base)
@@ -55,23 +55,5 @@ extension Extendable where Base: Collection {
             }
         }
         return result
-    }
-}
-
-extension Extendable where Base: Collection & RAKCodable, Base.Element: RAKCodable {
-    public static func decodeJSON(from jsonString: String?, designatedPath: String? = nil) -> [Base.Element?]? {
-        guard
-            let data = jsonString?.data(using: .utf8),
-            let jsonData = getInnerObject(inside: data, by: designatedPath),
-            let _jsonObject = try? JSONSerialization.jsonObject(with: jsonData, options: .allowFragments),
-            let jsonObject = _jsonObject as? [Any]
-        else {
-            return nil
-        }
-        return Base.rak.decodeJSON(from: jsonObject)
-    }
-    
-    public static func decodeJSON(from array: [Any]?) -> [Base.Element?]? {
-        array?.map { Base.Element.rak.decodeJSON(from: $0) }
     }
 }

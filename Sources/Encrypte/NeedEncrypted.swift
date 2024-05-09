@@ -9,6 +9,7 @@
 import Foundation
 
 import CryptoSwift
+import RAKCodable
 import RAKConfig
 import RAKCore
 import RaLog
@@ -17,7 +18,7 @@ import RaLog
 
 /// Used to mark content that needs to be encrypted.
 @propertyWrapper
-public final class NeedEncrypted<T: RAKCodable>: Encryptable, Decryptable {
+public final class NeedEncrypted<T: Codable>: Encryptable, Decryptable {
     public typealias DynamicKeyBlock = Encrypted.DynamicKeyBlock
     
     /// Type of key used locally.
@@ -205,7 +206,7 @@ extension NeedEncrypted {
     ///   - userDefaults: The `UserDefaults` object for storage.
     private func save(_ content: T, to userDefaults: UserDefaults) {
         // Storage method
-        func _save(_ tmpCache: some RAKCodable) {
+        func _save(_ tmpCache: Codable) {
             cache = content
             
             // Encryption successful
@@ -268,14 +269,12 @@ extension NeedEncrypted {
     }
     
     /// Used to get successfully encrypted data.
-    private func getSuccessfulEncryptionCache(
-        from userDefaults: UserDefaults
-    ) -> EncrypteWrapper<T>? {
+    private func getSuccessfulEncryptionCache(from userDefaults: UserDefaults) -> EncrypteWrapper<T>? {
         guard let cacheString = userDefaults.string(forKey: successfulKey) else {
             return nil
         }
-        
-        let decryptResult: DecryptResult<EncrypteWrapper<T>> = decrypt(cacheString)
+
+        let decryptResult = decrypt(cacheString, type: EncrypteWrapper<T>.self)
         switch decryptResult {
         case .success(let _result):
             return _result
@@ -333,6 +332,14 @@ extension NeedEncrypted {
 ///
 /// For some basic Swift data types, such as String and Int, the implementation of encode is not complete
 /// and the outermost { } will be missing, leading to failure during dencode. So it needs to be wrapped in an extra layer.
-private struct EncrypteWrapper<T: RAKCodable>: RAKCodable {
+private struct EncrypteWrapper<T: Codable>: Codable, RAKCodable, GenericNamespaceProviding {
+    typealias GenericType = T
+
+    typealias DecodeType = Self
+
+    typealias EncodeType = T
+
     let value: T
+
+    var encodeValue: T { value }
 }
