@@ -54,20 +54,27 @@ extension NamespaceProviding {
 
 // swiftlint:disable colon duplicate_imports
 // swiftformat:disable all
-import struct Swift.String;             extension String            : NamespaceProviding { }
-import struct Swift.Character;          extension Character         : NamespaceProviding { }
-import struct Swift.Bool;               extension Bool              : NamespaceProviding { }
-import struct Swift.Int;                extension Int               : NamespaceProviding { }
-import struct Swift.Double;             extension Double            : NamespaceProviding { }
-import struct Swift.Float;              extension Float             : NamespaceProviding { }
-import struct Swift.Dictionary;         extension Dictionary        : NamespaceProviding { }
-import class  Foundation.NSObject;      extension NSObject          : NamespaceProviding { }
-import struct Foundation.Date;          extension Date              : NamespaceProviding { }
-import struct Foundation.URL;           extension URL               : NamespaceProviding { }
-import struct Foundation.Data;          extension Data              : NamespaceProviding { }
-import struct UIKit.CGFloat;            extension CGFloat           : NamespaceProviding { }
-import struct UIKit.CGPoint;            extension CGPoint           : NamespaceProviding { }
-import struct UIKit.CGSize;             extension CGSize            : NamespaceProviding { }
-import struct UIKit.CGRect;             extension CGRect            : NamespaceProviding { }
+import struct Swift.String;             extension String        : NamespaceProviding { }
+import struct Swift.Character;          extension Character     : NamespaceProviding { }
+import struct Swift.Bool;               extension Bool          : NamespaceProviding { }
+import struct Swift.Int;                extension Int           : NamespaceProviding { }
+import struct Swift.Double;             extension Double        : NamespaceProviding { }
+import struct Swift.Float;              extension Float         : NamespaceProviding { }
+import struct Swift.Dictionary;         extension Dictionary    : NamespaceProviding { }
+import struct Foundation.Date;          extension Date          : NamespaceProviding { }
+import struct Foundation.URL;           extension URL           : NamespaceProviding { }
+import struct Foundation.Data;          extension Data          : NamespaceProviding { }
+import class  Foundation.NSObject;      extension NSObject      : NamespaceProviding { }
+import class  Foundation.JSONDecoder;   extension JSONDecoder   : NamespaceProviding { }
+import class  Foundation.JSONEncoder;   extension JSONEncoder   : NamespaceProviding { }
+import class  CoreGraphics.CGImage;     extension CGImage       : NamespaceProviding { }
+import struct UIKit.CGFloat;            extension CGFloat       : NamespaceProviding { }
+import struct UIKit.CGPoint;            extension CGPoint       : NamespaceProviding { }
+import struct UIKit.CGSize;             extension CGSize        : NamespaceProviding { }
+import struct UIKit.CGRect;             extension CGRect        : NamespaceProviding { }
+import struct UIKit.CGVector;           extension CGVector      : NamespaceProviding { }
+import struct UIKit.UIEdgeInsets;       extension UIEdgeInsets  : NamespaceProviding { }
+import struct UIKit.UIOffset;           extension UIOffset      : NamespaceProviding { }
+import struct UIKit.UIRectEdge;         extension UIRectEdge    : NamespaceProviding { }
 // swiftlint:enable colon duplicate_imports
 // swiftformat:enable all

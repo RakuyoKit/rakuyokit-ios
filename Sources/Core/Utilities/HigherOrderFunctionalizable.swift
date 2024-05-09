@@ -58,6 +58,5 @@ import class  UIKit.NSAttributedString;   extension NSAttributedString   : Highe
 #if !os(watchOS)
 import class  CoreImage.CIImage;   extension CIImage   : HigherOrderFunctionalizable { }
 #endif
-
 // swiftlint:enable colon duplicate_imports
 // swiftformat:enable all
