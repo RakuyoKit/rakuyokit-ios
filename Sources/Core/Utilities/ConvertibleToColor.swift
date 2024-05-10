@@ -16,6 +16,19 @@ public protocol ConvertibleToColor {
     var color: UIColor { get }
 }
 
+extension ConvertibleToColor {
+    /// The Quartz color that corresponds to the color object.
+    public var cgColor: CGColor { color.cgColor }
+
+    /// The Core Image color that corresponds to the color object.
+    public var ciColor: CIColor { color.ciColor }
+
+    /// Returns a color in the same color space as the receiver with the specified alpha component.
+    public func withAlphaComponent(_ alpha: CGFloat) -> UIColor {
+        color.withAlphaComponent(alpha)
+    }
+}
+
 // MARK: - UIColor + ConvertibleToColor
 
 extension UIColor: ConvertibleToColor {
