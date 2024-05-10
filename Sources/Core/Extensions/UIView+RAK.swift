@@ -59,6 +59,86 @@ extension UIView {
 private var kIsHideKeyboardWhenTapKey: Void?
 private var kHideKeyboardGestureKey: Void?
 
+// MARK: - Animation
+
+extension Extendable where Base: UIView {
+    public static func animate(
+        withDuration duration: AnimationDuration = .normal,
+        delay: TimeInterval,
+        options: UIView.AnimationOptions = [],
+        animations: @escaping EmptyClosure,
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        Base.animate(
+            withDuration: duration.rawValue,
+            delay: delay,
+            options: options,
+            animations: animations,
+            completion: completion
+        )
+    }
+
+    public static func animate(
+        withDuration duration: AnimationDuration = .normal,
+        animations: @escaping () -> Void,
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        Base.animate(withDuration: duration.rawValue, animations: animations, completion: completion)
+    }
+
+    public static func animate(
+        withDuration duration: AnimationDuration = .normal,
+        delay: TimeInterval,
+        usingSpringWithDamping dampingRatio: CGFloat,
+        initialSpringVelocity velocity: CGFloat,
+        options: UIView.AnimationOptions = [],
+        animations: @escaping EmptyClosure,
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        Base.animate(
+            withDuration: duration.rawValue,
+            delay: delay,
+            usingSpringWithDamping: dampingRatio,
+            initialSpringVelocity: velocity,
+            options: options,
+            animations: animations,
+            completion: completion
+        )
+    }
+
+    public static func transition(
+        with view: UIView,
+        duration: AnimationDuration = .normal,
+        options: UIView.AnimationOptions = [],
+        animations: EmptyClosure?,
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        Base.transition(
+            with: view,
+            duration: duration.rawValue,
+            options: options,
+            animations: animations,
+            completion: completion
+        )
+    }
+
+    public static func transition(
+        from fromView: UIView,
+        to toView: UIView,
+        duration: AnimationDuration = .normal,
+        options: UIView.AnimationOptions = [],
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        Base.transition(
+            from: fromView,
+            to: toView,
+            duration: duration.rawValue,
+            options: options,
+            completion: completion
+        )
+    }
+}
+
 // MARK: - Other
 
 extension Extendable where Base: UIView {
