@@ -71,7 +71,7 @@ let package = Package(
         .target(
             name: "RAKCodable",
             dependencies: ["RAKCore"],
-            path: "Sources/CodableExtend"
+            path: "Sources/Codable"
         ),
 
         .target(
