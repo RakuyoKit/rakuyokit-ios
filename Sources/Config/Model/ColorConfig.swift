@@ -26,16 +26,9 @@ public struct ColorConfig {
         
         public let secondary: Color
         
-        public init(main: Color, secondary: Color) {
-            self.main = main
-            self.secondary = secondary
-        }
-        
-        public convenience init(
-            main: ConvertibleToColor,
-            secondary: ConvertibleToColor
-        ) {
-            self.init(main: main.color, secondary: secondary.color)
+        public init(main: ConvertibleToColor, secondary: ConvertibleToColor) {
+            self.main = main.color
+            self.secondary = secondary.color
         }
     }
     
@@ -43,22 +36,10 @@ public struct ColorConfig {
     public class ThreeLevel: SecondLevel {
         public let tertiary: Color
         
-        public init(main: Color, secondary: Color, tertiary: Color) {
-            self.tertiary = tertiary
-            
+        public init(main: ConvertibleToColor, secondary: ConvertibleToColor, tertiary: ConvertibleToColor) {
+            self.tertiary = tertiary.color
+
             super.init(main: main, secondary: secondary)
-        }
-        
-        public convenience init(
-            main: ConvertibleToColor,
-            secondary: ConvertibleToColor,
-            tertiary: ConvertibleToColor
-        ) {
-            self.init(
-                main: main.color,
-                secondary: secondary.color,
-                tertiary: tertiary.color
-            )
         }
     }
     
@@ -79,27 +60,13 @@ public struct ColorConfig {
         public init(
             backgroundGray: ThreeLevel,
             auxiliaryGray: ThreeLevel,
-            white: Color,
-            black: Color
-        ) {
-            self.backgroundGray = backgroundGray
-            self.auxiliaryGray = auxiliaryGray
-            self.white = white
-            self.black = black
-        }
-        
-        public init(
-            backgroundGray: ThreeLevel,
-            auxiliaryGray: ThreeLevel,
             white: ConvertibleToColor,
             black: ConvertibleToColor
         ) {
-            self.init(
-                backgroundGray: backgroundGray,
-                auxiliaryGray: auxiliaryGray,
-                white: white.color,
-                black: black.color
-            )
+            self.backgroundGray = backgroundGray
+            self.auxiliaryGray = auxiliaryGray
+            self.white = white.color
+            self.black = black.color
         }
     }
     
@@ -144,39 +111,19 @@ public struct ColorConfig {
         public init(
             theme: SecondLevel,
             text: ThreeLevel,
-            separator: Color,
-            emphasis: ThreeLevel,
-            border: Color,
-            shadow: Color,
-            unavailableText: Color
-        ) {
-            self.theme = theme
-            self.text = text
-            self.separator = separator
-            self.emphasis = emphasis
-            self.border = border
-            self.shadow = shadow
-            self.unavailableText = unavailableText
-        }
-        
-        public init(
-            theme: SecondLevel,
-            text: ThreeLevel,
             separator: ConvertibleToColor,
             emphasis: ThreeLevel,
             border: ConvertibleToColor,
             shadow: ConvertibleToColor,
             unavailableText: ConvertibleToColor
         ) {
-            self.init(
-                theme: theme,
-                text: text,
-                separator: separator.color,
-                emphasis: emphasis,
-                border: border.color,
-                shadow: shadow.color,
-                unavailableText: unavailableText.color
-            )
+            self.theme = theme
+            self.text = text
+            self.separator = separator.color
+            self.emphasis = emphasis
+            self.border = border.color
+            self.shadow = shadow.color
+            self.unavailableText = unavailableText.color
         }
     }
     
@@ -212,38 +159,38 @@ extension ColorConfig {
     public static let placeholder: Self = {
         let toolConfig = Tool(
             backgroundGray: .init(
-                main: .systemGroupedBackground,
-                secondary: .secondarySystemGroupedBackground,
-                tertiary: .tertiarySystemGroupedBackground
+                main: UIColor.systemGroupedBackground,
+                secondary: UIColor.secondarySystemGroupedBackground,
+                tertiary: UIColor.tertiarySystemGroupedBackground
             ),
             auxiliaryGray: .init(
-                main: .systemGray4,
-                secondary: .systemGray5,
-                tertiary: .systemGray6
+                main: UIColor.systemGray4,
+                secondary: UIColor.systemGray5,
+                tertiary: UIColor.systemGray6
             ),
-            white: .tertiarySystemBackground,
-            black: .label
+            white: UIColor.tertiarySystemBackground,
+            black: UIColor.label
         )
         
         let semanticConfig = Semantic(
             theme: .init(
-                main: .systemIndigo,
-                secondary: .systemIndigo.withAlphaComponent(0.8)
+                main: UIColor.systemIndigo,
+                secondary: UIColor.systemIndigo.withAlphaComponent(0.8)
             ),
             text: .init(
-                main: .label,
-                secondary: .secondaryLabel,
-                tertiary: .tertiaryLabel
+                main: UIColor.label,
+                secondary: UIColor.secondaryLabel,
+                tertiary: UIColor.tertiaryLabel
             ),
-            separator: .separator,
+            separator: UIColor.separator,
             emphasis: .init(
-                main: .systemRed,
-                secondary: .systemOrange,
-                tertiary: .systemPink
+                main: UIColor.systemRed,
+                secondary: UIColor.systemOrange,
+                tertiary: UIColor.systemPink
             ),
             border: toolConfig.auxiliaryGray.main,
             shadow: toolConfig.black.color.withAlphaComponent(0.2),
-            unavailableText: .systemGray
+            unavailableText: UIColor.systemGray
         )
         
         return Self(tool: toolConfig, semantic: semanticConfig)
@@ -254,38 +201,38 @@ extension ColorConfig {
     public static let placeholder: Self = {
         let toolConfig = Tool(
             backgroundGray: .init(
-                main: .white,
-                secondary: .white,
-                tertiary: .white
+                main: UIColor.white,
+                secondary: UIColor.white,
+                tertiary: UIColor.white
             ),
             auxiliaryGray: .init(
-                main: .darkGray,
-                secondary: .gray,
-                tertiary: .lightGray
+                main: UIColor.darkGray,
+                secondary: UIColor.gray,
+                tertiary: UIColor.lightGray
             ),
-            white: .white,
-            black: .black
+            white: UIColor.white,
+            black: UIColor.black
         )
 
         let semanticConfig = Semantic(
             theme: .init(
-                main: .blue,
-                secondary: .blue.withAlphaComponent(0.8)
+                main: UIColor.blue,
+                secondary: UIColor.blue.withAlphaComponent(0.8)
             ),
             text: .init(
-                main: .black,
-                secondary: .darkGray,
-                tertiary: .gray
+                main: UIColor.black,
+                secondary: UIColor.darkGray,
+                tertiary: UIColor.gray
             ),
-            separator: .lightGray,
+            separator: UIColor.lightGray,
             emphasis: .init(
-                main: .red,
-                secondary: .orange,
-                tertiary: .yellow
+                main: UIColor.red,
+                secondary: UIColor.orange,
+                tertiary: UIColor.yellow
             ),
             border: toolConfig.auxiliaryGray.main,
             shadow: toolConfig.black.color.withAlphaComponent(0.2),
-            unavailableText: .darkGray
+            unavailableText: UIColor.darkGray
         )
 
         return Self(tool: toolConfig, semantic: semanticConfig)
@@ -296,38 +243,38 @@ extension ColorConfig {
     public static let placeholder: Self = {
         let toolConfig = Tool(
             backgroundGray: .init(
-                main: .white,
-                secondary: .white,
-                tertiary: .white
+                main: UIColor.white,
+                secondary: UIColor.white,
+                tertiary: UIColor.white
             ),
             auxiliaryGray: .init(
-                main: .darkGray,
-                secondary: .gray,
-                tertiary: .lightGray
+                main: UIColor.darkGray,
+                secondary: UIColor.gray,
+                tertiary: UIColor.lightGray
             ),
-            white: .white,
-            black: .black
+            white: UIColor.white,
+            black: UIColor.black
         )
 
         let semanticConfig = Semantic(
             theme: .init(
-                main: .blue,
-                secondary: .blue.withAlphaComponent(0.8)
+                main: UIColor.blue,
+                secondary: UIColor.blue.withAlphaComponent(0.8)
             ),
             text: .init(
-                main: .black,
-                secondary: .darkGray,
-                tertiary: .gray
+                main: UIColor.black,
+                secondary: UIColor.darkGray,
+                tertiary: UIColor.gray
             ),
-            separator: .lightGray,
+            separator: UIColor.lightGray,
             emphasis: .init(
-                main: .red,
-                secondary: .orange,
-                tertiary: .yellow
+                main: UIColor.red,
+                secondary: UIColor.orange,
+                tertiary: UIColor.yellow
             ),
             border: toolConfig.auxiliaryGray.main,
             shadow: toolConfig.black.color.withAlphaComponent(0.2),
-            unavailableText: .darkGray
+            unavailableText: UIColor.darkGray
         )
 
         return Self(tool: toolConfig, semantic: semanticConfig)
