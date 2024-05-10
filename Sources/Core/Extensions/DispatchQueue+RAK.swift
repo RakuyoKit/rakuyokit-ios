@@ -14,8 +14,8 @@ extension Extendable where Base: DispatchQueue {
     /// Create a deferred task that can be canceled midway using the `cancel()` method.
     ///
     /// - Parameters:
-    ///   - time: Delay duration
-    ///   - task: Tasks to be performed after the time is reached
+    ///   - time: Delay duration. Internal `.now() + time`
+    ///   - task: Tasks to be performed after the time is reached. Will be executed on the main thread
     /// - Returns: Action to cancel execution
     @discardableResult
     public static func after(
