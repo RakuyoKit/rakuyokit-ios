@@ -20,12 +20,14 @@ public protocol FastCell: UIView {
         config: ConfigClosure
     ) -> Self
     
+    #if !os(visionOS)
     static func xibCell(
         of view: FastListView,
         for indexPath: IndexPath,
         identifier: String?,
         config: ConfigClosure
     ) -> Self
+    #endif
 }
 
 // MARK: - Defaults
@@ -40,6 +42,7 @@ extension FastCell {
         createCell(of: view, for: indexPath, identifier: identifier, isCodeCell: true, config: config)
     }
     
+    #if !os(visionOS)
     public static func xibCell(
         of view: FastListView,
         for indexPath: IndexPath,
@@ -48,6 +51,7 @@ extension FastCell {
     ) -> Self {
         createCell(of: view, for: indexPath, identifier: identifier, isCodeCell: false, config: config)
     }
+    #endif
 }
 
 // MARK: - Tools
@@ -63,7 +67,12 @@ extension FastCell {
         let id = identifier ?? String(describing: Self.self)
         
         if _slowPath(!listView.registeredIdentifiers.contains(id)) {
+            #if os(visionOS)
+            listView.register(Self.self, with: id)
+            #else
             listView.register(Self.self, with: id, isCodeCell: isCodeCell)
+            #endif
+
             listView.registeredIdentifiers.append(id)
         }
         

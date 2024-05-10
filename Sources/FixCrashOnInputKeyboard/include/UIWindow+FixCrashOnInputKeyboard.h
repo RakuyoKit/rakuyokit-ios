@@ -6,7 +6,8 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
-#if !TARGET_OS_OSX && !TARGET_OS_WATCH
+#ifdef RAK_NOT_SUPPORT
+#else
 
 #import <UIKit/UIKit.h>
 

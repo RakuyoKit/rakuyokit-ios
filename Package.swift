@@ -71,7 +71,7 @@ let package = Package(
         .target(
             name: "RAKCodable",
             dependencies: ["RAKCore"],
-            path: "Sources/CodableExtend"
+            path: "Sources/Codable"
         ),
 
         .target(
@@ -100,7 +100,10 @@ let package = Package(
         
         .target(
             name: "RAKFixCrashOnInputKeyboard",
-            path: "Sources/FixCrashOnInputKeyboard"
+            path: "Sources/FixCrashOnInputKeyboard",
+            cSettings: [
+                .define("RAK_NOT_SUPPORT", .when(platforms: [.watchOS, .macOS])),
+            ]
         ),
         
         .target(

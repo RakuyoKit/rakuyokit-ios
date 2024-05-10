@@ -60,7 +60,6 @@ import struct Swift.Bool;               extension Bool          : NamespaceProvi
 import struct Swift.Int;                extension Int           : NamespaceProviding { }
 import struct Swift.Double;             extension Double        : NamespaceProviding { }
 import struct Swift.Float;              extension Float         : NamespaceProviding { }
-import struct Swift.Dictionary;         extension Dictionary    : NamespaceProviding { }
 import struct Foundation.Date;          extension Date          : NamespaceProviding { }
 import struct Foundation.URL;           extension URL           : NamespaceProviding { }
 import struct Foundation.Data;          extension Data          : NamespaceProviding { }
