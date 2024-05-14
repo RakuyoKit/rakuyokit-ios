@@ -1,21 +1,23 @@
 //
-//  NavigationController.swift
+//  BaseNavigationController.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
 import RAKConfig
 
-#if !os(watchOS)
-@objc(RAKNavigationController)
-public class NavigationController: UINavigationController {
+@objc(RAKBaseNavigationController)
+open class BaseNavigationController: UINavigationController {
+    #if !os(tvOS)
     private var popDelegateProxy: NavigationControllerPopDelegateProxy?
-    
-    override public func viewDidLoad() {
+    #endif
+
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = Config.color.white
@@ -32,7 +34,7 @@ public class NavigationController: UINavigationController {
     }
 }
 
-extension NavigationController {
+extension BaseNavigationController {
     #if !os(tvOS)
     override open var childForStatusBarStyle: UIViewController? { topViewController }
     
@@ -68,44 +70,5 @@ extension NavigationController {
             super.preferredInterfaceOrientationForPresentation
     }
     #endif
-}
-
-private class NavigationControllerPopDelegateProxy: NSObject, UIGestureRecognizerDelegate {
-    weak var navigationController: UINavigationController?
-    weak var popGestureRecognizerDelegate: UIGestureRecognizerDelegate?
-    
-    init(navigationController: UINavigationController, popGestureRecognizerDelegate: UIGestureRecognizerDelegate) {
-        self.navigationController = navigationController
-        self.popGestureRecognizerDelegate = popGestureRecognizerDelegate
-        
-        super.init()
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        guard
-            let navController = navigationController,
-            let delegate = popGestureRecognizerDelegate
-        else {
-            return false
-        }
-        
-        if navController.viewControllers.count > 1 {
-            return true
-        }
-        return delegate.gestureRecognizer?(gestureRecognizer, shouldReceive: touch) ?? false
-    }
-    
-    // swiftlint:disable:next implicitly_unwrapped_optional
-    override func responds(to aSelector: Selector!) -> Bool {
-        if let delegate = popGestureRecognizerDelegate {
-            return delegate.responds(to: aSelector)
-        }
-        return super.responds(to: aSelector)
-    }
-    
-    // swiftlint:disable:next implicitly_unwrapped_optional
-    override func forwardingTarget(for _: Selector!) -> Any? {
-        popGestureRecognizerDelegate
-    }
 }
 #endif
