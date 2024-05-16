@@ -27,6 +27,9 @@ public enum SectionEdgeInsets {
     case bothSides(CGFloat)
     
     /// Custom spacing for all four sides.
+    case allInOne(CGFloat)
+
+    /// Custom spacing for all four sides.
     case all(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat)
     
     /// Fully customized using `NSDirectionalEdgeInsets`.
@@ -50,6 +53,9 @@ extension SectionEdgeInsets {
         case .bothSides(let value):
             .init(top: 0, leading: value, bottom: 0, trailing: value)
             
+        case .allInOne(let value):
+            .init(top: value, leading: value, bottom: value, trailing: value)
+
         case .all(let top, let leading, let bottom, let trailing):
             .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
             
