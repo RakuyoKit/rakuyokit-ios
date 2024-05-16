@@ -20,7 +20,9 @@ public enum Layout {
     public typealias Compositional = UICollectionViewCompositionalLayout
     
     public typealias Item = NSCollectionLayoutItem
-    
+
+    public typealias GroupCustomItem = NSCollectionLayoutGroupCustomItem
+
     public typealias Section = NSCollectionLayoutSection
     
     public typealias ScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehavior
