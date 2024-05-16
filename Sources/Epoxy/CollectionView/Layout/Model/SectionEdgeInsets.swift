@@ -26,9 +26,6 @@ public enum SectionEdgeInsets {
     /// Both sides with the same size.
     case bothSides(CGFloat)
     
-    /// Spacing for card type: 0 at top, 16 at leading and trailing, 16 at bottom.
-    case card(bottom: CGFloat = ListSpacing.normal.spacing)
-    
     /// Custom spacing for all four sides.
     case all(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat)
     
@@ -52,9 +49,6 @@ extension SectionEdgeInsets {
             
         case .bothSides(let value):
             .init(top: 0, leading: value, bottom: 0, trailing: value)
-            
-        case .card(let value):
-            .init(top: 0, leading: 16, bottom: value, trailing: 16)
             
         case .all(let top, let leading, let bottom, let trailing):
             .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
