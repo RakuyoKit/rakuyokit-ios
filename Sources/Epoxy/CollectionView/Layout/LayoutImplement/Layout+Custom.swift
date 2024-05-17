@@ -62,7 +62,7 @@ extension Extendable where Base: Layout.Compositional {
 }
 
 extension SectionProviderWrapper {
-    //  Used in the `.layout()` method of the Data Tree.
+    //  Used in the `.layout()` method of data tree.
     //  Provides a special layout for a specific Section.
     
     public static func custom(
