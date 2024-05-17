@@ -13,7 +13,7 @@ import EpoxyCollectionView
 import RAKCore
 
 extension Extendable where Base: Layout.Section {
-    //  When extending `Layout.LayoutType` for custom layout,
+    //  When extending `Layout.LayoutType` for flow layout,
     //  this serves as a reference and specific implementation for the two layout methods below.
     
     public static func flow(
@@ -43,7 +43,7 @@ extension Extendable where Base: Layout.Section {
 
 extension Extendable where Base: Layout.Compositional {
     //  When inheriting `BaseCodeCollectionViewController`,
-    //  use in the controller's .layout property to provide consistent layout for the entire list.
+    //  use in the controller's `layout` property to provide consistent layout for the entire list.
     
     public static func flow(
         itemSize: Layout.Size,
@@ -70,7 +70,7 @@ extension Extendable where Base: Layout.Compositional {
 }
 
 extension SectionProviderWrapper {
-    //  Used in the `.layout()` method of the Data Tree.
+    //  Used in the `.layout()` method of data tree.
     //  Provides a special layout for a specific section.
     
     public static func flow(

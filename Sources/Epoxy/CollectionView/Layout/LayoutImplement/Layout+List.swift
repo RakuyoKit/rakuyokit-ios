@@ -13,7 +13,7 @@ import EpoxyCollectionView
 import RAKCore
 
 extension Extendable where Base: Layout.Section {
-    //  Used as a reference baseline when customizing layouts in the extension of `Layout.LayoutType`.
+    //  When extending `Layout.LayoutType` for list layout,
     //  Also the specific implementations for the two layout methods below.
     
     public static func list(
@@ -36,7 +36,7 @@ extension Extendable where Base: Layout.Section {
 
 extension Extendable where Base: Layout.Compositional {
     //  When inheriting `BaseCodeCollectionViewController`,
-    //  use in the .layout property of the controller. Provides consistent layout for the entire list.
+    //  use in the controller's `layout` property to provide consistent layout for the entire list.
     
     public static func list(
         spacing: ListSpacing = .default,
@@ -57,7 +57,7 @@ extension Extendable where Base: Layout.Compositional {
 }
 
 extension SectionProviderWrapper {
-    //  Used in the `.layout()` method of Data Tree.
+    //  Used in the `.layout()` method of data tree.
     //  Provides a special layout for a specific Section.
     
     public static func list(
