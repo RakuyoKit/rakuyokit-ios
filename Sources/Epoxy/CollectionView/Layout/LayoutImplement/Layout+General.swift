@@ -63,6 +63,38 @@ extension Extendable where Base: Layout.Section {
     }
 }
 
+// MARK: - Internal Tools
+
+extension Extendable where Base: Layout.Section {
+    static func createBoundarySupplementaryItems(
+        by supplementaryItem: SupplementaryItem?
+    ) -> [NSCollectionLayoutBoundarySupplementaryItem] {
+        guard let supplementaryItem else { return [] }
+
+        var result: [NSCollectionLayoutBoundarySupplementaryItem] = []
+
+        if let header = supplementaryItem.header {
+            switch header {
+            case .normal:
+                result.append(createSectionHeader(pinToVisible: false))
+            case .pin:
+                result.append(createSectionHeader(pinToVisible: true))
+            }
+        }
+
+        if let footer = supplementaryItem.footer {
+            switch footer {
+            case .normal:
+                result.append(createSectionFooter(pinToVisible: false))
+            case .pin:
+                result.append(createSectionFooter(pinToVisible: true))
+            }
+        }
+
+        return result
+    }
+}
+
 // MARK: - Private Tools
 
 extension Extendable where Base: Layout.Section {
@@ -95,34 +127,6 @@ extension Extendable where Base: Layout.Section {
         case .list:
             return .vertical(layoutSize: groupSize, subitems: [item])
         }
-    }
-    
-    fileprivate static func createBoundarySupplementaryItems(
-        by supplementaryItem: SupplementaryItem?
-    ) -> [NSCollectionLayoutBoundarySupplementaryItem] {
-        guard let supplementaryItem else { return [] }
-        
-        var result: [NSCollectionLayoutBoundarySupplementaryItem] = []
-        
-        if let header = supplementaryItem.header {
-            switch header {
-            case .normal:
-                result.append(createSectionHeader(pinToVisible: false))
-            case .pin:
-                result.append(createSectionHeader(pinToVisible: true))
-            }
-        }
-        
-        if let footer = supplementaryItem.footer {
-            switch footer {
-            case .normal:
-                result.append(createSectionFooter(pinToVisible: false))
-            case .pin:
-                result.append(createSectionFooter(pinToVisible: true))
-            }
-        }
-        
-        return result
     }
     
     fileprivate static func createDecorationItems(
