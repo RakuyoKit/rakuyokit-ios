@@ -98,7 +98,7 @@ extension Extendable where Base: Layout.Section {
 // MARK: - Private Tools
 
 extension Extendable where Base: Layout.Section {
-    fileprivate static func createItem(by style: Layout.Style) -> Layout.Item {
+    private static func createItem(by style: Layout.Style) -> Layout.Item {
         .init(layoutSize: {
             switch style {
             case .flow(let size, _, _):
@@ -113,7 +113,7 @@ extension Extendable where Base: Layout.Section {
         }())
     }
     
-    fileprivate static func createGroup(by style: Layout.Style, item: Layout.Item) -> Layout.Group {
+    private static func createGroup(by style: Layout.Style, item: Layout.Item) -> Layout.Group {
         let groupSize: Layout.Size = .init(
             widthDimension: .fractionalWidth(1),
             heightDimension: .estimated(50)
@@ -128,8 +128,8 @@ extension Extendable where Base: Layout.Section {
             return .vertical(layoutSize: groupSize, subitems: [item])
         }
     }
-    
-    fileprivate static func createDecorationItems(
+
+    private static func createDecorationItems(
         by decoration: DecorationStyle?,
         edgeInsets: SectionEdgeInsets?
     ) -> [NSCollectionLayoutDecorationItem] {
@@ -162,7 +162,7 @@ extension Extendable where Base: Layout.Section {
         return [decorationItem]
     }
     
-    fileprivate static func createSupplementaryItem(
+    private static func createSupplementaryItem(
         elementKind: String,
         alignment: NSRectAlignment,
         pinToVisible isPin: Bool
