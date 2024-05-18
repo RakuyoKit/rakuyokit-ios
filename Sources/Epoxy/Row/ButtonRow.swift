@@ -177,9 +177,7 @@ extension ButtonRow: BehaviorsConfigurableView {
     }
 
     public func setBehaviors(_ behaviors: Behaviors<UIImageView>?) {
-        guard let behaviors else { return }
-
-        if let updateImage = behaviors.updateImage {
+        if let updateImage = behaviors?.updateImage {
             if let asyncUpdateImage = updateImage.asyncUpdateImage {
                 asyncUpdateImage { [weak self] in self?.imageView?.image = $0 }
             }
@@ -197,7 +195,7 @@ extension ButtonRow: BehaviorsConfigurableView {
             }
         }
 
-        didTouchDown = behaviors.didTouchDown
-        didTap = behaviors.didTap
+        didTouchDown = behaviors?.didTouchDown
+        didTap = behaviors?.didTap
     }
 }

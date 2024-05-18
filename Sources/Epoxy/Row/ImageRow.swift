@@ -68,7 +68,7 @@ extension ImageRow: ContentConfigurableView {
 
     public enum ImageType: Equatable {
         case image(UIImage?)
-        case asset(String)
+        case asset(String, bundle: Bundle = .main)
         case data(Data)
         case file(String)
         case sfSymbols(String)
@@ -78,8 +78,8 @@ extension ImageRow: ContentConfigurableView {
             case .image(let image):
                 image
 
-            case .asset(let name):
-                .init(named: name)
+            case .asset(let name, let bundle):
+                .init(named: name, in: bundle, with: nil)
 
             case .data(let data):
                 .init(data: data)
@@ -131,20 +131,18 @@ extension ImageRow: BehaviorsConfigurableView {
     }
 
     public func setBehaviors(_ behaviors: Behaviors<ImageRow>?) {
-        guard let behaviors else { return }
-
-        if let asyncUpdateImage = behaviors.asyncUpdateImage {
+        if let asyncUpdateImage = behaviors?.asyncUpdateImage {
             asyncUpdateImage { [weak self] in self?.image = $0 }
         }
 
-        if let concurrencyUpdateImage = behaviors.concurrencyUpdateImage {
+        if let concurrencyUpdateImage = behaviors?.concurrencyUpdateImage {
             Task {
                 let _image = await concurrencyUpdateImage()
                 await MainActor.run { image = _image }
             }
         }
 
-        if let customUpdateImage = behaviors.customUpdateImage {
+        if let customUpdateImage = behaviors?.customUpdateImage {
             weak var this = self
             customUpdateImage(this)
         }
