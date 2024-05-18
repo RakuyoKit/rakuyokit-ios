@@ -13,7 +13,7 @@ import RAKCore
 
 // MARK: - ButtonRow
 
-/// Replace `UIImageView` in Epoxy component
+/// Replace `UIButton` in Epoxy component
 ///
 /// If you want to extend, consider building your own view with
 /// the help of `ButtonRow.Style`, `ButtonRow.Content` and `ButtonRow.Behaviors`.
@@ -90,6 +90,12 @@ extension ButtonRow: StyledView {
 // MARK: ContentConfigurableView
 
 extension ButtonRow: ContentConfigurableView {
+    /// UIButton's `image`, `title`, and `titleColor` have different values in different states.
+    ///
+    /// Considering that Epoxy will use `Style` as an identifier for reuse,
+    /// some states of UIButton are not suitable to be placed in `Style`.
+    ///
+    /// So here, `Content` is designed as an enum, and the state and the content in that state are set at the same time.
     public enum Content: Equatable {
         public struct StateContent: Equatable {
             public let image: ImageRow.ImageType?
@@ -111,6 +117,11 @@ extension ButtonRow: ContentConfigurableView {
         case disabled(StateContent)
         case selected(StateContent)
         case highlighted(StateContent)
+
+        /// Conveniently set styles in `.normal` state
+        public init(normal content: StateContent) {
+            self = .normal(content)
+        }
     }
 
     public func setContent(_ content: Content, animated _: Bool) {
@@ -165,6 +176,8 @@ extension ButtonRow: ContentConfigurableView {
 // MARK: BehaviorsConfigurableView
 
 extension ButtonRow: BehaviorsConfigurableView {
+    /// For a custom Row inherited from `UIControl`, you can also use this type to set the control behavior,
+    /// and use the generic T to access the custom `UIImageView` that may exist in the control.
     public struct Behaviors<T: UIImageView> {
         /// Asynchronously updates the image.
         public let updateImage: ImageRow.Behaviors<T>?
@@ -174,6 +187,16 @@ extension ButtonRow: BehaviorsConfigurableView {
 
         /// Closure for tap event.
         public let didTap: ButtonClosure?
+
+        public init(
+            updateImage: ImageRow.Behaviors<T>? = nil,
+            didTouchDown: ButtonClosure? = nil,
+            didTap: ButtonClosure? = nil
+        ) {
+            self.updateImage = updateImage
+            self.didTouchDown = didTouchDown
+            self.didTap = didTap
+        }
     }
 
     public func setBehaviors(_ behaviors: Behaviors<UIImageView>?) {
