@@ -22,11 +22,23 @@ open class CollectionView: EpoxyCollectionView.CollectionView {
 
 extension CollectionView {
     public func collectionView(
-        _: UICollectionView,
+        _ collectionView: UICollectionView,
         contextMenuConfigurationForItemAt indexPath: IndexPath,
         point _: CGPoint
     ) -> UIContextMenuConfiguration? {
-        guard let item = item(at: indexPath) else { return nil }
+        guard
+            let item = item(at: indexPath),
+            let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell
+        else {
+            return nil
+        }
+
+        let _config = item.handleWillShowContextMenu(
+            cell,
+            with: .init(traitCollection: traitCollection, state: cell.state, animated: false)
+        )
+
+        if let config = _config { return config }
         return contextMenuDelegate?.collectionView(self, contextMenuConfigurationForItem: item)
     }
 
