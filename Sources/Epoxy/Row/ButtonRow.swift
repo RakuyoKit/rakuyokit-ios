@@ -20,11 +20,14 @@ import RAKCore
 public final class ButtonRow: UIButton {
     private lazy var size: OptionalSize? = nil
 
-    /// Closure for touch down event.
+    /// Closure for `.touchDown` event.
     private lazy var didTouchDown: ButtonClosure? = nil
 
-    /// Closure for tap event.
+    /// Closure for `.touchUpInside` event.
     private lazy var didTap: ButtonClosure? = nil
+
+    /// Closure for `.menuActionTriggered` event. Only available on iOS 14.
+    private lazy var didTriggerMenuAction: ButtonClosure? = nil
 }
 
 // MARK: - Life cycle
@@ -52,6 +55,11 @@ extension ButtonRow {
     @objc
     private func buttonDidClick(_ button: UIButton) {
         didTap?(button)
+    }
+
+    @objc
+    private func buttonDidTriggerMenuAction(_ button: UIButton) {
+        didTriggerMenuAction?(button)
     }
 }
 
@@ -117,6 +125,10 @@ extension ButtonRow: StyledView {
 
         addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
         addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchUpInside)
+
+        if #available(iOS 14.0, *) {
+            addTarget(self, action: #selector(buttonDidTriggerMenuAction(_:)), for: .menuActionTriggered)
+        }
     }
 }
 
@@ -225,14 +237,19 @@ extension ButtonRow: BehaviorsConfigurableView {
         /// Closure for tap event.
         public let didTap: ButtonClosure?
 
+        /// Closure for `.menuActionTriggered` event. Only available on iOS 14.
+        public let didTriggerMenuAction: ButtonClosure?
+
         public init(
             updateImage: ImageRow.Behaviors<T>? = nil,
             didTouchDown: ButtonClosure? = nil,
-            didTap: ButtonClosure? = nil
+            didTap: ButtonClosure? = nil,
+            didTriggerMenuAction: ButtonClosure? = nil
         ) {
             self.updateImage = updateImage
             self.didTouchDown = didTouchDown
             self.didTap = didTap
+            self.didTriggerMenuAction = didTriggerMenuAction
         }
     }
 
@@ -257,5 +274,14 @@ extension ButtonRow: BehaviorsConfigurableView {
 
         didTouchDown = behaviors?.didTouchDown
         didTap = behaviors?.didTap
+
+        if
+            #available(iOS 14.0, *),
+            let _didTriggerMenuAction = behaviors?.didTriggerMenuAction
+        {
+            didTriggerMenuAction = _didTriggerMenuAction
+        } else {
+            didTriggerMenuAction = nil
+        }
     }
 }
