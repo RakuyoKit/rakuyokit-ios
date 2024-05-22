@@ -18,8 +18,8 @@ import RAKCore
 /// If you want to extend, consider building your own view with
 /// the help of `ButtonRow.Style`, `ButtonRow.Content` and `ButtonRow.Behaviors`.
 public final class ButtonRow: UIButton {
-    private lazy var size: Size? = .zero
-    
+    private lazy var size: OptionalSize? = nil
+
     /// Closure for touch down event.
     private lazy var didTouchDown: ButtonClosure? = nil
 
@@ -31,7 +31,13 @@ public final class ButtonRow: UIButton {
 
 extension ButtonRow {
     override public var intrinsicContentSize: CGSize {
-        size?.cgSize ?? super.intrinsicContentSize
+        let superSize = super.intrinsicContentSize
+        guard let size else { return superSize }
+
+        return .init(
+            width: size.cgFloatWidth ?? superSize.width,
+            height: size.cgFloatHeight ?? superSize.height
+        )
     }
 }
 
@@ -56,7 +62,7 @@ extension ButtonRow: StyledView {
         /// button size
         ///
         /// When a side value is `greatestFiniteMagnitude`, adaptive size will be used on that side
-        public let size: Size?
+        public let size: OptionalSize?
 
         /// The tint color.
         public let tintColor: UIColor?
@@ -71,7 +77,7 @@ extension ButtonRow: StyledView {
         public let titleStyle: TextRow.Style?
 
         public init(
-            size: Size? = nil,
+            size: OptionalSize? = nil,
             tintColor: UIColor? = nil,
             type: UIButton.ButtonType = .system,
             titleStyle: TextRow.Style? = nil
