@@ -19,6 +19,14 @@ public struct OptionalSize {
         self.width = width
         self.height = height
     }
+
+    public init(size: Float?) {
+        self.init(width: size, height: size)
+    }
+
+    public init(_ size: Float?) {
+        self.init(size: size)
+    }
 }
 
 // MARK: - Logic
