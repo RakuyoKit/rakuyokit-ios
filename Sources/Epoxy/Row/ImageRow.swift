@@ -49,7 +49,7 @@ extension ImageRow: StyledView {
 
         /// The content mode determines the layout of the image when its size does
         /// not precisely match the size that the element is assigned.
-        public let contentMode: ContentMode
+        public let contentMode: UIView.ContentMode
 
         /// iOS 14 added support for Image Descriptions using VoiceOver. This is not always appropriate.
         /// Set this to `true` to prevent VoiceOver from describing the displayed image.
@@ -58,7 +58,7 @@ extension ImageRow: StyledView {
         public init(
             size: OptionalSize? = nil,
             tintColor: UIColor? = nil,
-            contentMode: ContentMode = .scaleToFill,
+            contentMode: UIView.ContentMode = .scaleToFill,
             blockAccessibilityDescription: Bool = false
         ) {
             self.size = size
