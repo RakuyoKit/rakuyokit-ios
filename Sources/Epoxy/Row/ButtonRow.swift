@@ -18,11 +18,27 @@ import RAKCore
 /// If you want to extend, consider building your own view with
 /// the help of `ButtonRow.Style`, `ButtonRow.Content` and `ButtonRow.Behaviors`.
 public final class ButtonRow: UIButton {
+    private lazy var size: OptionalSize? = nil
+
     /// Closure for touch down event.
     private lazy var didTouchDown: ButtonClosure? = nil
 
     /// Closure for tap event.
     private lazy var didTap: ButtonClosure? = nil
+}
+
+// MARK: - Life cycle
+
+extension ButtonRow {
+    override public var intrinsicContentSize: CGSize {
+        let superSize = super.intrinsicContentSize
+        guard let size else { return superSize }
+
+        return .init(
+            width: size.cgFloatWidth ?? superSize.width,
+            height: size.cgFloatHeight ?? superSize.height
+        )
+    }
 }
 
 // MARK: Action
@@ -43,11 +59,19 @@ extension ButtonRow {
 
 extension ButtonRow: StyledView {
     public struct Style: Hashable {
+        /// button size
+        ///
+        /// When a side value is `greatestFiniteMagnitude`, adaptive size will be used on that side
+        public let size: OptionalSize?
+
         /// The tint color.
         public let tintColor: UIColor?
 
         /// The button type.
         public let type: UIButton.ButtonType
+
+        /// `imageView`'s `contentMode`
+        public let imageContentModel: UIView.ContentMode?
 
         /// The title style.
         ///
@@ -56,12 +80,16 @@ extension ButtonRow: StyledView {
         public let titleStyle: TextRow.Style?
 
         public init(
+            size: OptionalSize? = nil,
             tintColor: UIColor? = nil,
             type: UIButton.ButtonType = .system,
+            imageContentModel: UIView.ContentMode? = nil,
             titleStyle: TextRow.Style? = nil
         ) {
+            self.size = size
             self.tintColor = tintColor
             self.type = type
+            self.imageContentModel = imageContentModel
             self.titleStyle = titleStyle
         }
     }
@@ -71,7 +99,12 @@ extension ButtonRow: StyledView {
 
         translatesAutoresizingMaskIntoConstraints = false
 
+        size = style.size
         tintColor = style.tintColor
+
+        if let imageContentModel = style.imageContentModel {
+            imageView?.contentMode = imageContentModel
+        }
 
         if let titleStyle = style.titleStyle {
             titleLabel?.do {
@@ -96,8 +129,8 @@ extension ButtonRow: ContentConfigurableView {
     /// some states of UIButton are not suitable to be placed in `Style`.
     ///
     /// So here, `Content` is designed as an enum, and the state and the content in that state are set at the same time.
-    public enum Content: Equatable {
-        public struct StateContent: Equatable {
+    public enum Content: Equatable, ButtonRowStateContent {
+        public struct StateContent: Equatable, ButtonRowStateContent {
             public let image: ImageRow.ImageType?
             public let title: TextRow.Content?
             public let titleColor: UIColor
@@ -119,8 +152,12 @@ extension ButtonRow: ContentConfigurableView {
         case highlighted(StateContent)
 
         /// Conveniently set styles in `.normal` state
-        public init(normal content: StateContent) {
-            self = .normal(content)
+        public init(
+            image: ImageRow.ImageType? = nil,
+            title: TextRow.Content? = nil,
+            titleColor: ConvertibleToColor = UIColor.label
+        ) {
+            self = .normal(.init(image: image, title: title, titleColor: titleColor))
         }
     }
 

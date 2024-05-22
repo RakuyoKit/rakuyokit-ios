@@ -17,28 +17,51 @@ import RAKCore
 ///
 /// If you want to extend, consider building your own view with
 /// the help of `ImageRow.Style`, `ImageRow.Content` and `ImageRow.Behaviors`.
-public final class ImageRow: UIImageView { }
+public final class ImageRow: UIImageView {
+    private lazy var size: OptionalSize? = nil
+}
+
+// MARK: - Life cycle
+
+extension ImageRow {
+    override public var intrinsicContentSize: CGSize {
+        let superSize = super.intrinsicContentSize
+        guard let size else { return superSize }
+
+        return .init(
+            width: size.cgFloatWidth ?? superSize.width,
+            height: size.cgFloatHeight ?? superSize.height
+        )
+    }
+}
 
 // MARK: StyledView
 
 extension ImageRow: StyledView {
     public struct Style: Hashable {
+        /// Image row size
+        ///
+        /// When a side value is `greatestFiniteMagnitude`, adaptive size will be used on that side
+        public let size: OptionalSize?
+
         /// The tint color.
         public let tintColor: UIColor?
 
         /// The content mode determines the layout of the image when its size does
         /// not precisely match the size that the element is assigned.
-        public let contentMode: ContentMode
+        public let contentMode: UIView.ContentMode
 
         /// iOS 14 added support for Image Descriptions using VoiceOver. This is not always appropriate.
         /// Set this to `true` to prevent VoiceOver from describing the displayed image.
         public let blockAccessibilityDescription: Bool
 
         public init(
+            size: OptionalSize? = nil,
             tintColor: UIColor? = nil,
-            contentMode: ContentMode = .scaleToFill,
+            contentMode: UIView.ContentMode = .scaleToFill,
             blockAccessibilityDescription: Bool = false
         ) {
+            self.size = size
             self.tintColor = tintColor
             self.contentMode = contentMode
             self.blockAccessibilityDescription = blockAccessibilityDescription
@@ -50,6 +73,7 @@ extension ImageRow: StyledView {
 
         translatesAutoresizingMaskIntoConstraints = false
 
+        size = style.size
         tintColor = style.tintColor
         contentMode = style.contentMode
 

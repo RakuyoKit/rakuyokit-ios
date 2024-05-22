@@ -37,17 +37,20 @@ extension SwitchRow {
 
 extension SwitchRow: StyledView {
     public struct Style: Hashable {
+        public let scale: CGFloat
         public let onTintColor: UIColor?
         public let thumbTintColor: UIColor?
         public let onImage: UIImage?
         public let offImage: UIImage?
 
         public init(
+            scale: CGFloat = 1,
             onTintColor: ConvertibleToColor? = nil,
             thumbTintColor: ConvertibleToColor? = nil,
             onImage: UIImage? = nil,
             offImage: UIImage? = nil
         ) {
+            self.scale = scale
             self.onTintColor = onTintColor?.color
             self.thumbTintColor = thumbTintColor?.color
             self.onImage = onImage
@@ -60,6 +63,7 @@ extension SwitchRow: StyledView {
 
         translatesAutoresizingMaskIntoConstraints = false
 
+        transform = { CGAffineTransform(scaleX: $0, y: $0) }(style.scale)
         onTintColor = style.onTintColor
         thumbTintColor = style.thumbTintColor
         onImage = style.onImage
