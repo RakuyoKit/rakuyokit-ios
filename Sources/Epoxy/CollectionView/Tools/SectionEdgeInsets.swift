@@ -13,28 +13,31 @@ import UIKit
 /// Spacing around the section.
 public enum SectionEdgeInsets {
     // swiftlint:disable sorted_enum_cases
-    
+
     /// Only at the top.
     case top(CGFloat)
-    
+
     /// Only at the bottom.
     case bottom(CGFloat)
-    
+
     /// Both top and bottom with the same size.
-    case topBottom(CGFloat)
-    
+    case vertical(CGFloat)
+
     /// Both sides with the same size.
-    case bothSides(CGFloat)
-    
+    case horizontal(CGFloat)
+
     /// Custom spacing for all four sides.
     case allInOne(CGFloat)
 
+    /// Custom spacing, equal spacing on coaxes
+    case allWithCoaxes(vertical: CGFloat, horizontal: CGFloat)
+
     /// Custom spacing for all four sides.
     case all(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat)
-    
+
     /// Fully customized using `NSDirectionalEdgeInsets`.
     case custom(NSDirectionalEdgeInsets)
-    
+
     // swiftlint:enable sorted_enum_cases
 }
 
@@ -43,22 +46,25 @@ extension SectionEdgeInsets {
         switch self {
         case .top(let value):
             .init(top: value, leading: 0, bottom: 0, trailing: 0)
-            
+
         case .bottom(let value):
             .init(top: 0, leading: 0, bottom: value, trailing: 0)
-            
-        case .topBottom(let value):
+
+        case .vertical(let value):
             .init(top: value, leading: 0, bottom: value, trailing: 0)
-            
-        case .bothSides(let value):
+
+        case .horizontal(let value):
             .init(top: 0, leading: value, bottom: 0, trailing: value)
-            
+
         case .allInOne(let value):
             .init(top: value, leading: value, bottom: value, trailing: value)
 
+        case .allWithCoaxes(let vertical, let horizontal):
+            .init(top: vertical, leading: horizontal, bottom: vertical, trailing: horizontal)
+
         case .all(let top, let leading, let bottom, let trailing):
             .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
-            
+
         case .custom(let edge):
             edge
         }

@@ -95,7 +95,7 @@ extension ImageRow: ContentConfigurableView {
         case asset(String, bundle: Bundle = .main)
         case data(Data)
         case file(String)
-        case sfSymbols(String)
+        case sfSymbols(String, configuration: UIImage.SymbolConfiguration? = nil)
 
         public var image: UIImage? {
             switch self {
@@ -111,8 +111,8 @@ extension ImageRow: ContentConfigurableView {
             case .file(let path):
                 .init(contentsOfFile: path)
 
-            case .sfSymbols(let name):
-                .init(systemName: name)
+            case .sfSymbols(let name, let configuration):
+                .init(systemName: name, withConfiguration: configuration)
             }
         }
     }

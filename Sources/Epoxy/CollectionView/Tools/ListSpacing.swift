@@ -16,13 +16,13 @@ import CoreGraphics.CGFunction
 public struct ListSpacing {
     /// Default Spacing: 0
     public static let `default`: Self = 0
-    
+
     /// Normal Spacing: 10
     public static let normal: Self = 10
-    
+
     /// Spacing
     public let spacing: CGFloat
-    
+
     /// Set Custom Spacing
     ///
     /// - Parameter spacing: Custom Spacing
