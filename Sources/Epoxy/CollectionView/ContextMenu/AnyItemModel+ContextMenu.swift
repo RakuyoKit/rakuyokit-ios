@@ -14,14 +14,14 @@ import EpoxyCollectionView
 
 extension AnyItemModel: ContextMenuProviding { }
 
-// MARK: InternalItemModeling
+// MARK: - AnyItemModel + RAKInternalItemModeling
 
-extension AnyItemModel {
+extension AnyItemModel: RAKInternalItemModeling {
     public func handleWillShowContextMenu(
         _ cell: ItemWrapperView,
         with metadata: ItemCellMetadata
     ) -> UIContextMenuConfiguration? {
-        let config = model.handleWillShowContextMenu(cell, with: metadata)
+        let config = (model as? RAKInternalItemModeling)?.handleWillShowContextMenu(cell, with: metadata)
         if let view = cell.view {
             return willShowContextMenu?(.init(view: view, metadata: metadata)) ?? config
         }

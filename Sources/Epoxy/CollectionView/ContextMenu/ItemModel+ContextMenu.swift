@@ -14,9 +14,9 @@ import EpoxyCollectionView
 
 extension ItemModel: ContextMenuProviding { }
 
-// MARK: InternalItemModeling
+// MARK: - ItemModel + RAKInternalItemModeling
 
-extension ItemModel {
+extension ItemModel: RAKInternalItemModeling {
     public func handleWillShowContextMenu(
         _ cell: ItemWrapperView,
         with metadata: ItemCellMetadata
