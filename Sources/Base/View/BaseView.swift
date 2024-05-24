@@ -10,6 +10,18 @@ import UIKit
 
 /// A wrapper for the frame nature of `UIView`
 open class BaseView: UIView {
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+
+        config()
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
+        config()
+    }
+
     /// Should *only* be called once
     ///
     /// *Must* call super if override
