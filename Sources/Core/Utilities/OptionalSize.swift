@@ -61,7 +61,6 @@ extension OptionalSize: Equatable { }
 
 extension OptionalSize: CustomStringConvertible {
     public var description: String {
-        let desc: (Float?) -> String = { $0.flatMap { "\($0)" } ?? "nil" }
-        return "{ height:\(desc(height)), width:\(desc(width)) }"
+        "{ height:\(height.rak.safeDescription), width:\(width.rak.safeDescription) }"
     }
 }
