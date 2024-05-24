@@ -15,30 +15,22 @@ import RAKConfig
 // MARK: - SpacerRow
 
 /// View used for filling spacing in CollectionView
-public final class SpacerRow: UIView {
+public final class SpacerRow: BaseStyledEpoxyView<SpacerRow.Style> {
     /// Style
-    private let style: Style
-    
-    public init(style: Style) {
+    private lazy var style: Style? = nil
+
+    override public func config(style: Style) {
+        super.config(style: style)
+
         self.style = style
-        
-        super.init(frame: .zero)
-        
-        config()
-    }
-    
-    required init?(coder: NSCoder) {
-        style = .default
-        
-        super.init(coder: coder)
-        
-        config()
+
+        backgroundColor = style.backgroundColor
     }
 }
 
 // MARK: StyledView
 
-extension SpacerRow: StyledView {
+extension SpacerRow {
     public struct Style: Hashable {
         /// Default
         public static let `default`: Self = .init()
@@ -71,15 +63,10 @@ extension SpacerRow: BehaviorsConfigurableView { }
 
 extension SpacerRow {
     override public var intrinsicContentSize: CGSize {
-        .init(width: UIView.noIntrinsicMetric, height: style.height)
-    }
-}
-
-// MARK: - Config
-
-extension SpacerRow {
-    private func config() {
-        backgroundColor = style.backgroundColor
+        .init(
+            width: UIView.noIntrinsicMetric,
+            height: style?.height ?? super.intrinsicContentSize.height
+        )
     }
 }
 
