@@ -10,21 +10,21 @@ import Foundation
 
 // MARK: - OptionalSize
 
-public struct OptionalSize {
-    public var width: Float?
+public struct OptionalSize<T: FloatingPoint> {
+    public var width: T?
 
-    public var height: Float?
+    public var height: T?
 
-    public init(width: Float? = nil, height: Float? = nil) {
+    public init(width: T? = nil, height: T? = nil) {
         self.width = width
         self.height = height
     }
 
-    public init(size: Float?) {
+    public init(size: T?) {
         self.init(width: size, height: size)
     }
 
-    public init(_ size: Float?) {
+    public init(_ size: T?) {
         self.init(size: size)
     }
 }
@@ -33,19 +33,11 @@ public struct OptionalSize {
 
 extension OptionalSize {
     public static var zero: Self {
-        .init(width: 0, height: 0)
+        .init(0)
     }
 
     public static var greatestFiniteMagnitude: Self {
-        .init(width: .greatestFiniteMagnitude, height: .greatestFiniteMagnitude)
-    }
-
-    public var cgFloatWidth: CGFloat? {
-        width.flatMap { .init($0) }
-    }
-
-    public var cgFloatHeight: CGFloat? {
-        height.flatMap { .init($0) }
+        .init(.greatestFiniteMagnitude)
     }
 }
 
@@ -61,7 +53,6 @@ extension OptionalSize: Equatable { }
 
 extension OptionalSize: CustomStringConvertible {
     public var description: String {
-        let desc: (Float?) -> String = { $0.flatMap { "\($0)" } ?? "nil" }
-        return "{ height:\(desc(height)), width:\(desc(width)) }"
+        "{ height:\(height.rak.safeDescription), width:\(width.rak.safeDescription) }"
     }
 }
