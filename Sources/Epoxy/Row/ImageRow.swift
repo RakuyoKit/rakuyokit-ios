@@ -18,7 +18,7 @@ import RAKCore
 /// If you want to extend, consider building your own view with
 /// the help of `ImageRow.Style`, `ImageRow.Content` and `ImageRow.Behaviors`.
 public final class ImageRow: UIImageView {
-    private lazy var size: OptionalSize? = nil
+    private lazy var size: OptionalCGSize? = nil
 }
 
 // MARK: - Life cycle
@@ -29,8 +29,8 @@ extension ImageRow {
         guard let size else { return superSize }
 
         return .init(
-            width: size.cgFloatWidth ?? superSize.width,
-            height: size.cgFloatHeight ?? superSize.height
+            width: size.width ?? superSize.width,
+            height: size.height ?? superSize.height
         )
     }
 }
@@ -41,8 +41,8 @@ extension ImageRow: StyledView {
     public struct Style: Hashable {
         /// Image row size
         ///
-        /// When a side value is `greatestFiniteMagnitude`, adaptive size will be used on that side
-        public let size: OptionalSize?
+        /// When a side value is `UIView.noIntrinsicMetric`, adaptive size will be used on that side
+        public let size: OptionalCGSize?
 
         /// The tint color.
         public let tintColor: UIColor?
@@ -56,7 +56,7 @@ extension ImageRow: StyledView {
         public let blockAccessibilityDescription: Bool
 
         public init(
-            size: OptionalSize? = nil,
+            size: OptionalCGSize? = nil,
             tintColor: UIColor? = nil,
             contentMode: UIView.ContentMode = .scaleToFill,
             blockAccessibilityDescription: Bool = false

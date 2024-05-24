@@ -18,7 +18,7 @@ import RAKCore
 /// If you want to extend, consider building your own view with
 /// the help of `TextRow.Style` and `TextRow.Content`.
 public final class TextRow: UILabel {
-    private lazy var size: OptionalSize? = nil
+    private lazy var size: OptionalCGSize? = nil
 }
 
 // MARK: - Life cycle
@@ -29,8 +29,8 @@ extension TextRow {
         guard let size else { return superSize }
 
         return .init(
-            width: size.cgFloatWidth ?? superSize.width,
-            height: size.cgFloatHeight ?? superSize.height
+            width: size.width ?? superSize.width,
+            height: size.height ?? superSize.height
         )
     }
 }
@@ -39,7 +39,7 @@ extension TextRow {
 
 extension TextRow: StyledView {
     public struct Style: Hashable {
-        public let size: OptionalSize?
+        public let size: OptionalCGSize?
         public let font: UIFont
         public let color: UIColor
         public let alignment: NSTextAlignment
@@ -47,7 +47,7 @@ extension TextRow: StyledView {
         public let lineBreakMode: NSLineBreakMode
 
         public init(
-            size: OptionalSize? = nil,
+            size: OptionalCGSize? = nil,
             font: UIFont = .systemFont(ofSize: UIFont.labelFontSize),
             color: ConvertibleToColor = UIColor.label,
             alignment: NSTextAlignment = .left,
