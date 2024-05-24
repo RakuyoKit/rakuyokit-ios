@@ -56,6 +56,11 @@ extension GenericNamespaceProviding {
 // MARK: - Extend `rak` proxy.
 
 // swiftformat:disable all
+import enum Swift.Optional
+extension Optional: GenericNamespaceProviding {
+    public typealias GenericType = Wrapped
+}
+
 import struct Swift.Array
 extension Array: GenericNamespaceProviding {
     public typealias GenericType = Element
