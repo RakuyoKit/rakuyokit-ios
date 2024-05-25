@@ -227,7 +227,7 @@ extension ButtonRow: ContentConfigurableView {
 extension ButtonRow: BehaviorsConfigurableView {
     /// For a custom Row inherited from `UIControl`, you can also use this type to set the control behavior,
     /// and use the generic T to access the custom `UIImageView` that may exist in the control.
-    public struct Behaviors<T: UIImageView> {
+    public struct Behaviors<T> {
         /// Asynchronously updates the image.
         public let updateImage: ImageRow.Behaviors<T>?
 
@@ -253,7 +253,7 @@ extension ButtonRow: BehaviorsConfigurableView {
         }
     }
 
-    public func setBehaviors(_ behaviors: Behaviors<UIImageView>?) {
+    public func setBehaviors(_ behaviors: Behaviors<ButtonRow>?) {
         if let updateImage = behaviors?.updateImage {
             if let asyncUpdateImage = updateImage.asyncUpdateImage {
                 asyncUpdateImage { [weak self] in self?.imageView?.image = $0 }
@@ -267,8 +267,8 @@ extension ButtonRow: BehaviorsConfigurableView {
             }
 
             if let customUpdateImage = updateImage.customUpdateImage {
-                weak var imageView = imageView
-                customUpdateImage(imageView)
+                weak var this = self
+                customUpdateImage(this)
             }
         }
 

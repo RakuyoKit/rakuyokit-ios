@@ -125,7 +125,7 @@ extension ImageRow: ContentConfigurableView {
 // MARK: BehaviorsConfigurableView
 
 extension ImageRow: BehaviorsConfigurableView {
-    public struct Behaviors<T: UIImageView> {
+    public struct Behaviors<T> {
         public typealias AsyncUpdateImage = ((UIImage?) -> Void) -> Void
 
         public typealias ConcurrencyUpdateImage = () async -> UIImage?
