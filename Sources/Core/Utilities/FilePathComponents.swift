@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct FilePathComponents: ExpressibleByStringLiteral {
+public struct FilePathComponents: ExpressibleByStringInterpolation {
     public typealias SearchDirectory = FileManager.SearchPathDirectory
     
     public enum SearchType {

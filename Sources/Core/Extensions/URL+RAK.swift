@@ -8,9 +8,9 @@
 
 import Foundation
 
-// MARK: - ExpressibleByStringLiteral
+// MARK: - ExpressibleByStringInterpolation
 
-extension URL: ExpressibleByStringLiteral {
+extension URL: ExpressibleByStringInterpolation {
     public init(stringLiteral value: String) {
         guard let url = value.rak.toURL else {
             fatalError("Bad string, failed to create url from: \(value)")

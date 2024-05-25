@@ -113,7 +113,7 @@ extension TextFieldRow: StyledView {
 // MARK: ContentConfigurableView
 
 extension TextFieldRow: ContentConfigurableView {
-    public struct Content: Equatable, ExpressibleByStringLiteral {
+    public struct Content: Equatable, ExpressibleByStringInterpolation {
         public let text: String?
         public let placeholder: String?
         public let secure: Bool
