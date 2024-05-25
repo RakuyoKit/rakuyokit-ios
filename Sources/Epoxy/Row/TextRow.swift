@@ -80,7 +80,7 @@ extension TextRow: StyledView {
 // MARK: ContentConfigurableView
 
 extension TextRow: ContentConfigurableView {
-    public enum Content: Equatable, ExpressibleByStringLiteral {
+    public enum Content: Equatable, ExpressibleByStringInterpolation {
         case text(String?)
         case attributedText(NSAttributedString?)
 
