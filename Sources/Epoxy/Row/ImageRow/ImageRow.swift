@@ -18,6 +18,7 @@ import RAKCore
 /// If you want to extend, consider building your own view with
 /// the help of `ImageRow.Style`, `ImageRow.Content` and `ImageRow.Behaviors`.
 public final class ImageRow: UIImageView {
+    /// Self-size
     private lazy var size: OptionalCGSize? = nil
 }
 
@@ -88,87 +89,31 @@ extension ImageRow: StyledView {
 // MARK: ContentConfigurableView
 
 extension ImageRow: ContentConfigurableView {
-    public typealias Content = ImageType?
-
-    public enum ImageType: Equatable {
-        case image(UIImage?)
-        case asset(String, bundle: Bundle = .main)
-        case data(Data)
-        case file(String)
-        case sfSymbols(String, configuration: UIImage.SymbolConfiguration? = nil)
-
-        public var image: UIImage? {
-            switch self {
-            case .image(let image):
-                image
-
-            case .asset(let name, let bundle):
-                .init(named: name, in: bundle, with: nil)
-
-            case .data(let data):
-                .init(data: data)
-
-            case .file(let path):
-                .init(contentsOfFile: path)
-
-            case .sfSymbols(let name, let configuration):
-                .init(systemName: name, withConfiguration: configuration)
-            }
-        }
-    }
+    /// Usage example:
+    /// ```swift
+    /// ImageRow.groupItem(
+    ///     dataID: DefaultDataID.noneProvided,
+    ///     content: .init(UIImage()),
+    ///     style: .init())
+    /// ```
+    ///
+    /// There are also some convenience methods provided in ``FastImageContentProviding``:
+    /// ```swift
+    /// ImageRow.groupItem(
+    ///     dataID: DefaultDataID.noneProvided,
+    ///     content: .sfSymbols(name: ""),
+    ///     style: .init())
+    /// ```
+    ///
+    /// You can implement your own data provider via the ``ImageContentProviding`` protocol
+    public typealias Content = AnyImageContent<ImageRow>
 
     public func setContent(_ content: Content, animated _: Bool) {
-        image = content?.image
+        weak var this = self
+        content.setForView(this)
     }
 }
 
 // MARK: BehaviorsConfigurableView
 
-extension ImageRow: BehaviorsConfigurableView {
-    public struct Behaviors<T> {
-        public typealias AsyncUpdateImage = ((UIImage?) -> Void) -> Void
-
-        public typealias ConcurrencyUpdateImage = () async -> UIImage?
-
-        public typealias CustomUpdateImage = (T?) -> Void
-
-        /// Update asynchronously
-        public let asyncUpdateImage: AsyncUpdateImage?
-
-        /// Use coroutine to update
-        public let concurrencyUpdateImage: ConcurrencyUpdateImage?
-
-        /// Returns the view itself, which can be customized to update the view
-        ///
-        /// This view has a weak reference
-        public let customUpdateImage: CustomUpdateImage?
-
-        public init(
-            asyncUpdateImage: AsyncUpdateImage? = nil,
-            concurrencyUpdateImage: ConcurrencyUpdateImage? = nil,
-            customUpdateImage: CustomUpdateImage? = nil
-        ) {
-            self.asyncUpdateImage = asyncUpdateImage
-            self.concurrencyUpdateImage = concurrencyUpdateImage
-            self.customUpdateImage = customUpdateImage
-        }
-    }
-
-    public func setBehaviors(_ behaviors: Behaviors<ImageRow>?) {
-        if let asyncUpdateImage = behaviors?.asyncUpdateImage {
-            asyncUpdateImage { [weak self] in self?.image = $0 }
-        }
-
-        if let concurrencyUpdateImage = behaviors?.concurrencyUpdateImage {
-            Task {
-                let _image = await concurrencyUpdateImage()
-                await MainActor.run { image = _image }
-            }
-        }
-
-        if let customUpdateImage = behaviors?.customUpdateImage {
-            weak var this = self
-            customUpdateImage(this)
-        }
-    }
-}
+extension ImageRow: BehaviorsConfigurableView { }

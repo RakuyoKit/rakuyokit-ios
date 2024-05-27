@@ -16,7 +16,7 @@ import RAKCore
 /// Replace `UIButton` in Epoxy component
 ///
 /// If you want to extend, consider building your own view with
-/// the help of `ButtonRow.Style`, `ButtonRow.Content` and `ButtonRow.Behaviors`.
+/// the help of `ButtonRow.Style`, `ButtonRow.ButtonContent` and `ButtonRow.ButtonBehaviors`.
 public final class ButtonRow: UIButton {
     private lazy var size: OptionalCGSize? = nil
 
@@ -135,20 +135,42 @@ extension ButtonRow: StyledView {
 // MARK: ContentConfigurableView
 
 extension ButtonRow: ContentConfigurableView {
+    public typealias Content = ButtonContent<ButtonRow>
+
     /// UIButton's `image`, `title`, and `titleColor` have different values in different states.
     ///
     /// Considering that Epoxy will use `Style` as an identifier for reuse,
     /// some states of UIButton are not suitable to be placed in `Style`.
     ///
     /// So here, `Content` is designed as an enum, and the state and the content in that state are set at the same time.
-    public enum Content: Equatable, ButtonRowStateContent {
+    public enum ButtonContent<T>: Equatable, ButtonRowStateContent {
+        /// Usage example:
+        /// ```swift
+        /// ButtonRow.groupItem(
+        ///     dataID: DefaultDataID.noneProvided,
+        ///     content: .init(UIImage()),
+        ///     style: .init())
+        /// ```
+        ///
+        /// There are also some convenience methods provided in ``FastImageContentProviding``:
+        /// ```swift
+        /// ButtonRow.groupItem(
+        ///     dataID: DefaultDataID.noneProvided,
+        ///     content: .sfSymbols(name: ""),
+        ///     style: .init())
+        /// ```
+        ///
+        /// You can implement your own data provider via the ``ButtonImageContentProviding`` protocol
+        public typealias ImageContent = AnyButtonImageContent<T>
+
+        ///
         public struct StateContent: Equatable, ButtonRowStateContent {
-            public let image: ImageRow.ImageType?
+            public let image: ImageContent?
             public let title: TextRow.Content?
             public let titleColor: UIColor
 
             public init(
-                image: ImageRow.ImageType? = nil,
+                image: ImageContent? = nil,
                 title: TextRow.Content? = nil,
                 titleColor: ConvertibleToColor = UIColor.label
             ) {
@@ -165,7 +187,7 @@ extension ButtonRow: ContentConfigurableView {
 
         /// Conveniently set styles in `.normal` state
         public init(
-            image: ImageRow.ImageType? = nil,
+            image: ImageContent? = nil,
             title: TextRow.Content? = nil,
             titleColor: ConvertibleToColor = UIColor.label
         ) {
@@ -176,17 +198,22 @@ extension ButtonRow: ContentConfigurableView {
     public func setContent(_ content: Content, animated _: Bool) {
         func _set(with stateContent: Content.StateContent, for state: UIControl.State) {
             if let image = stateContent.image {
-                setImage(image.image, for: state)
+                weak var this = self
+                image.setForView(this, state: state)
+            } else {
+                setImage(nil, for: state)
             }
 
-            if let title = stateContent.title {
-                switch title {
-                case .text(let value):
-                    setTitle(value, for: state)
+            switch stateContent.title {
+            case .text(let value):
+                setTitle(value, for: state)
 
-                case .attributedText(let value):
-                    setAttributedTitle(value, for: state)
-                }
+            case .attributedText(let value):
+                setAttributedTitle(value, for: state)
+
+            case .none:
+                setTitle(nil, for: state)
+                setAttributedTitle(nil, for: state)
             }
 
             setTitleColor(stateContent.titleColor, for: state)
@@ -225,12 +252,11 @@ extension ButtonRow: ContentConfigurableView {
 // MARK: BehaviorsConfigurableView
 
 extension ButtonRow: BehaviorsConfigurableView {
+    public typealias Behaviors = ButtonBehaviors<ButtonRow>
+
     /// For a custom Row inherited from `UIControl`, you can also use this type to set the control behavior,
     /// and use the generic T to access the custom `UIImageView` that may exist in the control.
-    public struct Behaviors<T> {
-        /// Asynchronously updates the image.
-        public let updateImage: ImageRow.Behaviors<T>?
-
+    public struct ButtonBehaviors<T> {
         /// Closure for touch down event.
         public let didTouchDown: ButtonClosure?
 
@@ -241,37 +267,17 @@ extension ButtonRow: BehaviorsConfigurableView {
         public let didTriggerMenuAction: ButtonClosure?
 
         public init(
-            updateImage: ImageRow.Behaviors<T>? = nil,
             didTouchDown: ButtonClosure? = nil,
             didTap: ButtonClosure? = nil,
             didTriggerMenuAction: ButtonClosure? = nil
         ) {
-            self.updateImage = updateImage
             self.didTouchDown = didTouchDown
             self.didTap = didTap
             self.didTriggerMenuAction = didTriggerMenuAction
         }
     }
 
-    public func setBehaviors(_ behaviors: Behaviors<ButtonRow>?) {
-        if let updateImage = behaviors?.updateImage {
-            if let asyncUpdateImage = updateImage.asyncUpdateImage {
-                asyncUpdateImage { [weak self] in self?.imageView?.image = $0 }
-            }
-
-            if let concurrencyUpdateImage = updateImage.concurrencyUpdateImage {
-                Task {
-                    let _image = await concurrencyUpdateImage()
-                    await MainActor.run { imageView?.image = _image }
-                }
-            }
-
-            if let customUpdateImage = updateImage.customUpdateImage {
-                weak var this = self
-                customUpdateImage(this)
-            }
-        }
-
+    public func setBehaviors(_ behaviors: Behaviors?) {
         didTouchDown = behaviors?.didTouchDown
         didTap = behaviors?.didTap
 

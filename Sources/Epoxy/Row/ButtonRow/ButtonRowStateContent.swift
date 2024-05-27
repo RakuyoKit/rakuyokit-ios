@@ -14,8 +14,10 @@ import RAKCore
 ///
 /// Used internally to simplify the creation of `ButtonRow.Content` in `.normal` state.
 protocol ButtonRowStateContent {
+    associatedtype ImageContent
+
     init(
-        image: ImageRow.ImageType?,
+        image: ImageContent?,
         title: TextRow.Content?,
         titleColor: ConvertibleToColor
     )
