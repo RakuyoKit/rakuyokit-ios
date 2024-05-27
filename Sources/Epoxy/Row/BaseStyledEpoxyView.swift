@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(visionOS)
 import UIKit
 
 import EpoxyCore
@@ -26,3 +27,4 @@ open class BaseStyledEpoxyView<Style: Hashable>: RAKBase.BaseView, StyledView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+#endif

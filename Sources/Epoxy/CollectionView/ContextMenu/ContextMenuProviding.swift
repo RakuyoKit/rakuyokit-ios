@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(tvOS) && !os(visionOS)
 import UIKit
 
 import EpoxyCore
@@ -36,3 +37,4 @@ extension CallbackContextEpoxyModeled where Self: ContextMenuProviding {
         copy(updating: willShowContextMenuProperty, to: value)
     }
 }
+#endif

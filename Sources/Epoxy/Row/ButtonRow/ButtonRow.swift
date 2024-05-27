@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(tvOS) && !os(watchOS) && !os(visionOS)
 import UIKit
 
 import EpoxyCore
@@ -126,7 +127,7 @@ extension ButtonRow: StyledView {
         addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
         addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchUpInside)
 
-        if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, tvOS 14.0, *) {
             addTarget(self, action: #selector(buttonDidTriggerMenuAction(_:)), for: .menuActionTriggered)
         }
     }
@@ -291,3 +292,4 @@ extension ButtonRow: BehaviorsConfigurableView {
         }
     }
 }
+#endif

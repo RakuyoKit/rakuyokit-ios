@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
 /// A wrapper for the frame nature of `UIView`
@@ -39,3 +40,4 @@ open class BaseView: UIView {
     @objc
     open dynamic func addInitialLayout() { }
 }
+#endif
