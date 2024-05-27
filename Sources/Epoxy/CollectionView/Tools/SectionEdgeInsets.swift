@@ -8,6 +8,8 @@
 
 import UIKit
 
+import RAKCore
+
 // MARK: - SectionEdgeInsets
 
 /// Spacing around the section.
@@ -35,8 +37,8 @@ public enum SectionEdgeInsets {
     /// Custom spacing for all four sides.
     case all(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat)
 
-    /// Fully customized using `NSDirectionalEdgeInsets`.
-    case custom(NSDirectionalEdgeInsets)
+    /// Fully customized using `EdgeInsets`.
+    case custom(RAKCore.EdgeInsets)
 
     // swiftlint:enable sorted_enum_cases
 }
@@ -66,7 +68,7 @@ extension SectionEdgeInsets {
             .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
 
         case .custom(let edge):
-            edge
+            edge.directionalEdgeInsets
         }
     }
 }
