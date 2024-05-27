@@ -12,11 +12,13 @@ public typealias OptionalCGSize = OptionalSize<CGFloat>
 
 // MARK: - Logic
 
+#if !os(watchOS)
 extension OptionalSize where T == CGFloat {
     public static var noIntrinsicMetric: Self {
         .init(UIView.noIntrinsicMetric)
     }
 }
+#endif
 
 extension OptionalSize where T == Float {
     public var cgFloatWidth: CGFloat? {

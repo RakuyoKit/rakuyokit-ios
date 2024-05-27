@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(tvOS) && !os(visionOS)
 import UIKit
 
 import RAKCore
@@ -22,3 +23,4 @@ protocol ButtonRowStateContent {
         titleColor: ConvertibleToColor
     )
 }
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(tvOS) && !os(visionOS)
 import UIKit
 
 import EpoxyCollectionView
@@ -14,3 +15,4 @@ import EpoxyCollectionView
 protocol RAKInternalItemModeling: InternalItemModeling {
     func handleWillShowContextMenu(_ cell: ItemWrapperView, with metadata: ItemCellMetadata) -> UIContextMenuConfiguration?
 }
+#endif

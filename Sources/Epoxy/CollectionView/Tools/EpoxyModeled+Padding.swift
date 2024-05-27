@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(visionOS)
 import UIKit
 
 import EpoxyCore
@@ -16,3 +17,4 @@ extension EpoxyModeled where Self: PaddingProviding {
         padding(value.edgeInsets)
     }
 }
+#endif

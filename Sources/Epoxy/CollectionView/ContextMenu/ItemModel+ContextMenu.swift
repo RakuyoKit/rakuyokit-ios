@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(tvOS) && !os(visionOS)
 import UIKit
 
 import EpoxyCollectionView
@@ -49,3 +50,4 @@ extension ItemModel {
         return view
     }
 }
+#endif

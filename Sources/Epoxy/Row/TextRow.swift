@@ -6,6 +6,7 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS) && !os(tvOS) && !os(visionOS)
 import UIKit
 
 import EpoxyCore
@@ -103,3 +104,4 @@ extension TextRow: ContentConfigurableView {
 // MARK: BehaviorsConfigurableView
 
 extension TextRow: BehaviorsConfigurableView { }
+#endif
