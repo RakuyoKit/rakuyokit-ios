@@ -88,7 +88,7 @@ extension ButtonRow: StyledView {
         /// Please use `ButtonRow.Content` to set the text color for different states.
         public let titleStyle: TextRow.Style?
 
-        ///
+        /// The edge of button
         public let edgeInsets: EdgeInsets
 
         public init(
@@ -115,39 +115,19 @@ extension ButtonRow: StyledView {
 
         size = style.size
         tintColor = style.tintColor
+        contentEdgeInsets = style.edgeInsets.uiEdgeInsets
 
         if let imageContentModel = style.imageContentModel {
             imageView?.contentMode = imageContentModel
         }
 
-        titleLabel?.font = style.titleStyle?.font
-
-        if #available(iOS 15, *) {
-            configuration = .plain()
-            configuration?.contentInsets = style.edgeInsets.directionalEdgeInsets
-
-            configuration?.titleAlignment =
-                switch style.titleStyle?.alignment {
-                case .center: .center
-                case .left: .leading
-                case .right: .trailing
-                default: .automatic
-                }
-
-            if let lineBreakMode = style.titleStyle?.lineBreakMode {
-                configuration?.titleLineBreakMode = lineBreakMode
-                configuration?.subtitleLineBreakMode = lineBreakMode
+        if let titleStyle = style.titleStyle {
+            titleLabel?.do {
+                $0.font = titleStyle.font
+                $0.textAlignment = titleStyle.alignment
+                $0.numberOfLines = titleStyle.numberOfLines
+                $0.lineBreakMode = titleStyle.lineBreakMode
             }
-
-        } else {
-            if let titleStyle = style.titleStyle {
-                titleLabel?.do {
-                    $0.textAlignment = titleStyle.alignment
-                    $0.numberOfLines = titleStyle.numberOfLines
-                    $0.lineBreakMode = titleStyle.lineBreakMode
-                }
-            }
-            contentEdgeInsets = style.edgeInsets.uiEdgeInsets
         }
 
         addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
