@@ -10,70 +10,78 @@ import UIKit
 
 // MARK: - EdgeInsets
 
+/// Custom edge inset packaging
 ///
+/// Simplify initialization and support quick conversion to `UIEdgeInsets` or `NSDirectionalEdgeInsets`
 public struct EdgeInsets: Equatable, Hashable {
-    public var top: CGFloat
+    public typealias Value = CGFloat
 
-    public var leading: CGFloat
+    public var top: Value
 
-    public var bottom: CGFloat
+    public var leading: Value
 
-    public var trailing: CGFloat
+    public var bottom: Value
+
+    public var trailing: Value
 
     public init(
-        top: CGFloat = .zero,
-        leading: CGFloat = .zero,
-        bottom: CGFloat = .zero,
-        trailing: CGFloat = .zero
+        top: Value = .zero,
+        leading: Value = .zero,
+        bottom: Value = .zero,
+        trailing: Value = .zero
     ) {
         self.top = top
         self.leading = leading
         self.bottom = bottom
-        self.trailing = trailing
-    }
-
-    public init(horizontal: CGFloat = .zero, vertical: CGFloat = .zero) {
-        top = vertical
-        leading = horizontal
-        bottom = vertical
-        trailing = horizontal
-    }
-
-    public init(
-        horizontal: CGFloat = .zero,
-        top: CGFloat = .zero,
-        bottom: CGFloat = .zero
-    ) {
-        self.top = top
-        leading = horizontal
-        self.bottom = bottom
-        trailing = horizontal
-    }
-
-    public init(
-        leading: CGFloat = .zero,
-        trailing: CGFloat = .zero,
-        vertical: CGFloat = .zero
-    ) {
-        top = vertical
-        self.leading = leading
-        bottom = vertical
         self.trailing = trailing
     }
 }
 
-// MARK: -
+// MARK: - Logic
 
 extension EdgeInsets {
     public static var zero: Self {
-        .init(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
+        // Prevent the default values of parameters in future initialization methods from changing
+        .init(inset: .zero)
     }
 
+    /// Through this method, the surrounding distance is set to the same value
+    public init(inset value: Value) {
+        self.init(top: value, leading: value, bottom: value, trailing: value)
+    }
+
+    /// When the upper margins of the axes are the same, this method can be used to simplify the initialization.
+    public init(horizontal: Value, vertical: Value) {
+        self.init(top: vertical, leading: horizontal, bottom: vertical, trailing: horizontal)
+    }
+
+    /// If you only want to set horizontal spacing, use this method
+    public init(horizontal: Value, top: Value = .zero, bottom: Value = .zero) {
+        self.init(top: top, leading: horizontal, bottom: bottom, trailing: horizontal)
+    }
+
+    /// If you only want to set vertical spacing, use this method
+    public init(vertical: Value, leading: Value = .zero, trailing: Value = .zero) {
+        self.init(top: vertical, leading: leading, bottom: vertical, trailing: trailing)
+    }
+}
+
+// MARK: - Transform
+
+extension EdgeInsets {
     public var uiEdgeInsets: UIEdgeInsets {
         .init(top: top, left: leading, bottom: bottom, right: trailing)
     }
 
     public var directionalEdgeInsets: NSDirectionalEdgeInsets {
         .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
+    }
+
+    public init(_ insets: UIEdgeInsets) {
+        self.init(top: insets.top, leading: insets.left, bottom: insets.bottom, trailing: insets.right)
+    }
+
+    public init(_ insets: NSDirectionalEdgeInsets) {
+        self.init(top: insets.top, leading: insets.leading, bottom: insets.bottom, trailing: insets.trailing)
     }
 }
