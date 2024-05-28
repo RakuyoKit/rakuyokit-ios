@@ -23,21 +23,17 @@ public struct OptionalSize<T: FloatingPoint> {
     public init(size: T?) {
         self.init(width: size, height: size)
     }
-
-    public init(_ size: T?) {
-        self.init(size: size)
-    }
 }
 
 // MARK: - Logic
 
 extension OptionalSize {
     public static var zero: Self {
-        .init(0)
+        .init(size: 0)
     }
 
     public static var greatestFiniteMagnitude: Self {
-        .init(.greatestFiniteMagnitude)
+        .init(size: .greatestFiniteMagnitude)
     }
 }
 
