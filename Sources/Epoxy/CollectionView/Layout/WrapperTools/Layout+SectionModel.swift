@@ -15,5 +15,9 @@ extension SectionModel {
     public func layout(_ wrapper: SectionProviderWrapper) -> Self {
         compositionalLayoutSectionProvider(wrapper.provider)
     }
+
+    public func layout(_ section: Layout.Section?) -> Self {
+        compositionalLayoutSection(section)
+    }
 }
 #endif
