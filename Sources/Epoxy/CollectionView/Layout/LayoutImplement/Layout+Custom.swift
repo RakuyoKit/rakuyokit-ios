@@ -19,8 +19,8 @@ extension Extendable where Base: Layout.Section {
     public static func custom(
         layoutEnvironment environment: Layout.Environment,
         style: Layout.Style,
-        header: SupplementaryItem.Style? = nil,
-        footer: SupplementaryItem.Style? = nil,
+        header: SupplementaryItem.Data? = nil,
+        footer: SupplementaryItem.Data? = nil,
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
@@ -43,8 +43,8 @@ extension Extendable where Base: Layout.Compositional {
     
     public static func custom(
         style: Layout.Style,
-        header: SupplementaryItem.Style? = nil,
-        footer: SupplementaryItem.Style? = nil,
+        header: SupplementaryItem.Data? = nil,
+        footer: SupplementaryItem.Data? = nil,
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
@@ -67,8 +67,8 @@ extension SectionProviderWrapper {
     
     public static func custom(
         style: Layout.Style,
-        header: SupplementaryItem.Style? = nil,
-        footer: SupplementaryItem.Style? = nil,
+        header: SupplementaryItem.Data? = nil,
+        footer: SupplementaryItem.Data? = nil,
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {

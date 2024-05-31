@@ -26,8 +26,8 @@ extension Extendable where Base: Layout.Section {
         custom(
             layoutEnvironment: environment,
             style: .list,
-            header: header,
-            footer: footer,
+            header: header.flatMap { .header(style: $0) },
+            footer: footer.flatMap { .footer(style: $0) },
             decoration: decoration,
             edgeInsets: .bottom(spacing.spacing)
         )

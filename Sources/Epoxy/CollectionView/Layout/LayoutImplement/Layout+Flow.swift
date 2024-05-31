@@ -33,8 +33,8 @@ extension Extendable where Base: Layout.Section {
                 scrollingBehavior: behavior,
                 customGroup: customGroup
             ),
-            header: header,
-            footer: footer,
+            header: header.flatMap { .header(style: $0) },
+            footer: footer.flatMap { .footer(style: $0) },
             decoration: decoration,
             edgeInsets: edgeInsets
         )

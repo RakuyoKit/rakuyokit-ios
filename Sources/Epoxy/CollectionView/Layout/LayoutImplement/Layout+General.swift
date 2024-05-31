@@ -42,23 +42,17 @@ extension Extendable where Base: Layout.Section {
 // MARK: - Public Tools
 
 extension Extendable where Base: Layout.Section {
-    public static func createSectionHeader(
-        pinToVisible isPin: Bool
-    ) -> NSCollectionLayoutBoundarySupplementaryItem {
+    public static func createSectionHeader(with item: SupplementaryItem.Data) -> Layout.SupplementaryItem {
         createSupplementaryItem(
-            elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top,
-            pinToVisible: isPin
+            with: item,
+            elementKind: UICollectionView.elementKindSectionHeader
         )
     }
     
-    public static func createSectionFooter(
-        pinToVisible isPin: Bool
-    ) -> NSCollectionLayoutBoundarySupplementaryItem {
+    public static func createSectionFooter(with item: SupplementaryItem.Data) -> Layout.SupplementaryItem {
         createSupplementaryItem(
-            elementKind: UICollectionView.elementKindSectionFooter,
-            alignment: .bottom,
-            pinToVisible: isPin
+            with: item,
+            elementKind: UICollectionView.elementKindSectionFooter
         )
     }
 }
@@ -66,32 +60,12 @@ extension Extendable where Base: Layout.Section {
 // MARK: - Internal Tools
 
 extension Extendable where Base: Layout.Section {
-    static func createBoundarySupplementaryItems(
-        by supplementaryItem: SupplementaryItem?
-    ) -> [NSCollectionLayoutBoundarySupplementaryItem] {
-        guard let supplementaryItem else { return [] }
-
-        var result: [NSCollectionLayoutBoundarySupplementaryItem] = []
-
-        if let header = supplementaryItem.header {
-            switch header {
-            case .normal:
-                result.append(createSectionHeader(pinToVisible: false))
-            case .pin:
-                result.append(createSectionHeader(pinToVisible: true))
-            }
-        }
-
-        if let footer = supplementaryItem.footer {
-            switch footer {
-            case .normal:
-                result.append(createSectionFooter(pinToVisible: false))
-            case .pin:
-                result.append(createSectionFooter(pinToVisible: true))
-            }
-        }
-
-        return result
+    static func createBoundarySupplementaryItems(by supplementaryItem: SupplementaryItem?) -> [Layout.SupplementaryItem] {
+        [
+            supplementaryItem?.header.flatMap { createSectionHeader(with: $0) },
+            supplementaryItem?.footer.flatMap { createSectionHeader(with: $0) },
+        ]
+        .compactMap { $0 }
     }
 }
 
@@ -163,20 +137,16 @@ extension Extendable where Base: Layout.Section {
     }
     
     private static func createSupplementaryItem(
-        elementKind: String,
-        alignment: NSRectAlignment,
-        pinToVisible isPin: Bool
-    ) -> NSCollectionLayoutBoundarySupplementaryItem {
+        with item: SupplementaryItem.Data,
+        elementKind: String
+    ) -> Layout.SupplementaryItem {
         .init(
-            layoutSize: .init(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .estimated(50)
-            ),
+            layoutSize: item.size,
             elementKind: elementKind,
-            alignment: alignment
+            alignment: item.alignment
         )
         .then {
-            $0.pinToVisibleBounds = isPin
+            $0.pinToVisibleBounds = item.style.pinToVisible
         }
     }
 }
