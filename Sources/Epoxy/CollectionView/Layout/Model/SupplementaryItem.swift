@@ -61,7 +61,7 @@ extension SupplementaryItem {
     }
 
     public static func header(
-        style: Style,
+        style: Style = .normal,
         alignment: NSRectAlignment = .top,
         size: Layout.Size = Self.defaultSize
     ) -> Self {
@@ -74,7 +74,7 @@ extension SupplementaryItem {
     }
 
     public static func footer(
-        style: Style,
+        style: Style = .normal,
         alignment: NSRectAlignment = .bottom,
         size: Layout.Size = Self.defaultSize
     ) -> Self {
