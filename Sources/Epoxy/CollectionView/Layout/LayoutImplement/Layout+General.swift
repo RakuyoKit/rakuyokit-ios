@@ -16,7 +16,7 @@ extension Extendable where Base: Layout.Section {
     public static func create(
         layoutEnvironment _: Layout.Environment,
         style: Layout.Style,
-        supplementaryItem: SupplementaryItem? = nil,
+        supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
@@ -25,8 +25,10 @@ extension Extendable where Base: Layout.Section {
         
         return .init(group: group).then { section in
             section.contentInsets = edgeInsets.edgeInsets
-            section.boundarySupplementaryItems = createBoundarySupplementaryItems(by: supplementaryItem)
-            
+            section.boundarySupplementaryItems = supplementaryItems.map {
+                createSupplementaryItem(with: $0)
+            }
+
             if case .flow(_, let behavior, _) = style {
                 section.orthogonalScrollingBehavior = behavior
             }
@@ -42,28 +44,28 @@ extension Extendable where Base: Layout.Section {
 // MARK: - Public Tools
 
 extension Extendable where Base: Layout.Section {
-    public static func createSectionHeader(with item: SupplementaryItem.Data) -> Layout.SupplementaryItem {
-        createSupplementaryItem(
-            with: item,
-            elementKind: UICollectionView.elementKindSectionHeader
+    static func createSupplementaryItem(with item: SupplementaryItem) -> Layout.SupplementaryItem {
+        .init(
+            layoutSize: item.size,
+            elementKind: item.elementKind,
+            alignment: item.alignment
         )
-    }
-    
-    public static func createSectionFooter(with item: SupplementaryItem.Data) -> Layout.SupplementaryItem {
-        createSupplementaryItem(
-            with: item,
-            elementKind: UICollectionView.elementKindSectionFooter
-        )
+        .then {
+            $0.pinToVisibleBounds = item.style.pinToVisible
+        }
     }
 }
 
 // MARK: - Internal Tools
 
 extension Extendable where Base: Layout.Section {
-    static func createBoundarySupplementaryItems(by supplementaryItem: SupplementaryItem?) -> [Layout.SupplementaryItem] {
+    static func createSupplementaryItems(
+        header: SupplementaryItem.Style?,
+        footer: SupplementaryItem.Style?
+    ) -> [SupplementaryItem] {
         [
-            supplementaryItem?.header.flatMap { createSectionHeader(with: $0) },
-            supplementaryItem?.footer.flatMap { createSectionHeader(with: $0) },
+            header.flatMap { .header(style: $0) },
+            footer.flatMap { .footer(style: $0) },
         ]
         .compactMap { $0 }
     }
@@ -134,20 +136,6 @@ extension Extendable where Base: Layout.Section {
         decorationItem.contentInsets = edgeInsets.edgeInsets
         
         return [decorationItem]
-    }
-    
-    private static func createSupplementaryItem(
-        with item: SupplementaryItem.Data,
-        elementKind: String
-    ) -> Layout.SupplementaryItem {
-        .init(
-            layoutSize: item.size,
-            elementKind: elementKind,
-            alignment: item.alignment
-        )
-        .then {
-            $0.pinToVisibleBounds = item.style.pinToVisible
-        }
     }
 }
 #endif

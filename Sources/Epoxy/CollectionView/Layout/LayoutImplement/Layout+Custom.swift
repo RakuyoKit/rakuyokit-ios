@@ -19,18 +19,14 @@ extension Extendable where Base: Layout.Section {
     public static func custom(
         layoutEnvironment environment: Layout.Environment,
         style: Layout.Style,
-        header: SupplementaryItem.Data? = nil,
-        footer: SupplementaryItem.Data? = nil,
+        supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         create(
             layoutEnvironment: environment,
             style: style,
-            supplementaryItem: .init(
-                header: header,
-                footer: footer
-            ),
+            supplementaryItems: supplementaryItems,
             decoration: decoration,
             edgeInsets: edgeInsets
         )
@@ -43,8 +39,7 @@ extension Extendable where Base: Layout.Compositional {
     
     public static func custom(
         style: Layout.Style,
-        header: SupplementaryItem.Data? = nil,
-        footer: SupplementaryItem.Data? = nil,
+        supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
@@ -52,8 +47,7 @@ extension Extendable where Base: Layout.Compositional {
             Layout.Section.rak.custom(
                 layoutEnvironment: environment,
                 style: style,
-                header: header,
-                footer: footer,
+                supplementaryItems: supplementaryItems,
                 decoration: decoration,
                 edgeInsets: edgeInsets
             )
@@ -67,8 +61,7 @@ extension SectionProviderWrapper {
     
     public static func custom(
         style: Layout.Style,
-        header: SupplementaryItem.Data? = nil,
-        footer: SupplementaryItem.Data? = nil,
+        supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
@@ -76,8 +69,7 @@ extension SectionProviderWrapper {
             Layout.Section.rak.custom(
                 layoutEnvironment: $0,
                 style: style,
-                header: header,
-                footer: footer,
+                supplementaryItems: supplementaryItems,
                 decoration: decoration,
                 edgeInsets: edgeInsets
             )
