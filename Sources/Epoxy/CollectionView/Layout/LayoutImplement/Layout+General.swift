@@ -16,7 +16,7 @@ extension Extendable where Base: Layout.Section {
     public static func create(
         layoutEnvironment _: Layout.Environment,
         style: Layout.Style,
-        supplementaryItem: SupplementaryItem? = nil,
+        supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
@@ -25,8 +25,10 @@ extension Extendable where Base: Layout.Section {
         
         return .init(group: group).then { section in
             section.contentInsets = edgeInsets.edgeInsets
-            section.boundarySupplementaryItems = createBoundarySupplementaryItems(by: supplementaryItem)
-            
+            section.boundarySupplementaryItems = supplementaryItems.map {
+                createSupplementaryItem(with: $0)
+            }
+
             if case .flow(_, let behavior, _) = style {
                 section.orthogonalScrollingBehavior = behavior
             }
@@ -42,56 +44,30 @@ extension Extendable where Base: Layout.Section {
 // MARK: - Public Tools
 
 extension Extendable where Base: Layout.Section {
-    public static func createSectionHeader(
-        pinToVisible isPin: Bool
-    ) -> NSCollectionLayoutBoundarySupplementaryItem {
-        createSupplementaryItem(
-            elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top,
-            pinToVisible: isPin
+    static func createSupplementaryItem(with item: SupplementaryItem) -> Layout.SupplementaryItem {
+        .init(
+            layoutSize: item.size,
+            elementKind: item.elementKind,
+            alignment: item.alignment
         )
-    }
-    
-    public static func createSectionFooter(
-        pinToVisible isPin: Bool
-    ) -> NSCollectionLayoutBoundarySupplementaryItem {
-        createSupplementaryItem(
-            elementKind: UICollectionView.elementKindSectionFooter,
-            alignment: .bottom,
-            pinToVisible: isPin
-        )
+        .then {
+            $0.pinToVisibleBounds = item.style.pinToVisible
+        }
     }
 }
 
 // MARK: - Internal Tools
 
 extension Extendable where Base: Layout.Section {
-    static func createBoundarySupplementaryItems(
-        by supplementaryItem: SupplementaryItem?
-    ) -> [NSCollectionLayoutBoundarySupplementaryItem] {
-        guard let supplementaryItem else { return [] }
-
-        var result: [NSCollectionLayoutBoundarySupplementaryItem] = []
-
-        if let header = supplementaryItem.header {
-            switch header {
-            case .normal:
-                result.append(createSectionHeader(pinToVisible: false))
-            case .pin:
-                result.append(createSectionHeader(pinToVisible: true))
-            }
-        }
-
-        if let footer = supplementaryItem.footer {
-            switch footer {
-            case .normal:
-                result.append(createSectionFooter(pinToVisible: false))
-            case .pin:
-                result.append(createSectionFooter(pinToVisible: true))
-            }
-        }
-
-        return result
+    static func createSupplementaryItems(
+        header: SupplementaryItem.Style?,
+        footer: SupplementaryItem.Style?
+    ) -> [SupplementaryItem] {
+        [
+            header.flatMap { .header(style: $0) },
+            footer.flatMap { .footer(style: $0) },
+        ]
+        .compactMap { $0 }
     }
 }
 
@@ -160,24 +136,6 @@ extension Extendable where Base: Layout.Section {
         decorationItem.contentInsets = edgeInsets.edgeInsets
         
         return [decorationItem]
-    }
-    
-    private static func createSupplementaryItem(
-        elementKind: String,
-        alignment: NSRectAlignment,
-        pinToVisible isPin: Bool
-    ) -> NSCollectionLayoutBoundarySupplementaryItem {
-        .init(
-            layoutSize: .init(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .estimated(50)
-            ),
-            elementKind: elementKind,
-            alignment: alignment
-        )
-        .then {
-            $0.pinToVisibleBounds = isPin
-        }
     }
 }
 #endif

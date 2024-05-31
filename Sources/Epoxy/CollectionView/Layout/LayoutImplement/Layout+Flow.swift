@@ -33,8 +33,7 @@ extension Extendable where Base: Layout.Section {
                 scrollingBehavior: behavior,
                 customGroup: customGroup
             ),
-            header: header,
-            footer: footer,
+            supplementaryItems: createSupplementaryItems(header: header, footer: footer),
             decoration: decoration,
             edgeInsets: edgeInsets
         )

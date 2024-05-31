@@ -26,8 +26,7 @@ extension Extendable where Base: Layout.Section {
         custom(
             layoutEnvironment: environment,
             style: .list,
-            header: header,
-            footer: footer,
+            supplementaryItems: createSupplementaryItems(header: header, footer: footer),
             decoration: decoration,
             edgeInsets: .bottom(spacing.spacing)
         )

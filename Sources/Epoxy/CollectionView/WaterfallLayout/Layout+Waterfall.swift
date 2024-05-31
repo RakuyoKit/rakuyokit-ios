@@ -24,9 +24,9 @@ extension Extendable where Base: Layout.Section {
     ) -> Base {
         let section: Base = WaterfallCompositionalLayout.makeLayoutSection(environment: environment, config: config)
         return section.then {
-            $0.boundarySupplementaryItems = createBoundarySupplementaryItems(
-                by: .init(header: header, footer: footer)
-            )
+            $0.boundarySupplementaryItems = createSupplementaryItems(header: header, footer: footer).map {
+                createSupplementaryItem(with: $0)
+            }
         }
     }
 }

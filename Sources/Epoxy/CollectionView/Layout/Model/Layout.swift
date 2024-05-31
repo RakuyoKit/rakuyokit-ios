@@ -28,7 +28,9 @@ public enum Layout {
     public typealias ScrollingBehavior = UICollectionLayoutSectionOrthogonalScrollingBehavior
     
     public typealias Group = NSCollectionLayoutGroup
-    
+
+    public typealias SupplementaryItem = NSCollectionLayoutBoundarySupplementaryItem
+
     public typealias CustomGroupFactory = (_ itemSize: Size) -> Group
     
     /// Styles

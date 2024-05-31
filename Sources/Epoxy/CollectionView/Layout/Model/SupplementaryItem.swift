@@ -6,7 +6,10 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
-import Foundation
+#if !os(watchOS)
+import UIKit
+
+// MARK: - SupplementaryItem
 
 /// Header/Footer
 public struct SupplementaryItem {
@@ -14,24 +17,73 @@ public struct SupplementaryItem {
     public enum Style {
         /// Normal style
         case normal
-        
+
         /// Sticky style
         case pin
+
+        var pinToVisible: Bool {
+            switch self {
+            case .normal: false
+            case .pin: true
+            }
+        }
     }
-    
-    /// Header
-    let header: Style?
-    
-    /// Footer
-    let footer: Style?
-    
-    /// Configure Supplementary Item
-    ///
-    /// - Parameters:
-    ///   - header: Section header
-    ///   - footer: Section footer
-    public init(header: Style? = nil, footer: Style? = nil) {
-        self.header = header
-        self.footer = footer
+
+    public let elementKind: String
+
+    public let style: Style
+
+    public let alignment: NSRectAlignment
+
+    public let size: Layout.Size
+
+    public init(
+        elementKind: String,
+        style: Style,
+        alignment: NSRectAlignment,
+        size: Layout.Size = Self.defaultSize
+    ) {
+        self.elementKind = elementKind
+        self.style = style
+        self.alignment = alignment
+        self.size = size
     }
 }
+
+// MARK: -
+
+extension SupplementaryItem {
+    public static var defaultSize: Layout.Size {
+        .init(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .estimated(50)
+        )
+    }
+
+    public static func header(
+        style: Style,
+        alignment: NSRectAlignment = .top,
+        size: Layout.Size = Self.defaultSize
+    ) -> Self {
+        .init(
+            elementKind: UICollectionView.elementKindSectionHeader,
+            style: style,
+            alignment: alignment,
+            size: size
+        )
+    }
+
+    public static func footer(
+        style: Style,
+        alignment: NSRectAlignment = .bottom,
+        size: Layout.Size = Self.defaultSize
+    ) -> Self {
+        .init(
+            elementKind: UICollectionView.elementKindSectionFooter,
+            style: style,
+            alignment: alignment,
+            size: size
+        )
+    }
+}
+#endif
