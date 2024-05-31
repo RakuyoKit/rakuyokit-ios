@@ -44,7 +44,7 @@ extension Extendable where Base: Layout.Section {
 // MARK: - Public Tools
 
 extension Extendable where Base: Layout.Section {
-    static func createSupplementaryItem(with item: SupplementaryItem) -> Layout.SupplementaryItem {
+    public static func createSupplementaryItem(with item: SupplementaryItem) -> Layout.SupplementaryItem {
         .init(
             layoutSize: item.size,
             elementKind: item.elementKind,
