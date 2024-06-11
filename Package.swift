@@ -52,7 +52,7 @@ let package = Package(
             dependencies: ["RaLog", "Then"],
             path: "Sources/Core",
             resources: [
-                .copy("../PrivacyInfo.xcprivacy"),
+                .process("../PrivacyInfo.xcprivacy"),
             ]
         ),
         
