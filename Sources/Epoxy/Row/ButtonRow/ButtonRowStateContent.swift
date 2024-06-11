@@ -14,11 +14,17 @@ import RAKCore
 /// Used to indicate what data corresponds to each UIButton state.
 ///
 /// Used internally to simplify the creation of `ButtonRow.Content` in `.normal` state.
-protocol ButtonRowStateContent {
+public protocol ButtonRowStateContent {
     associatedtype ImageContent
 
     init(
         image: ImageContent?,
+        title: TextRow.Content?,
+        titleColor: ConvertibleToColor
+    )
+
+    init(
+        image: (some ButtonImageContentProviding)?,
         title: TextRow.Content?,
         titleColor: ConvertibleToColor
     )
