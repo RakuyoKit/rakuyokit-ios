@@ -185,6 +185,14 @@ extension ButtonRow: ContentConfigurableView {
                 self.title = title
                 self.titleColor = titleColor.color
             }
+
+            public init(
+                image: (some ButtonImageContentProviding)? = nil,
+                title: TextRow.Content? = nil,
+                titleColor: ConvertibleToColor = UIColor.label
+            ) {
+                self.init(image: .init(image), title: title, titleColor: titleColor)
+            }
         }
 
         case normal(StateContent)
@@ -199,6 +207,15 @@ extension ButtonRow: ContentConfigurableView {
             titleColor: ConvertibleToColor = UIColor.label
         ) {
             self = .normal(.init(image: image, title: title, titleColor: titleColor))
+        }
+
+        /// Conveniently set styles in `.normal` state
+        public init(
+            image: (some ButtonImageContentProviding)? = nil,
+            title: TextRow.Content? = nil,
+            titleColor: ConvertibleToColor = UIColor.label
+        ) {
+            self.init(image: .init(image), title: title, titleColor: titleColor)
         }
     }
 
