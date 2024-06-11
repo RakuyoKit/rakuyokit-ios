@@ -4,7 +4,42 @@ All notable changes to this project are documented in this file.
 
 -----
 
-## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.0.5...HEAD)
+## [Unreleased](https://github.com/RakuyoKit/RakuyoKit/compare/1.2.0...HEAD)
+
+-----
+
+## [1.2.0](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.2.0) (2024-5-10)
+
+### Added
+
+- Add `AnimationDuration`. [#18](https://github.com/RakuyoKit/RakuyoKit/pull/18) @rakuyoMo
+- Add `DispatchQueue` extension. [#18](https://github.com/RakuyoKit/RakuyoKit/pull/18) @rakuyoMo
+- Add multiple UI extension tools. [#18](https://github.com/RakuyoKit/RakuyoKit/pull/18) @rakuyoMo
+
+### Fixed
+
+- Fix `RAKGRDB` annotation errors. [#17](https://github.com/RakuyoKit/RakuyoKit/pull/17) @rakuyoMo
+
+### Changed
+
+- Refactor: `DictionaryExtendable` -> `TwoGenericExtendable`. [#18](https://github.com/RakuyoKit/RakuyoKit/pull/18) @rakuyoMo
+- Improve the behavior of FastCell under visionOS. [#18](https://github.com/RakuyoKit/RakuyoKit/pull/18) @rakuyoMo
+
+-----
+
+## [1.1.0](https://github.com/RakuyoKit/RakuyoKit/releases/tag/1.1.0) (2024-5-9)
+
+### Added
+
+- Add `GenericExtendable`, And transfer collection type to `GenericExtendable`. [#16](https://github.com/RakuyoKit/RakuyoKit/pull/16) @rakuyoMo
+- Adds `rak` expansion space for multiple system types. [#16](https://github.com/RakuyoKit/RakuyoKit/pull/16) @rakuyoMo
+- Add `RAKGRDB`. [#16](https://github.com/RakuyoKit/RakuyoKit/pull/16) @rakuyoMo
+
+### Changed
+
+- Put the CGFloat extension under the namespace. [#15](https://github.com/RakuyoKit/RakuyoKit/pull/15) @rakuyoMo
+- Add `alignPixel` func to CGFloat extension. [#15](https://github.com/RakuyoKit/RakuyoKit/pull/15) @rakuyoMo
+- Improve compatibility. [#16](https://github.com/RakuyoKit/RakuyoKit/pull/16) @rakuyoMo
 
 -----
 
