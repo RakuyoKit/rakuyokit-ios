@@ -23,6 +23,14 @@ extension Extendable where Base: CodableRecord {
     }
 }
 
+// MARK: - Delete
+
+extension Extendable where Base: CodableRecord {
+    public func delete() throws -> Bool {
+        try Base.database?.write { try base.delete($0) } ?? false
+    }
+}
+
 // MARK: - Update
 
 extension Extendable where Base: CodableRecord {
