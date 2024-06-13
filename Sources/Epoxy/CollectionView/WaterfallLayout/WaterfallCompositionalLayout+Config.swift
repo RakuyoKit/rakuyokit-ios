@@ -11,6 +11,7 @@
 import UIKit
 
 extension WaterfallCompositionalLayout {
+    public typealias ItemWidthProvider = (_ index: Int, _ collectionWidth: CGFloat) -> CGFloat
     public typealias ItemHeightProvider = (_ index: Int, _ itemWidth: CGFloat) -> CGFloat
     public typealias ItemCountProvider = () -> Int
 
@@ -54,8 +55,9 @@ extension WaterfallCompositionalLayout {
         public let arrangementStyle: ArrangementStyle
         public let interItemSpacing: CGFloat
         public let contentInsets: SectionEdgeInsets?
-        public let itemHeightProvider: ItemHeightProvider
         public let itemCountProvider: ItemCountProvider
+        public let itemWidthProvider: ItemWidthProvider?
+        public let itemHeightProvider: ItemHeightProvider
 
         /// Initialization for configuration of waterfall compositional layout section
         ///
@@ -72,6 +74,7 @@ extension WaterfallCompositionalLayout {
             interItemSpacing: CGFloat = 0,
             contentInsets: SectionEdgeInsets? = nil,
             itemCountProvider: @escaping ItemCountProvider,
+            itemWidthProvider: ItemWidthProvider? = nil,
             itemHeightProvider: @escaping ItemHeightProvider
         ) {
             self.columnCount = columnCount
@@ -79,6 +82,7 @@ extension WaterfallCompositionalLayout {
             self.interItemSpacing = interItemSpacing
             self.contentInsets = contentInsets
             self.itemCountProvider = itemCountProvider
+            self.itemWidthProvider = itemWidthProvider
             self.itemHeightProvider = itemHeightProvider
         }
     }
