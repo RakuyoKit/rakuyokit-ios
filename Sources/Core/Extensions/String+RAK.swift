@@ -8,6 +8,18 @@
 
 import UIKit
 
+// MARK: - Judgment
+
+extension Extendable where Base == String {
+    public func isContainsEmoji() -> Bool {
+        base.contains { $0.rak.isEmoji }
+    }
+
+    public func isOnlyContainsEmojis() -> Bool {
+        !base.isEmpty && !base.contains { !$0.rak.isEmoji }
+    }
+}
+
 // MARK: - Conversion
 
 extension Extendable where Base == String {
