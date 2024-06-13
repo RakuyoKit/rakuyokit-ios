@@ -18,6 +18,7 @@ extension WaterfallCompositionalLayout {
         private let columnCount: CGFloat
         private let arrangementStyle: Configuration.ArrangementStyle
         private var columnHeights: [CGFloat]
+        private let itemWidthProvider: ItemWidthProvider?
         private let itemHeightProvider: ItemHeightProvider
         private let interItemSpacing: CGFloat
         private let contentInsets: NSDirectionalEdgeInsets
@@ -27,6 +28,7 @@ extension WaterfallCompositionalLayout {
             columnCount = CGFloat(config.columnCount)
             arrangementStyle = config.arrangementStyle
             columnHeights = [CGFloat](repeating: 0, count: config.columnCount)
+            itemWidthProvider = config.itemWidthProvider
             itemHeightProvider = config.itemHeightProvider
             interItemSpacing = config.interItemSpacing
             contentInsets = config.contentInsets.edgeInsets
@@ -53,7 +55,7 @@ extension WaterfallCompositionalLayout.LayoutBuilder {
     }
 
     fileprivate func frame(for row: Int) -> CGRect {
-        let width = columnWidth
+        let width = itemWidthProvider?(row, collectionWidth) ?? columnWidth
         let height = itemHeightProvider(row, width)
         let size = CGSize(width: width, height: height)
         let origin = itemOrigin(for: row, width: size.width)
