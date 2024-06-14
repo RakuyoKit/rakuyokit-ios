@@ -76,11 +76,11 @@ extension BaseViewController {
 // MARK: - Life cycle extension
 
 extension BaseViewController {
-    @objc
-    open func viewWillAppear(_: Bool, isFirstEnter _: Bool) { }
-    
-    @objc
-    open func viewDidAppear(_: Bool, isFirstEnter _: Bool) { }
+    @objc // swiftformat:disable:next unusedArguments
+    open func viewWillAppear(_ animated: Bool, isFirstEnter: Bool) { }
+
+    @objc // swiftformat:disable:next unusedArguments
+    open func viewDidAppear(_ animated: Bool, isFirstEnter: Bool) { }
 }
 
 // MARK: - Log
