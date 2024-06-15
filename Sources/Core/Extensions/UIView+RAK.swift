@@ -162,5 +162,10 @@ extension Extendable where Base: UIView {
             }
         }
     }
+
+    public func removeLayoutMargins() {
+        base.layoutMargins = .zero
+        base.insetsLayoutMarginsFromSafeArea = false
+    }
 }
 #endif
