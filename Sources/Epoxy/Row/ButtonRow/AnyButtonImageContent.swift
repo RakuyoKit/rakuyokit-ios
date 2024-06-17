@@ -54,8 +54,10 @@ extension AnyButtonImageContent: FastImageContentProviding {
         .init(UIImage(contentsOfFile: path))
     }
 
-    public static func sfSymbols(name: String, configuration: UIImage.SymbolConfiguration? = nil) -> Self {
-        .init(UIImage(systemName: name, withConfiguration: configuration))
+    public static func sfSymbols(name: String, color: UIColor? = nil, configuration: UIImage.SymbolConfiguration? = nil) -> Self {
+        let image = UIImage(systemName: name, withConfiguration: configuration)
+        let finalImage = color.flatMap { image?.withTintColor($0, renderingMode: .alwaysOriginal) } ?? image
+        return .init(finalImage)
     }
 }
 #endif
