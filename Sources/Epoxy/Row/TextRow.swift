@@ -26,7 +26,7 @@ public final class TextRow: UILabel {
 
 extension TextRow {
     override public var intrinsicContentSize: CGSize {
-        let superSize = super.intrinsicContentSize
+        lazy var superSize = super.intrinsicContentSize
         guard let size else { return superSize }
 
         return .init(
