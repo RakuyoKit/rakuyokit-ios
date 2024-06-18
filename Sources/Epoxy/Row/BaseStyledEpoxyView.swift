@@ -26,5 +26,13 @@ open class BaseStyledEpoxyView<Style: Hashable>: RAKBase.BaseView, StyledView {
     public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: Config
+
+    override open func config() {
+        super.config()
+
+        translatesAutoresizingMaskIntoConstraints = false
+    }
 }
 #endif
