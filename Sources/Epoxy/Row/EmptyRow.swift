@@ -61,6 +61,22 @@ extension EmptyRow {
 
         public let borderWidth: CGFloat
         public let borderColor: UIColor?
+
+        public init(
+            size: OptionalCGSize? = nil,
+            backgroundColor: ConvertibleToColor? = nil,
+            cornerRadius: CGFloat = 0,
+            masksToBounds: Bool = false,
+            borderWidth: CGFloat = 0,
+            borderColor: ConvertibleToColor? = nil
+        ) {
+            self.size = size
+            self.backgroundColor = backgroundColor?.color
+            self.cornerRadius = cornerRadius
+            self.masksToBounds = masksToBounds
+            self.borderWidth = borderWidth
+            self.borderColor = borderColor?.color
+        }
     }
 }
 
