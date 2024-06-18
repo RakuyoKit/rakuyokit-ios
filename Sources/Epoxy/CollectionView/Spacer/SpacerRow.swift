@@ -15,7 +15,19 @@ import RAKConfig
 // MARK: - SpacerRow
 
 /// View used for filling spacing in CollectionView
-public final class SpacerRow: BaseStyledEpoxyView<SpacerRow.Style> {
+public final class SpacerRow: BaseStyledEpoxyView<SpacerRow.Style> { }
+
+// MARK: Life cycle
+
+extension SpacerRow {
+    override public var intrinsicContentSize: CGSize {
+        .init(width: UIView.noIntrinsicMetric, height: style.height)
+    }
+}
+
+// MARK: Config
+
+extension SpacerRow {
     override public func config() {
         super.config()
 
@@ -53,14 +65,6 @@ extension SpacerRow: ContentConfigurableView { }
 // MARK: BehaviorsConfigurableView
 
 extension SpacerRow: BehaviorsConfigurableView { }
-
-// MARK: - Life cycle
-
-extension SpacerRow {
-    override public var intrinsicContentSize: CGSize {
-        .init(width: UIView.noIntrinsicMetric, height: style.height)
-    }
-}
 
 // MARK: - SpacerRow.Style + ExpressibleByFloatLiteral
 

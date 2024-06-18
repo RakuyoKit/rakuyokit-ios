@@ -31,11 +31,11 @@ public final class ButtonRow: UIButton {
     private lazy var didTriggerMenuAction: ButtonClosure? = nil
 }
 
-// MARK: - Life cycle
+// MARK: Life cycle
 
 extension ButtonRow {
     override public var intrinsicContentSize: CGSize {
-        let superSize = super.intrinsicContentSize
+        lazy var superSize = super.intrinsicContentSize
         guard let size else { return superSize }
 
         return .init(
