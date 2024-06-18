@@ -31,7 +31,7 @@ public final class ButtonRow: UIButton {
     private lazy var didTriggerMenuAction: ButtonClosure? = nil
 }
 
-// MARK: - Life cycle
+// MARK: Life cycle
 
 extension ButtonRow {
     override public var intrinsicContentSize: CGSize {

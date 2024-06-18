@@ -23,7 +23,7 @@ public final class ImageRow: UIImageView {
     private lazy var size: OptionalCGSize? = nil
 }
 
-// MARK: - Life cycle
+// MARK: Life cycle
 
 extension ImageRow {
     override public var intrinsicContentSize: CGSize {

@@ -22,7 +22,7 @@ public final class TextRow: UILabel {
     private lazy var size: OptionalCGSize? = nil
 }
 
-// MARK: - Life cycle
+// MARK: Life cycle
 
 extension TextRow {
     override public var intrinsicContentSize: CGSize {
