@@ -48,12 +48,16 @@ extension RotatableViewController {
         switch UIDevice.current.orientation {
         case .portrait, .faceUp, .faceDown:
             return .portrait
-            
-        case .unknown: return .unknown
-        case .portraitUpsideDown: return .portraitUpsideDown
-        case .landscapeLeft: return .landscapeLeft
-        case .landscapeRight: return .landscapeRight
-        @unknown default: return .portrait
+        case .unknown:
+            return .unknown
+        case .portraitUpsideDown:
+            return .portraitUpsideDown
+        case .landscapeLeft:
+            return .landscapeLeft
+        case .landscapeRight:
+            return .landscapeRight
+        @unknown default:
+            return .portrait
         }
     }
 }

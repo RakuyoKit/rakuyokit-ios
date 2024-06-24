@@ -42,7 +42,7 @@ extension TextFieldRow {
 // MARK: StyledView
 
 extension TextFieldRow: StyledView {
-    public struct Style: Hashable {
+    public struct Style: Hashable, RowConfigureApplicable {
         public let font: UIFont
         public let textColor: UIColor
         public let placeholderColor: UIColor
@@ -86,6 +86,21 @@ extension TextFieldRow: StyledView {
             self.returnKeyType = returnKeyType
             self.enablesReturnKeyAutomatically = enablesReturnKeyAutomatically
         }
+
+        public func apply(to row: UITextField) {
+            row.font = font
+            row.textColor = textColor
+            row.textAlignment = alignment
+            row.clearButtonMode = clearButtonMode
+            row.keyboardType = keyboardType
+            row.keyboardAppearance = keyboardAppearance
+            row.autocapitalizationType = autocapitalizationType
+            row.autocorrectionType = autocorrectionType
+            row.spellCheckingType = spellCheckingType
+            row.textContentType = textContentType
+            row.returnKeyType = returnKeyType
+            row.enablesReturnKeyAutomatically = enablesReturnKeyAutomatically
+        }
     }
 
     public convenience init(style: Style) {
@@ -93,19 +108,9 @@ extension TextFieldRow: StyledView {
 
         translatesAutoresizingMaskIntoConstraints = false
 
-        font = style.font
-        textColor = style.textColor
         placeholderColor = style.placeholderColor
-        textAlignment = style.alignment
-        clearButtonMode = style.clearButtonMode
-        keyboardType = style.keyboardType
-        keyboardAppearance = style.keyboardAppearance
-        autocapitalizationType = style.autocapitalizationType
-        autocorrectionType = style.autocorrectionType
-        spellCheckingType = style.spellCheckingType
-        textContentType = style.textContentType
-        returnKeyType = style.returnKeyType
-        enablesReturnKeyAutomatically = style.enablesReturnKeyAutomatically
+
+        style.apply(to: self)
 
         addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
@@ -114,7 +119,7 @@ extension TextFieldRow: StyledView {
 // MARK: ContentConfigurableView
 
 extension TextFieldRow: ContentConfigurableView {
-    public struct Content: Equatable, ExpressibleByStringInterpolation {
+    public struct Content: Equatable, ExpressibleByStringInterpolation, RowConfigureApplicable {
         public let text: String?
         public let placeholder: String?
         public let secure: Bool
@@ -135,26 +140,29 @@ extension TextFieldRow: ContentConfigurableView {
         public init(stringLiteral value: String) {
             self.init(text: value)
         }
+
+        public func apply(to row: UITextField) {
+            row.text = text
+            row.placeholder = placeholder
+            row.isSecureTextEntry = secure
+            row.isEnabled = isEnabled
+        }
     }
 
     public func setContent(_ content: Content, animated _: Bool) {
-        text = content.text
-        placeholder = content.placeholder
+        content.apply(to: self)
 
         attributedPlaceholder = content.placeholder.flatMap {
             let placeholderColor = placeholderColor ?? textColor ?? .placeholderText
             return .init(string: $0, attributes: [.foregroundColor: placeholderColor])
         }
-
-        isSecureTextEntry = content.secure
-        isEnabled = content.isEnabled
     }
 }
 
 // MARK: BehaviorsConfigurableView
 
 extension TextFieldRow: BehaviorsConfigurableView {
-    public struct Behaviors {
+    public struct Behaviors: HigherOrderFunctionalizable {
         public typealias ContentPublisher = AnyPublisher<String, Never>
         public typealias TextFieldCallback = (UITextField) -> Void
         public typealias TextFieldValueCallback = (String?) -> Void

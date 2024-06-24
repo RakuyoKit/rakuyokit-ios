@@ -16,7 +16,7 @@ extension Extendable where Base == UIRectCorner {
     public static var top: Self {
         Base([.topLeft, .topRight]).rak
     }
-    
+
     public static var bottom: Self {
         Base([.bottomLeft, .bottomRight]).rak
     }

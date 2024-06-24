@@ -13,13 +13,13 @@ extension Extendable where Base: UICollectionView {
     private var orthogonalScrollViewType: String {
         "_UICollectionViewOrthogonalScrollerEmbeddedScrollView"
     }
-    
+
     /// When `UICollectionViewCompositionalLayout` + `orthogonalScrollingBehavior` are used together,
     /// the first `_UICollectionViewOrthogonalScrollerEmbeddedScrollView` view inside UICollectionView
     public var orthogonalScrollView: UIScrollView? {
         base.subviews.first { "\(type(of: $0))" == orthogonalScrollViewType } as? UIScrollView
     }
-    
+
     /// When `UICollectionViewCompositionalLayout` + `orthogonalScrollingBehavior` are used together,
     /// the `_UICollectionViewOrthogonalScrollerEmbeddedScrollView` view collection inside UICollectionView
     public var orthogonalScrollViews: [UIScrollView] {

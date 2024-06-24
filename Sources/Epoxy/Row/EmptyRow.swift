@@ -40,19 +40,14 @@ extension EmptyRow {
     override public func config() {
         super.config()
 
-        backgroundColor = style.backgroundColor
-
-        layer.cornerRadius = style.cornerRadius
-        layer.masksToBounds = style.masksToBounds
-        layer.borderWidth = style.borderWidth
-        layer.borderColor = style.borderColor?.cgColor
+        style.apply(to: self)
     }
 }
 
 // MARK: StyledView
 
 extension EmptyRow {
-    public struct Style: Hashable {
+    public struct Style: Hashable, RowConfigureApplicable {
         public let size: OptionalCGSize?
         public let backgroundColor: UIColor?
 
@@ -76,6 +71,15 @@ extension EmptyRow {
             self.masksToBounds = masksToBounds
             self.borderWidth = borderWidth
             self.borderColor = borderColor?.color
+        }
+
+        public func apply(to row: UIView) {
+            row.backgroundColor = backgroundColor
+
+            row.layer.cornerRadius = cornerRadius
+            row.layer.masksToBounds = masksToBounds
+            row.layer.borderWidth = borderWidth
+            row.layer.borderColor = borderColor?.cgColor
         }
     }
 }

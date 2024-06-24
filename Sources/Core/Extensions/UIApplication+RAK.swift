@@ -13,16 +13,16 @@ extension Extendable where Base: UIApplication {
     public var keyWindow: UIWindow? {
         mainScene?.windows.first { $0.isKeyWindow }
     }
-    
+
     public var rootViewController: UIViewController? { keyWindow?.rootViewController }
-    
+
     #if !os(tvOS)
     /// Get the height of the status bar
     public func statusBarHeight(in view: UIView? = nil) -> CGFloat {
         let height = view?.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        
+
         guard _slowPath(height.isZero) else { return height }
-        
+
         // During the first period of time when the app is started, the above method may return `0`,
         // so a cover-up strategy is needed.
         return base.connectedScenes
@@ -51,10 +51,10 @@ extension Extendable where Base: UIApplication {
         else {
             return nil
         }
-        
+
         return url
     }
-    
+
     /// Open a url
     ///
     /// - Parameter urlString: The link to open
@@ -65,7 +65,7 @@ extension Extendable where Base: UIApplication {
         base.open(url)
         return true
     }
-    
+
     /// Open settings page
     @discardableResult
     public func openSettings() -> Bool {

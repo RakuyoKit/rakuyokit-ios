@@ -14,24 +14,24 @@ extension Extendable where Base: UIScrollView {
     public var isScrolledTop: Bool {
         ceil(base.contentOffset.y) == -ceil(base.adjustedContentInset.top)
     }
-    
+
     /// Check if it is at the bottom.
     public var isAtBottom: Bool {
         abs(base.contentSize.height - base.frame.height - base.contentOffset.y) < 1
     }
-    
+
     /// Scroll to the top.
     ///
     /// - Parameter animated: Whether to animate the scrolling.
     public func scrollToTop(animated: Bool) {
         guard !isScrolledTop else { return }
-        
+
         base.setContentOffset(
             .init(x: base.contentOffset.x, y: -base.adjustedContentInset.top),
             animated: animated
         )
     }
-    
+
     /// Reset the `contentOffset` of the `UIScrollView`.
     ///
     /// - Parameter animated: Whether to update with animation.

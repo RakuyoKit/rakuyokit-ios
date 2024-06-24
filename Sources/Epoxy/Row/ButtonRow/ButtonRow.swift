@@ -21,6 +21,9 @@ import RAKCore
 public final class ButtonRow: UIButton {
     private lazy var size: OptionalCGSize? = nil
 
+    /// Expanded scope
+    private lazy var expandedInsets: EdgeInsets = .zero
+
     /// Closure for `.touchDown` event.
     private lazy var didTouchDown: ButtonClosure? = nil
 
@@ -42,6 +45,23 @@ extension ButtonRow {
             width: size.width ?? superSize.width,
             height: size.height ?? superSize.height
         )
+    }
+
+    override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !super.point(inside: point, with: event) else { return true }
+
+        guard !isHidden else { return false }
+
+        let insets = expandedInsets.uiEdgeInsets
+
+        let newRect = CGRect(
+            x: bounds.origin.x - insets.left,
+            y: bounds.origin.y - insets.top,
+            width: bounds.size.width + insets.left + insets.right,
+            height: bounds.size.height + insets.top + insets.bottom
+        )
+
+        return newRect.contains(point)
     }
 }
 
@@ -67,11 +87,17 @@ extension ButtonRow {
 // MARK: StyledView
 
 extension ButtonRow: StyledView {
-    public struct Style: Hashable {
+    public struct Style: Hashable, RowConfigureApplicable {
         /// button size
         ///
         /// When a side value is `UIView.noIntrinsicMetric`, adaptive size will be used on that side
         public let size: OptionalCGSize?
+
+        /// Expanded scope
+        ///
+        /// Relative size. Increase/decrease based on the original frame.
+        /// For example, `frame.y + expandedScope.top`
+        public let expandedInsets: EdgeInsets
 
         /// The tint color.
         public let tintColor: UIColor?
@@ -93,6 +119,7 @@ extension ButtonRow: StyledView {
 
         public init(
             size: OptionalCGSize? = nil,
+            expandedInsets: EdgeInsets = .zero,
             tintColor: UIColor? = nil,
             type: UIButton.ButtonType = .system,
             imageContentModel: UIView.ContentMode? = nil,
@@ -100,11 +127,30 @@ extension ButtonRow: StyledView {
             edgeInsets: EdgeInsets = .zero
         ) {
             self.size = size
+            self.expandedInsets = expandedInsets
             self.tintColor = tintColor
             self.type = type
             self.imageContentModel = imageContentModel
             self.titleStyle = titleStyle
             self.edgeInsets = edgeInsets
+        }
+
+        public func apply(to row: UIButton) {
+            row.tintColor = tintColor
+            row.contentEdgeInsets = edgeInsets.uiEdgeInsets
+
+            if let imageContentModel {
+                row.imageView?.contentMode = imageContentModel
+            }
+
+            if let titleStyle {
+                row.titleLabel?.do {
+                    $0.font = titleStyle.font
+                    $0.textAlignment = titleStyle.alignment
+                    $0.numberOfLines = titleStyle.numberOfLines
+                    $0.lineBreakMode = titleStyle.lineBreakMode
+                }
+            }
         }
     }
 
@@ -114,21 +160,9 @@ extension ButtonRow: StyledView {
         translatesAutoresizingMaskIntoConstraints = false
 
         size = style.size
-        tintColor = style.tintColor
-        contentEdgeInsets = style.edgeInsets.uiEdgeInsets
+        expandedInsets = style.expandedInsets
 
-        if let imageContentModel = style.imageContentModel {
-            imageView?.contentMode = imageContentModel
-        }
-
-        if let titleStyle = style.titleStyle {
-            titleLabel?.do {
-                $0.font = titleStyle.font
-                $0.textAlignment = titleStyle.alignment
-                $0.numberOfLines = titleStyle.numberOfLines
-                $0.lineBreakMode = titleStyle.lineBreakMode
-            }
-        }
+        style.apply(to: self)
 
         addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
         addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchUpInside)
@@ -150,7 +184,7 @@ extension ButtonRow: ContentConfigurableView {
     /// some states of UIButton are not suitable to be placed in `Style`.
     ///
     /// So here, `Content` is designed as an enum, and the state and the content in that state are set at the same time.
-    public enum ButtonContent<T>: Equatable, ButtonRowStateContent {
+    public enum ButtonContent<T>: Equatable, ButtonRowStateContent, RowConfigureApplicable {
         /// Usage example:
         /// ```swift
         /// ButtonRow.groupItem(
@@ -193,6 +227,29 @@ extension ButtonRow: ContentConfigurableView {
             ) {
                 self.init(image: .init(image), title: title, titleColor: titleColor)
             }
+
+            public func apply(to row: UIButton, for state: UIControl.State) {
+                if let image {
+                    weak var button = row
+                    image.setForView(button, state: state)
+                } else {
+                    row.setImage(nil, for: state)
+                }
+
+                switch title {
+                case .text(let value):
+                    row.setTitle(value, for: state)
+
+                case .attributedText(let value):
+                    row.setAttributedTitle(value, for: state)
+
+                case .none:
+                    row.setTitle(nil, for: state)
+                    row.setAttributedTitle(nil, for: state)
+                }
+
+                row.setTitleColor(titleColor, for: state)
+            }
         }
 
         case normal(StateContent)
@@ -217,59 +274,40 @@ extension ButtonRow: ContentConfigurableView {
         ) {
             self.init(image: .init(image), title: title, titleColor: titleColor)
         }
+
+        public func apply(to row: UIButton) {
+            switch self {
+            case .normal(let stateContent):
+                row.isEnabled = true
+                row.isSelected = false
+                row.isHighlighted = false
+
+                stateContent.apply(to: row, for: .normal)
+
+            case .disabled(let stateContent):
+                row.isEnabled = false
+                row.isSelected = false
+                row.isHighlighted = false
+
+                stateContent.apply(to: row, for: .disabled)
+
+            case .selected(let stateContent):
+                row.isSelected = true
+                row.isHighlighted = false
+
+                stateContent.apply(to: row, for: .selected)
+
+            case .highlighted(let stateContent):
+                row.isSelected = false
+                row.isHighlighted = true
+
+                stateContent.apply(to: row, for: .highlighted)
+            }
+        }
     }
 
     public func setContent(_ content: Content, animated _: Bool) {
-        func _set(with stateContent: Content.StateContent, for state: UIControl.State) {
-            if let image = stateContent.image {
-                weak var this = self
-                image.setForView(this, state: state)
-            } else {
-                setImage(nil, for: state)
-            }
-
-            switch stateContent.title {
-            case .text(let value):
-                setTitle(value, for: state)
-
-            case .attributedText(let value):
-                setAttributedTitle(value, for: state)
-
-            case .none:
-                setTitle(nil, for: state)
-                setAttributedTitle(nil, for: state)
-            }
-
-            setTitleColor(stateContent.titleColor, for: state)
-        }
-
-        switch content {
-        case .normal(let stateContent):
-            isEnabled = true
-            isSelected = false
-            isHighlighted = false
-
-            _set(with: stateContent, for: .normal)
-
-        case .disabled(let stateContent):
-            isEnabled = false
-            isSelected = false
-            isHighlighted = false
-
-            _set(with: stateContent, for: .disabled)
-
-        case .selected(let stateContent):
-            isSelected = true
-            isHighlighted = false
-
-            _set(with: stateContent, for: .selected)
-
-        case .highlighted(let stateContent):
-            isSelected = false
-            isHighlighted = true
-
-            _set(with: stateContent, for: .highlighted)
-        }
+        content.apply(to: self)
     }
 }
 
@@ -280,7 +318,7 @@ extension ButtonRow: BehaviorsConfigurableView {
 
     /// For a custom Row inherited from `UIControl`, you can also use this type to set the control behavior,
     /// and use the generic T to access the custom `UIImageView` that may exist in the control.
-    public struct ButtonBehaviors<T> {
+    public struct ButtonBehaviors<T>: HigherOrderFunctionalizable {
         /// Closure for touch down event.
         public let didTouchDown: ButtonClosure?
 

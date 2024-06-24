@@ -17,12 +17,12 @@ extension Extendable where Base: UINavigationController {
         base.pushViewController(viewController, animated: animated)
         CATransaction.commit()
     }
-    
+
     /// Returns the popped controller
     @discardableResult
     public func popViewController(animated: Bool, complete: @escaping EmptyClosure) -> UIViewController? {
         let poppedViewController: UIViewController?
-        
+
         CATransaction.setCompletionBlock(complete)
         CATransaction.begin()
         poppedViewController = base.popViewController(animated: animated)
@@ -30,7 +30,7 @@ extension Extendable where Base: UINavigationController {
         
         return poppedViewController
     }
-    
+
     /// Pops view controllers until the one specified is on top. Returns the popped controllers.
     @discardableResult
     public func popToViewController(
@@ -39,25 +39,25 @@ extension Extendable where Base: UINavigationController {
         complete: @escaping EmptyClosure
     ) -> [UIViewController]? {
         let viewControllers: [UIViewController]?
-        
+
         CATransaction.setCompletionBlock(complete)
         CATransaction.begin()
         viewControllers = base.popToViewController(viewController, animated: animated)
         CATransaction.commit()
-        
+
         return viewControllers
     }
-    
+
     /// Pops until there's only a single view controller left on the stack. Returns the popped controllers.
     @discardableResult
     public func popToRootViewController(animated: Bool, complete: @escaping EmptyClosure) -> [UIViewController]? {
         let viewControllers: [UIViewController]?
-        
+
         CATransaction.setCompletionBlock(complete)
         CATransaction.begin()
         viewControllers = base.popToRootViewController(animated: animated)
         CATransaction.commit()
-        
+
         return viewControllers
     }
 }

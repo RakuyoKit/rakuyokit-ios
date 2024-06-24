@@ -40,7 +40,7 @@ extension ImageRow {
 // MARK: StyledView
 
 extension ImageRow: StyledView {
-    public struct Style: Hashable {
+    public struct Style: Hashable, RowConfigureApplicable {
         /// Image row size
         ///
         /// When a side value is `UIView.noIntrinsicMetric`, adaptive size will be used on that side
@@ -68,6 +68,17 @@ extension ImageRow: StyledView {
             self.contentMode = contentMode
             self.blockAccessibilityDescription = blockAccessibilityDescription
         }
+
+        public func apply(to row: UIImageView) {
+            row.tintColor = tintColor
+            row.contentMode = contentMode
+
+            if blockAccessibilityDescription {
+                // Seting `isAccessibilityElement = false` isn't enough here, VoiceOver is very aggressive in finding images to discribe.
+                // We need to explicitly remove the `.image` trait.
+                row.accessibilityTraits = .none
+            }
+        }
     }
 
     public convenience init(style: Style) {
@@ -76,14 +87,8 @@ extension ImageRow: StyledView {
         translatesAutoresizingMaskIntoConstraints = false
 
         size = style.size
-        tintColor = style.tintColor
-        contentMode = style.contentMode
 
-        if style.blockAccessibilityDescription {
-            // Seting `isAccessibilityElement = false` isn't enough here, VoiceOver is very aggressive in finding images to discribe.
-            // We need to explicitly remove the `.image` trait.
-            accessibilityTraits = .none
-        }
+        style.apply(to: self)
     }
 }
 
