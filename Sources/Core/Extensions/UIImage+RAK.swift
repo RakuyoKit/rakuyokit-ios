@@ -78,7 +78,7 @@ extension Extendable where Base: UIImage {
 
         guard let cornerRadius else { return image }
 
-        let insets = { UIEdgeInsets(top: $0, left: $0, bottom: $0, right: $0) }(cornerRadius)
+        let insets = EdgeInsets(inset: cornerRadius).uiEdgeInsets
         return image.resizableImage(withCapInsets: insets, resizingMode: .stretch)
     }
     #endif
