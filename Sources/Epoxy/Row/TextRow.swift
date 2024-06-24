@@ -39,7 +39,7 @@ extension TextRow {
 // MARK: StyledView
 
 extension TextRow: StyledView {
-    public struct Style: Hashable {
+    public struct Style: Hashable, RowConfigureApplicable {
         public let size: OptionalCGSize?
         public let font: UIFont
         public let color: UIColor
@@ -62,6 +62,14 @@ extension TextRow: StyledView {
             self.numberOfLines = numberOfLines
             self.lineBreakMode = lineBreakMode
         }
+
+        public func apply(to row: UILabel) {
+            row.font = font
+            row.textColor = color
+            row.textAlignment = alignment
+            row.numberOfLines = numberOfLines
+            row.lineBreakMode = lineBreakMode
+        }
     }
 
     public convenience init(style: Style) {
@@ -70,34 +78,35 @@ extension TextRow: StyledView {
         translatesAutoresizingMaskIntoConstraints = false
 
         size = style.size
-        font = style.font
-        textColor = style.color
-        textAlignment = style.alignment
-        numberOfLines = style.numberOfLines
-        lineBreakMode = style.lineBreakMode
+
+        style.apply(to: self)
     }
 }
 
 // MARK: ContentConfigurableView
 
 extension TextRow: ContentConfigurableView {
-    public enum Content: Equatable, ExpressibleByStringInterpolation {
+    public enum Content: Equatable, ExpressibleByStringInterpolation, RowConfigureApplicable {
         case text(String?)
         case attributedText(NSAttributedString?)
 
         public init(stringLiteral value: String) {
             self = .text(value)
         }
+
+        public func apply(to row: UILabel) {
+            switch self {
+            case .text(let value):
+                row.text = value
+
+            case .attributedText(let value):
+                row.attributedText = value
+            }
+        }
     }
 
     public func setContent(_ content: Content, animated _: Bool) {
-        switch content {
-        case .text(let value):
-            text = value
-
-        case .attributedText(let value):
-            attributedText = value
-        }
+        content.apply(to: self)
     }
 }
 

@@ -37,7 +37,7 @@ extension SwitchRow {
 // MARK: StyledView
 
 extension SwitchRow: StyledView {
-    public struct Style: Hashable {
+    public struct Style: Hashable, RowConfigureApplicable {
         public let scale: CGFloat
         public let onTintColor: UIColor?
         public let thumbTintColor: UIColor?
@@ -57,6 +57,14 @@ extension SwitchRow: StyledView {
             self.onImage = onImage
             self.offImage = offImage
         }
+
+        public func apply(to row: UISwitch) {
+            row.transform = { CGAffineTransform(scaleX: $0, y: $0) }(scale)
+            row.onTintColor = onTintColor
+            row.thumbTintColor = thumbTintColor
+            row.onImage = onImage
+            row.offImage = offImage
+        }
     }
 
     public convenience init(style: Style) {
@@ -64,11 +72,7 @@ extension SwitchRow: StyledView {
 
         translatesAutoresizingMaskIntoConstraints = false
 
-        transform = { CGAffineTransform(scaleX: $0, y: $0) }(style.scale)
-        onTintColor = style.onTintColor
-        thumbTintColor = style.thumbTintColor
-        onImage = style.onImage
-        offImage = style.offImage
+        style.apply(to: self)
 
         addTarget(self, action: #selector(switchViewDidChange(_:)), for: .valueChanged)
     }
@@ -77,7 +81,7 @@ extension SwitchRow: StyledView {
 // MARK: ContentConfigurableView
 
 extension SwitchRow: ContentConfigurableView {
-    public struct Content: Equatable, ExpressibleByBooleanLiteral {
+    public struct Content: Equatable, ExpressibleByBooleanLiteral, RowConfigureApplicable {
         public let isOn: Bool
         public let isEnabled: Bool
 
@@ -89,11 +93,15 @@ extension SwitchRow: ContentConfigurableView {
         public init(booleanLiteral value: Bool) {
             self.init(isOn: value)
         }
+
+        public func apply(to row: UISwitch) {
+            row.isOn = isOn
+            row.isEnabled = isEnabled
+        }
     }
 
     public func setContent(_ content: Content, animated _: Bool) {
-        isOn = content.isOn
-        isEnabled = content.isEnabled
+        content.apply(to: self)
     }
 }
 

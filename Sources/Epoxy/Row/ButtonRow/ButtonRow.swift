@@ -87,7 +87,7 @@ extension ButtonRow {
 // MARK: StyledView
 
 extension ButtonRow: StyledView {
-    public struct Style: Hashable {
+    public struct Style: Hashable, RowConfigureApplicable {
         /// button size
         ///
         /// When a side value is `UIView.noIntrinsicMetric`, adaptive size will be used on that side
@@ -134,6 +134,24 @@ extension ButtonRow: StyledView {
             self.titleStyle = titleStyle
             self.edgeInsets = edgeInsets
         }
+
+        public func apply(to row: UIButton) {
+            row.tintColor = tintColor
+            row.contentEdgeInsets = edgeInsets.uiEdgeInsets
+
+            if let imageContentModel {
+                row.imageView?.contentMode = imageContentModel
+            }
+
+            if let titleStyle {
+                row.titleLabel?.do {
+                    $0.font = titleStyle.font
+                    $0.textAlignment = titleStyle.alignment
+                    $0.numberOfLines = titleStyle.numberOfLines
+                    $0.lineBreakMode = titleStyle.lineBreakMode
+                }
+            }
+        }
     }
 
     public convenience init(style: Style) {
@@ -143,21 +161,8 @@ extension ButtonRow: StyledView {
 
         size = style.size
         expandedInsets = style.expandedInsets
-        tintColor = style.tintColor
-        contentEdgeInsets = style.edgeInsets.uiEdgeInsets
 
-        if let imageContentModel = style.imageContentModel {
-            imageView?.contentMode = imageContentModel
-        }
-
-        if let titleStyle = style.titleStyle {
-            titleLabel?.do {
-                $0.font = titleStyle.font
-                $0.textAlignment = titleStyle.alignment
-                $0.numberOfLines = titleStyle.numberOfLines
-                $0.lineBreakMode = titleStyle.lineBreakMode
-            }
-        }
+        style.apply(to: self)
 
         addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
         addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchUpInside)
@@ -179,7 +184,7 @@ extension ButtonRow: ContentConfigurableView {
     /// some states of UIButton are not suitable to be placed in `Style`.
     ///
     /// So here, `Content` is designed as an enum, and the state and the content in that state are set at the same time.
-    public enum ButtonContent<T>: Equatable, ButtonRowStateContent {
+    public enum ButtonContent<T>: Equatable, ButtonRowStateContent, RowConfigureApplicable {
         /// Usage example:
         /// ```swift
         /// ButtonRow.groupItem(
@@ -222,6 +227,29 @@ extension ButtonRow: ContentConfigurableView {
             ) {
                 self.init(image: .init(image), title: title, titleColor: titleColor)
             }
+
+            public func apply(to row: UIButton, for state: UIControl.State) {
+                if let image {
+                    weak var button = row
+                    image.setForView(button, state: state)
+                } else {
+                    row.setImage(nil, for: state)
+                }
+
+                switch title {
+                case .text(let value):
+                    row.setTitle(value, for: state)
+
+                case .attributedText(let value):
+                    row.setAttributedTitle(value, for: state)
+
+                case .none:
+                    row.setTitle(nil, for: state)
+                    row.setAttributedTitle(nil, for: state)
+                }
+
+                row.setTitleColor(titleColor, for: state)
+            }
         }
 
         case normal(StateContent)
@@ -246,59 +274,40 @@ extension ButtonRow: ContentConfigurableView {
         ) {
             self.init(image: .init(image), title: title, titleColor: titleColor)
         }
+
+        public func apply(to row: UIButton) {
+            switch self {
+            case .normal(let stateContent):
+                row.isEnabled = true
+                row.isSelected = false
+                row.isHighlighted = false
+
+                stateContent.apply(to: row, for: .normal)
+
+            case .disabled(let stateContent):
+                row.isEnabled = false
+                row.isSelected = false
+                row.isHighlighted = false
+
+                stateContent.apply(to: row, for: .disabled)
+
+            case .selected(let stateContent):
+                row.isSelected = true
+                row.isHighlighted = false
+
+                stateContent.apply(to: row, for: .selected)
+
+            case .highlighted(let stateContent):
+                row.isSelected = false
+                row.isHighlighted = true
+
+                stateContent.apply(to: row, for: .highlighted)
+            }
+        }
     }
 
     public func setContent(_ content: Content, animated _: Bool) {
-        func _set(with stateContent: Content.StateContent, for state: UIControl.State) {
-            if let image = stateContent.image {
-                weak var this = self
-                image.setForView(this, state: state)
-            } else {
-                setImage(nil, for: state)
-            }
-
-            switch stateContent.title {
-            case .text(let value):
-                setTitle(value, for: state)
-
-            case .attributedText(let value):
-                setAttributedTitle(value, for: state)
-
-            case .none:
-                setTitle(nil, for: state)
-                setAttributedTitle(nil, for: state)
-            }
-
-            setTitleColor(stateContent.titleColor, for: state)
-        }
-
-        switch content {
-        case .normal(let stateContent):
-            isEnabled = true
-            isSelected = false
-            isHighlighted = false
-
-            _set(with: stateContent, for: .normal)
-
-        case .disabled(let stateContent):
-            isEnabled = false
-            isSelected = false
-            isHighlighted = false
-
-            _set(with: stateContent, for: .disabled)
-
-        case .selected(let stateContent):
-            isSelected = true
-            isHighlighted = false
-
-            _set(with: stateContent, for: .selected)
-
-        case .highlighted(let stateContent):
-            isSelected = false
-            isHighlighted = true
-
-            _set(with: stateContent, for: .highlighted)
-        }
+        content.apply(to: self)
     }
 }
 
