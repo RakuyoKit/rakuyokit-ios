@@ -21,6 +21,9 @@ import RAKCore
 public final class ButtonRow: UIButton {
     private lazy var size: OptionalCGSize? = nil
 
+    /// Expanded scope
+    private lazy var expandedInsets: EdgeInsets = .zero
+
     /// Closure for `.touchDown` event.
     private lazy var didTouchDown: ButtonClosure? = nil
 
@@ -42,6 +45,23 @@ extension ButtonRow {
             width: size.width ?? superSize.width,
             height: size.height ?? superSize.height
         )
+    }
+
+    override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !super.point(inside: point, with: event) else { return true }
+
+        guard !isHidden else { return false }
+
+        let insets = expandedInsets.uiEdgeInsets
+
+        let newRect = CGRect(
+            x: bounds.origin.x - insets.left,
+            y: bounds.origin.y - insets.top,
+            width: bounds.size.width + insets.left + insets.right,
+            height: bounds.size.height + insets.top + insets.bottom
+        )
+
+        return newRect.contains(point)
     }
 }
 
@@ -73,6 +93,12 @@ extension ButtonRow: StyledView {
         /// When a side value is `UIView.noIntrinsicMetric`, adaptive size will be used on that side
         public let size: OptionalCGSize?
 
+        /// Expanded scope
+        ///
+        /// Relative size. Increase/decrease based on the original frame.
+        /// For example, `frame.y + expandedScope.top`
+        public let expandedInsets: EdgeInsets
+
         /// The tint color.
         public let tintColor: UIColor?
 
@@ -93,6 +119,7 @@ extension ButtonRow: StyledView {
 
         public init(
             size: OptionalCGSize? = nil,
+            expandedInsets: EdgeInsets = .zero,
             tintColor: UIColor? = nil,
             type: UIButton.ButtonType = .system,
             imageContentModel: UIView.ContentMode? = nil,
@@ -100,6 +127,7 @@ extension ButtonRow: StyledView {
             edgeInsets: EdgeInsets = .zero
         ) {
             self.size = size
+            self.expandedInsets = expandedInsets
             self.tintColor = tintColor
             self.type = type
             self.imageContentModel = imageContentModel
@@ -114,6 +142,7 @@ extension ButtonRow: StyledView {
         translatesAutoresizingMaskIntoConstraints = false
 
         size = style.size
+        expandedInsets = style.expandedInsets
         tintColor = style.tintColor
         contentEdgeInsets = style.edgeInsets.uiEdgeInsets
 
