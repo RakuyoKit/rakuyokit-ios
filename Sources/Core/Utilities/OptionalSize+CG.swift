@@ -10,8 +10,6 @@ import UIKit
 
 public typealias OptionalCGSize = OptionalSize<CGFloat>
 
-// MARK: - Logic
-
 extension OptionalCGSize {
     #if !os(watchOS)
     public static var noIntrinsicMetric: Self {
@@ -21,6 +19,12 @@ extension OptionalCGSize {
 
     public init(_ cgSize: CGSize) {
         self.init(width: cgSize.width, height: cgSize.height)
+    }
+}
+
+extension OptionalCGSize {
+    public var cgSize: CGSize {
+        .init(width: width ?? 0, height: height ?? 0)
     }
 }
 
