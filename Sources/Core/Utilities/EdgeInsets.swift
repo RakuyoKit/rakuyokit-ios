@@ -89,3 +89,7 @@ extension EdgeInsets {
 // MARK: Hashable
 
 extension EdgeInsets: Hashable { }
+
+// MARK: HigherOrderFunctionalizable
+
+extension EdgeInsets: HigherOrderFunctionalizable { }
