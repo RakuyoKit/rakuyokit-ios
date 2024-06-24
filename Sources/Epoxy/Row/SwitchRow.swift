@@ -108,7 +108,7 @@ extension SwitchRow: ContentConfigurableView {
 // MARK: BehaviorsConfigurableView
 
 extension SwitchRow: BehaviorsConfigurableView {
-    public struct Behaviors {
+    public struct Behaviors: HigherOrderFunctionalizable {
         public typealias ContentPublisher = AnyPublisher<Bool, Never>
         public typealias SwitchValueCallback = (Bool) -> Void
 

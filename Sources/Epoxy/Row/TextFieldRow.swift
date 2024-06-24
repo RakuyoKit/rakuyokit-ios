@@ -162,7 +162,7 @@ extension TextFieldRow: ContentConfigurableView {
 // MARK: BehaviorsConfigurableView
 
 extension TextFieldRow: BehaviorsConfigurableView {
-    public struct Behaviors {
+    public struct Behaviors: HigherOrderFunctionalizable {
         public typealias ContentPublisher = AnyPublisher<String, Never>
         public typealias TextFieldCallback = (UITextField) -> Void
         public typealias TextFieldValueCallback = (String?) -> Void

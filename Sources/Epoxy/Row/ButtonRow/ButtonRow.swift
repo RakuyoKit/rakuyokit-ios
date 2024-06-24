@@ -318,7 +318,7 @@ extension ButtonRow: BehaviorsConfigurableView {
 
     /// For a custom Row inherited from `UIControl`, you can also use this type to set the control behavior,
     /// and use the generic T to access the custom `UIImageView` that may exist in the control.
-    public struct ButtonBehaviors<T> {
+    public struct ButtonBehaviors<T>: HigherOrderFunctionalizable {
         /// Closure for touch down event.
         public let didTouchDown: ButtonClosure?
 
