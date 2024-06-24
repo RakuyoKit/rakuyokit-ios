@@ -16,7 +16,7 @@ extension Extendable where Base: UIAlertController {
     public static func alert(title: String? = nil, message: String? = nil) -> Base {
         .init(title: title, message: message, preferredStyle: .alert)
     }
-    
+
     /// Create an action sheet-style popup.
     ///
     /// - Parameters:
@@ -33,12 +33,12 @@ extension Extendable where Base: UIAlertController {
     ) -> Base {
         .init(title: title, message: message, preferredStyle: .actionSheet).then {
             let idiom = UIDevice.current.userInterfaceIdiom
-            
+
             var isPad = idiom == .pad
             if #available(iOS 14.0, tvOS 14.0, *) { isPad = isPad || idiom == .mac }
-            
+
             guard isPad else { return }
-            
+
             $0.popoverPresentationController?.do {
                 $0.permittedArrowDirections = arrowDirections
                 $0.sourceView = sourceView
@@ -46,7 +46,7 @@ extension Extendable where Base: UIAlertController {
             }
         }
     }
-    
+
     /// Add action for popup buttons.
     ///
     /// - Parameters:

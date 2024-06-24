@@ -21,7 +21,7 @@ extension Extendable where Base: UIView {
         get { (objc_getAssociatedObject(base, &kIsHideKeyboardWhenTapKey) as? Bool) ?? false }
         set {
             objc_setAssociatedObject(base, &kIsHideKeyboardWhenTapKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            
+
             if newValue {
                 base.addGestureRecognizer(base._hideKeyboardGesture)
             } else {
@@ -37,18 +37,18 @@ extension UIView {
         if let ges = objc_getAssociatedObject(self, &kHideKeyboardGestureKey) as? UITapGestureRecognizer {
             return ges
         }
-        
+
         let ges = UITapGestureRecognizer().then {
             $0.numberOfTapsRequired = 1
             $0.cancelsTouchesInView = false
             $0.addTarget(self, action: #selector(_endEditing))
         }
-        
+
         objc_setAssociatedObject(self, &kHideKeyboardGestureKey, ges, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        
+
         return ges
     }
-    
+
     @available(iOSApplicationExtension, unavailable)
     @objc
     fileprivate func _endEditing() {
@@ -146,12 +146,12 @@ extension Extendable where Base: UIView {
     public func toImage() -> UIImage? {
         let format = UIGraphicsImageRendererFormat().then {
             $0.scale = UIScreen.rak.scale
-            
+
             // Ensure the use of the sRGB color space;
             // images in the sRGB color space retain their transparency when converted to PNG format
             $0.preferredRange = .standard
         }
-        
+
         return UIGraphicsImageRenderer(size: base.bounds.size, format: format).image {
             // If the view is not added to a superview or is not displayed,
             // the `drawHierarchy(in:)` method cannot generate an image

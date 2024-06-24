@@ -13,7 +13,7 @@ import UIKit
 /// Custom edge inset packaging
 ///
 /// Simplify initialization and support quick conversion to `UIEdgeInsets` or `NSDirectionalEdgeInsets`
-public struct EdgeInsets: Equatable, Hashable {
+public struct EdgeInsets {
     public typealias Value = CGFloat
 
     public var top: Value
@@ -37,7 +37,7 @@ public struct EdgeInsets: Equatable, Hashable {
     }
 }
 
-// MARK: - Logic
+// MARK: Logic
 
 extension EdgeInsets {
     public static var zero: Self {
@@ -66,7 +66,7 @@ extension EdgeInsets {
     }
 }
 
-// MARK: - Transform
+// MARK: Transform
 
 extension EdgeInsets {
     public var uiEdgeInsets: UIEdgeInsets {
@@ -85,3 +85,7 @@ extension EdgeInsets {
         self.init(top: insets.top, leading: insets.leading, bottom: insets.bottom, trailing: insets.trailing)
     }
 }
+
+// MARK: Hashable
+
+extension EdgeInsets: Hashable { }
