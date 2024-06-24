@@ -25,7 +25,7 @@ public struct OptionalSize<T: FloatingPoint> {
     }
 }
 
-// MARK: - Logic
+// MARK: Logic
 
 extension OptionalSize {
     public static var zero: Self {
