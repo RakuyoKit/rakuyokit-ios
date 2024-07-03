@@ -17,6 +17,13 @@ import EpoxyCollectionView
 open class CollectionView: EpoxyCollectionView.CollectionView {
     /// Proxy events related to context menu in `CollectionView`.
     public weak var contextMenuDelegate: CollectionViewContextMenuDelegate? = nil
+
+    override public init(layout: UICollectionViewLayout, configuration: CollectionViewConfiguration = .shared) {
+        super.init(layout: layout, configuration: configuration)
+
+        showsVerticalScrollIndicator = false
+        showsHorizontalScrollIndicator = false
+    }
 }
 
 // MARK: - UICollectionViewDelegate
