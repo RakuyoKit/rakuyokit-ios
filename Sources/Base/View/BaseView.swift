@@ -28,6 +28,8 @@ open class BaseView: UIView {
     /// *Must* call super if override
     @objc
     open dynamic func config() {
+        translatesAutoresizingMaskIntoConstraints = false
+        
         addSubviews()
         addInitialLayout()
     }
