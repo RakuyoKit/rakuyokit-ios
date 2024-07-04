@@ -74,9 +74,9 @@ public struct ColorConfig {
     public struct Semantic {
         /// Theme color
         ///
-        /// Provides two levels of theme colors,
+        /// Provides three levels of theme colors,
         /// you can use different levels of theme colors according to the situation.
-        public let theme: SecondLevel
+        public let theme: ThreeLevel
 
         /// Text color
         public let text: ThreeLevel
@@ -109,7 +109,7 @@ public struct ColorConfig {
         public let unavailableText: Color
 
         public init(
-            theme: SecondLevel,
+            theme: ThreeLevel,
             text: ThreeLevel,
             separator: ConvertibleToColor,
             emphasis: ThreeLevel,
@@ -175,7 +175,8 @@ extension ColorConfig {
         let semanticConfig = Semantic(
             theme: .init(
                 main: UIColor.systemIndigo,
-                secondary: UIColor.systemIndigo.withAlphaComponent(0.8)
+                secondary: UIColor.systemIndigo.withAlphaComponent(0.8),
+                tertiary: UIColor.systemIndigo.withAlphaComponent(0.6)
             ),
             text: .init(
                 main: UIColor.label,
@@ -217,7 +218,8 @@ extension ColorConfig {
         let semanticConfig = Semantic(
             theme: .init(
                 main: UIColor.blue,
-                secondary: UIColor.blue.withAlphaComponent(0.8)
+                secondary: UIColor.blue.withAlphaComponent(0.8),
+                tertiary: UIColor.blue.withAlphaComponent(0.6)
             ),
             text: .init(
                 main: UIColor.black,
@@ -259,7 +261,8 @@ extension ColorConfig {
         let semanticConfig = Semantic(
             theme: .init(
                 main: UIColor.blue,
-                secondary: UIColor.blue.withAlphaComponent(0.8)
+                secondary: UIColor.blue.withAlphaComponent(0.8),
+                tertiary: UIColor.blue.withAlphaComponent(0.6)
             ),
             text: .init(
                 main: UIColor.black,
