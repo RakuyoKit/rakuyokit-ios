@@ -11,12 +11,12 @@ extension Publisher where Self.Output: UITextField {
     public func limitInputLength(max: Int?) -> Publishers.Map<Self, String> {
         map {
             var content = $0.text ?? ""
-            
+
             if let max, content.rak.length > max {
                 content = content.rak.prefixed(max)
                 $0.text = content
             }
-            
+
             return content
         }
     }

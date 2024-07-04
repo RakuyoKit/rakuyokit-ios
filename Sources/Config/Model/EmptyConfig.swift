@@ -18,6 +18,6 @@ import Foundation
 /// ```
 public final class EmptyConfig: ConfigSourceProtocol {
     public static let shared = EmptyConfig()
-    
+
     private init() { }
 }

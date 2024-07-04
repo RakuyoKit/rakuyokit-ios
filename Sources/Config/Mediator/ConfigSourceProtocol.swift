@@ -16,10 +16,10 @@ import Foundation
 public protocol ConfigSourceProtocol {
     /// Color configuration.
     var color: ColorConfig { get }
-    
+
     /// App’s Apple ID on App Store Connect.
     var appStoreConnectAppleID: String { get }
-    
+
     /// App's AppGroups identifier
     var appGroupIdentifier: String { get }
 }
@@ -28,9 +28,9 @@ public protocol ConfigSourceProtocol {
 
 extension ConfigSourceProtocol {
     public var color: ColorConfig { .placeholder }
-    
+
     public var appStoreConnectAppleID: String { "" }
-    
+
     public var appGroupIdentifier: String { "" }
 }
 
@@ -44,7 +44,7 @@ extension ConfigSourceProtocol {
     public func appDownloadURL(with area: String = "cn") -> URL? {
         let baseURLString = "https://itunes.apple.com/\(area)/app/id"
         let urlString = baseURLString + appStoreConnectAppleID
-        
+
         guard let url = URL(string: urlString) else { return nil }
         return url
     }

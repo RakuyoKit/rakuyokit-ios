@@ -11,6 +11,6 @@ import Foundation
 /// The middleman protocol serves as the bridge between `Mediator` and `SourceProtocol`.
 public protocol ConfigMediatorProtocol {
     associatedtype SourceProtocol: ConfigSourceProtocol
-    
+
     var source: SourceProtocol { get }
 }
