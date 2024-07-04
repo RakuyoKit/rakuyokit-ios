@@ -22,7 +22,7 @@ extension Extendable where Base: UITextView {
         }
         .eraseToAnyPublisher()
     }
-    
+
     /// Combine wrapper for `textViewDidBeginEditing(_:)`
     public var didBeginEditingPublisher: AnyPublisher<Void, Never> {
         let selector = #selector(UITextViewDelegate.textViewDidBeginEditing(_:))
@@ -30,7 +30,7 @@ extension Extendable where Base: UITextView {
             .map { _ in }
             .eraseToAnyPublisher()
     }
-    
+
     /// Combine wrapper for `textViewDidEndEditing(_:)`
     public var didEndEditingPublisher: AnyPublisher<Void, Never> {
         let selector = #selector(UITextViewDelegate.textViewDidEndEditing(_:))
@@ -38,7 +38,7 @@ extension Extendable where Base: UITextView {
             .map { _ in }
             .eraseToAnyPublisher()
     }
-    
+
     /// A publisher emits on first responder changes
     public var isFirstResponderPublisher: AnyPublisher<Bool, Never> {
         Just<Void>(())
@@ -48,7 +48,7 @@ extension Extendable where Base: UITextView {
             }
             .eraseToAnyPublisher()
     }
-    
+
     /// A publisher emits on selected range changes
     public var selectedRangePublisher: AnyPublisher<NSRange, Never> {
         let selector = #selector(UITextViewDelegate.textViewDidChangeSelection(_:))
@@ -58,7 +58,7 @@ extension Extendable where Base: UITextView {
             }
             .eraseToAnyPublisher()
     }
-    
+
     private var delegateProxy: DelegateProxy {
         TextViewDelegateProxy.createDelegateProxy(for: base)
     }

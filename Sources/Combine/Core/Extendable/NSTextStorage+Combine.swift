@@ -11,14 +11,14 @@ extension Extendable where Base: NSTextStorage {
         editedRange: NSRange,
         delta: Int
     )
-    
+
     /// Combine publisher for `NSTextStorageDelegate.textStorage(_:didProcessEditing:range:changeInLength:)`
     public var didProcessEditingRangeChangeInLengthPublisher: AnyPublisher< // swiftlint:disable:this identifier_name
         ProcessEditingRangeChangeOutput,
         Never
     > {
         let selector = #selector(NSTextStorageDelegate.textStorage(_:didProcessEditing:range:changeInLength:))
-        
+
         return delegateProxy
             .interceptSelectorPublisher(selector)
             .map { args -> (editedMask: NSTextStorage.EditActions, editedRange: NSRange, delta: Int) in
@@ -31,7 +31,7 @@ extension Extendable where Base: NSTextStorage {
             }
             .eraseToAnyPublisher()
     }
-    
+
     private var delegateProxy: NSTextStorageDelegateProxy {
         .createDelegateProxy(for: base)
     }

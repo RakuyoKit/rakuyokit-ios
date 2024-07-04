@@ -11,7 +11,7 @@ public enum KeyboardEvent {
     case willChangeFrame
     case didChangeFrame
     // swiftlint:enable sorted_enum_cases
-    
+
     /// The name of the notification to observe system keyboard events.
     var notificationName: Notification.Name {
         switch self {

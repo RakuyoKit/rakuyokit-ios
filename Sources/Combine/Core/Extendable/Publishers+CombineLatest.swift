@@ -14,7 +14,7 @@ extension Publishers {
         guard let first = array.first else {
             return Empty().eraseToAnyPublisher()
         }
-        
+
         return array
             .dropFirst()
             .reduce(
