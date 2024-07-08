@@ -11,18 +11,26 @@ import UIKit
 
 import EpoxyCollectionView
 
-private let _spacerDataID = "com.rakuyo.RakuyoKit.epoxy-spacer"
+extension Layout {
+    public static let spacerDataID = "com.rakuyo.RakuyoKit.epoxy-spacer"
+}
 
 extension ItemModel {
-    public static func spacer(style: SpacerRow.Style = .default) -> ItemModel<SpacerRow> {
-        SpacerRow.itemModel(dataID: _spacerDataID, style: style)
+    public static func spacer(
+        dataID: String = Layout.spacerDataID,
+        style: SpacerRow.Style = .default
+    ) -> ItemModel<SpacerRow> {
+        SpacerRow.itemModel(dataID: dataID, style: style)
     }
 }
 
 extension SectionModel {
-    public static func spacer(style: SpacerRow.Style = .default) -> SectionModel {
+    public static func spacer(
+        dataID: String = Layout.spacerDataID,
+        style: SpacerRow.Style = .default
+    ) -> SectionModel {
         let item = ItemModel.spacer(style: style)
-        return .init(dataID: _spacerDataID, items: [item]).layout(.list())
+        return .init(dataID: dataID, items: [item]).layout(.list())
     }
 }
 #endif
