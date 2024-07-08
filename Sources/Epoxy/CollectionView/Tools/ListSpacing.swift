@@ -20,6 +20,9 @@ public struct ListSpacing {
     /// Normal Spacing: 10
     public static let normal: Self = 10
 
+    /// For group-like lists, the spacing between groups: 35
+    public static let group: Self = 35
+
     /// Spacing
     public let spacing: CGFloat
 

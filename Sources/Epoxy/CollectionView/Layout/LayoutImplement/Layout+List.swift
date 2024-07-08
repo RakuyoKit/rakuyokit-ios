@@ -31,6 +31,22 @@ extension Extendable where Base: Layout.Section {
             edgeInsets: .bottom(spacing.spacing)
         )
     }
+
+    public static func list(
+        layoutEnvironment environment: Layout.Environment,
+        header: SupplementaryItem.Style? = nil,
+        footer: SupplementaryItem.Style? = nil,
+        decoration: DecorationStyle? = .whiteBackground,
+        edgeInsets: SectionEdgeInsets
+    ) -> Base {
+        custom(
+            layoutEnvironment: environment,
+            style: .list,
+            supplementaryItems: createSupplementaryItems(header: header, footer: footer),
+            decoration: decoration,
+            edgeInsets: edgeInsets
+        )
+    }
 }
 
 extension Extendable where Base: Layout.Compositional {
@@ -53,6 +69,23 @@ extension Extendable where Base: Layout.Compositional {
             )
         }.rak
     }
+
+    public static func list(
+        header: SupplementaryItem.Style? = nil,
+        footer: SupplementaryItem.Style? = nil,
+        decoration: DecorationStyle? = .whiteBackground,
+        edgeInsets: SectionEdgeInsets
+    ) -> Self {
+        Base { _, environment in
+            Layout.Section.rak.list(
+                layoutEnvironment: environment,
+                header: header,
+                footer: footer,
+                decoration: decoration,
+                edgeInsets: edgeInsets
+            )
+        }.rak
+    }
 }
 
 extension SectionProviderWrapper {
@@ -72,6 +105,23 @@ extension SectionProviderWrapper {
                 header: header,
                 footer: footer,
                 decoration: decoration
+            )
+        }
+    }
+
+    public static func list(
+        header: SupplementaryItem.Style? = nil,
+        footer: SupplementaryItem.Style? = nil,
+        decoration: DecorationStyle? = .whiteBackground,
+        edgeInsets: SectionEdgeInsets
+    ) -> Self {
+        .init {
+            Layout.Section.rak.list(
+                layoutEnvironment: $0,
+                header: header,
+                footer: footer,
+                decoration: decoration,
+                edgeInsets: edgeInsets
             )
         }
     }
