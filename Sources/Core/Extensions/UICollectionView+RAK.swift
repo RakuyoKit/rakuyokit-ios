@@ -29,4 +29,38 @@ extension Extendable where Base: UICollectionView {
         }
     }
 }
+
+extension Extendable where Base: UICollectionView {
+    public func deselectRowIfNeeded(
+        with transitionCoordinator: UIViewControllerTransitionCoordinator?,
+        animated: Bool
+    ) {
+        guard let selectedIndexPaths = base.indexPathsForSelectedItems else { return }
+
+        guard let coordinator = transitionCoordinator else {
+            deselectItems(at: selectedIndexPaths, animated: animated)
+            return
+        }
+
+        coordinator.animate(
+            alongsideTransition: { _ in
+                deselectItems(at: selectedIndexPaths, animated: true)
+            },
+            completion: { context in
+                guard context.isCancelled else { return }
+
+                for selectedIndexPath in selectedIndexPaths {
+                    base.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+                }
+            }
+        )
+    }
+
+    private func deselectItems(at selectedIndexPaths: [IndexPath], animated: Bool) {
+        for selectedIndexPath in selectedIndexPaths {
+            base.deselectItem(at: selectedIndexPath, animated: true)
+            base.delegate?.collectionView?(base, didDeselectItemAt: selectedIndexPath)
+        }
+    }
+}
 #endif
