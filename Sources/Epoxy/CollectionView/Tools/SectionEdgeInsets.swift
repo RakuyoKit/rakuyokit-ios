@@ -37,6 +37,11 @@ public enum SectionEdgeInsets {
     /// Custom spacing for all four sides.
     case all(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat)
 
+    /// Same spacing as `.insetGrouped` style `UITableView`
+    ///
+    /// (top: 0, leading: 20, bottom: 35, trailing: 20)
+    case groupCard
+
     /// Fully customized using `EdgeInsets`.
     case custom(RAKCore.EdgeInsets)
 
@@ -66,6 +71,9 @@ extension SectionEdgeInsets {
 
         case .all(let top, let leading, let bottom, let trailing):
             .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
+
+        case .groupCard:
+            .init(top: 0, leading: 20, bottom: 35, trailing: 20)
 
         case .custom(let edge):
             edge.directionalEdgeInsets
