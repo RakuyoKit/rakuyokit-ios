@@ -19,7 +19,7 @@ open class WhiteBackgroundAndCornerRadiusDecorationView: WhiteBackgroundDecorati
     override open func config() {
         super.config()
         
-        layer.cornerRadius = 10
+        layer.cornerRadius = 12
         layer.masksToBounds = true
     }
 }
