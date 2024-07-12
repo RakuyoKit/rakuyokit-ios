@@ -26,7 +26,15 @@ extension Extendable where Base: Bundle {
     }
 
     public static func appName(from: From = .app) -> String {
-        getValue(by: "CFBundleDisplayName", from: from) ?? getValue(by: "CFBundleName", from: from) ?? ""
+        displayName(from: from) ?? bundleName(from: from) ?? ""
+    }
+
+    public static func bundleName(from: From = .app) -> String? {
+        getValue(by: "CFBundleName", from: from)
+    }
+
+    public static func displayName(from: From = .app) -> String? {
+        getValue(by: "CFBundleDisplayName", from: from)
     }
 
     public static func shortVersionString(from: From = .app) -> String {
@@ -102,12 +110,14 @@ extension Extendable where Base: Bundle {
 extension Extendable where Base: Bundle {
     /// Return the main bundle when in the app or an app extension.
     fileprivate static var app: Bundle {
-        var components = Bundle.main.bundleURL.path.split(separator: "/")
-        var bundle: Bundle?
+        var components = Base.main.bundleURL.path.split(separator: "/")
+        let bundle: Base?
 
         if let index = components.lastIndex(where: { $0.hasSuffix(".app") }) {
             components.removeLast((components.count - 1) - index)
-            bundle = Bundle(path: components.joined(separator: "/"))
+            bundle = .init(path: components.joined(separator: "/"))
+        } else {
+            bundle = nil
         }
 
         return bundle ?? .main
