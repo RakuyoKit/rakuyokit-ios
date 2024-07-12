@@ -110,12 +110,14 @@ extension Extendable where Base: Bundle {
 extension Extendable where Base: Bundle {
     /// Return the main bundle when in the app or an app extension.
     fileprivate static var app: Bundle {
-        var components = Bundle.main.bundleURL.path.split(separator: "/")
-        var bundle: Bundle?
+        var components = Base.main.bundleURL.path.split(separator: "/")
+        let bundle: Base?
 
         if let index = components.lastIndex(where: { $0.hasSuffix(".app") }) {
             components.removeLast((components.count - 1) - index)
-            bundle = Bundle(path: components.joined(separator: "/"))
+            bundle = .init(path: components.joined(separator: "/"))
+        } else {
+            bundle = nil
         }
 
         return bundle ?? .main
