@@ -26,7 +26,15 @@ extension Extendable where Base: Bundle {
     }
 
     public static func appName(from: From = .app) -> String {
-        getValue(by: "CFBundleDisplayName", from: from) ?? getValue(by: "CFBundleName", from: from) ?? ""
+        displayName(from: from) ?? bundleName(from: from) ?? ""
+    }
+
+    public static func bundleName(from: From = .app) -> String? {
+        getValue(by: "CFBundleName", from: from)
+    }
+
+    public static func displayName(from: From = .app) -> String? {
+        getValue(by: "CFBundleDisplayName", from: from)
     }
 
     public static func shortVersionString(from: From = .app) -> String {
