@@ -23,7 +23,7 @@ extension Extendable where Base: Layout.Section {
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         custom(
@@ -50,7 +50,7 @@ extension Extendable where Base: Layout.Compositional {
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         Base { _, environment in
@@ -78,7 +78,7 @@ extension SectionProviderWrapper {
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
         .init {

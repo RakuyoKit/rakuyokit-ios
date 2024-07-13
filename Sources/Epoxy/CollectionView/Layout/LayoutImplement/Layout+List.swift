@@ -36,7 +36,7 @@ extension Extendable where Base: Layout.Section {
         layoutEnvironment environment: Layout.Environment,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets
     ) -> Base {
         custom(
@@ -57,7 +57,7 @@ extension Extendable where Base: Layout.Compositional {
         spacing: ListSpacing = .default,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground
+        decoration: DecorationStyle? = nil
     ) -> Base {
         Base { _, environment in
             Layout.Section.rak.list(
@@ -73,7 +73,7 @@ extension Extendable where Base: Layout.Compositional {
     public static func list(
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets
     ) -> Base {
         Base { _, environment in
@@ -112,7 +112,7 @@ extension SectionProviderWrapper {
     public static func list(
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets
     ) -> Self {
         .init {

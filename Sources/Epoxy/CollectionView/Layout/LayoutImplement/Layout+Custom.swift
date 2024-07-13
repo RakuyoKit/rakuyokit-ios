@@ -20,7 +20,7 @@ extension Extendable where Base: Layout.Section {
         layoutEnvironment environment: Layout.Environment,
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         create(
@@ -40,7 +40,7 @@ extension Extendable where Base: Layout.Compositional {
     public static func custom(
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         Base { _, environment in
@@ -62,7 +62,7 @@ extension SectionProviderWrapper {
     public static func custom(
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
         .init {
