@@ -1,0 +1,36 @@
+//
+//  AnyImageContent+Accessory.swift
+//  RakuyoKit
+//
+//  Created by Rakuyo on 2024/7/8.
+//  Copyright © 2024 LenticularStickers. All rights reserved.
+//
+
+#if !os(watchOS)
+import UIKit
+
+import RAKConfig
+import RAKCore
+
+extension AnyImageContent {
+    public static func accessory() -> Self {
+        .sfSymbols(
+            name: "chevron.forward",
+            color: Config.color.text.tertiary,
+            configuration: .init(
+                textStyle: .init(rawValue: "UICTFontTextStyleEmphasizedBody"),
+                scale: .small
+            )
+        )
+    }
+}
+
+extension ImageRow.Style {
+    public static func accessory() -> Self {
+        .init(
+            size: .init(width: 10 + .rak.halfPoint, height: 20 + .rak.halfPoint),
+            contentMode: .scaleAspectFit
+        )
+    }
+}
+#endif
