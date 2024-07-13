@@ -25,17 +25,13 @@ extension Extendable where Base: Layout.Section {
         
         return .init(group: group).then { section in
             section.contentInsets = edgeInsets.edgeInsets
+            section.decorationItems = createDecorationItems(by: decoration, edgeInsets: edgeInsets)
             section.boundarySupplementaryItems = supplementaryItems.map {
                 createSupplementaryItem(with: $0)
             }
 
             if case .flow(_, let behavior, _) = style {
                 section.orthogonalScrollingBehavior = behavior
-            }
-            
-            let decorationItems = createDecorationItems(by: decoration, edgeInsets: edgeInsets)
-            if decorationItems.isNotEmpty {
-                section.decorationItems = decorationItems
             }
         }
     }
