@@ -20,7 +20,7 @@ extension Extendable where Base: Layout.Section {
         layoutEnvironment environment: Layout.Environment,
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         create(
@@ -40,10 +40,11 @@ extension Extendable where Base: Layout.Compositional {
     public static func custom(
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
-        decoration: DecorationStyle? = .whiteBackground,
-        edgeInsets: SectionEdgeInsets? = nil
-    ) -> Self {
-        Base { _, environment in
+        decoration: DecorationStyle? = nil,
+        edgeInsets: SectionEdgeInsets? = nil,
+        configuration: Layout.CompositionalConfiguration? = nil
+    ) -> Base {
+        let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
             Layout.Section.rak.custom(
                 layoutEnvironment: environment,
                 style: style,
@@ -51,7 +52,10 @@ extension Extendable where Base: Layout.Compositional {
                 decoration: decoration,
                 edgeInsets: edgeInsets
             )
-        }.rak
+        }
+
+        guard let configuration else { return .init(sectionProvider: sectionProvider) }
+        return .init(sectionProvider: sectionProvider, configuration: configuration)
     }
 }
 
@@ -62,7 +66,7 @@ extension SectionProviderWrapper {
     public static func custom(
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
         .init {

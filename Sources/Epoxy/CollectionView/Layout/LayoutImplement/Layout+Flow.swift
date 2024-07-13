@@ -23,7 +23,7 @@ extension Extendable where Base: Layout.Section {
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         custom(
@@ -50,10 +50,11 @@ extension Extendable where Base: Layout.Compositional {
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
-        edgeInsets: SectionEdgeInsets? = nil
-    ) -> Self {
-        Base { _, environment in
+        decoration: DecorationStyle? = nil,
+        edgeInsets: SectionEdgeInsets? = nil,
+        configuration: Layout.CompositionalConfiguration? = nil
+    ) -> Base {
+        let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
             Layout.Section.rak.flow(
                 layoutEnvironment: environment,
                 itemSize: itemSize,
@@ -64,7 +65,10 @@ extension Extendable where Base: Layout.Compositional {
                 decoration: decoration,
                 edgeInsets: edgeInsets
             )
-        }.rak
+        }
+
+        guard let configuration else { return .init(sectionProvider: sectionProvider) }
+        return .init(sectionProvider: sectionProvider, configuration: configuration)
     }
 }
 
@@ -78,7 +82,7 @@ extension SectionProviderWrapper {
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
         .init {

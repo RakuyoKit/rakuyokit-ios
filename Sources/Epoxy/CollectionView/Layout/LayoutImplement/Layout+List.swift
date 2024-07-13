@@ -36,7 +36,7 @@ extension Extendable where Base: Layout.Section {
         layoutEnvironment environment: Layout.Environment,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets
     ) -> Base {
         custom(
@@ -57,9 +57,10 @@ extension Extendable where Base: Layout.Compositional {
         spacing: ListSpacing = .default,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground
-    ) -> Self {
-        Base { _, environment in
+        decoration: DecorationStyle? = nil,
+        configuration: Layout.CompositionalConfiguration? = nil
+    ) -> Base {
+        let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
             Layout.Section.rak.list(
                 layoutEnvironment: environment,
                 spacing: spacing,
@@ -67,16 +68,20 @@ extension Extendable where Base: Layout.Compositional {
                 footer: footer,
                 decoration: decoration
             )
-        }.rak
+        }
+
+        guard let configuration else { return .init(sectionProvider: sectionProvider) }
+        return .init(sectionProvider: sectionProvider, configuration: configuration)
     }
 
     public static func list(
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
-        edgeInsets: SectionEdgeInsets
-    ) -> Self {
-        Base { _, environment in
+        decoration: DecorationStyle? = nil,
+        edgeInsets: SectionEdgeInsets,
+        configuration: Layout.CompositionalConfiguration? = nil
+    ) -> Base {
+        let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
             Layout.Section.rak.list(
                 layoutEnvironment: environment,
                 header: header,
@@ -84,7 +89,10 @@ extension Extendable where Base: Layout.Compositional {
                 decoration: decoration,
                 edgeInsets: edgeInsets
             )
-        }.rak
+        }
+
+        guard let configuration else { return .init(sectionProvider: sectionProvider) }
+        return .init(sectionProvider: sectionProvider, configuration: configuration)
     }
 }
 
@@ -112,7 +120,7 @@ extension SectionProviderWrapper {
     public static func list(
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground,
+        decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets
     ) -> Self {
         .init {

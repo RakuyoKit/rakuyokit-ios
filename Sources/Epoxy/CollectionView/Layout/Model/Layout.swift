@@ -18,7 +18,11 @@ public enum Layout {
     public typealias Dimension = NSCollectionLayoutDimension
     
     public typealias Compositional = UICollectionViewCompositionalLayout
-    
+
+    public typealias CompositionalConfiguration = UICollectionViewCompositionalLayoutConfiguration
+
+    public typealias CompositionalSectionProvider = UICollectionViewCompositionalLayoutSectionProvider
+
     public typealias Item = NSCollectionLayoutItem
 
     public typealias GroupCustomItem = NSCollectionLayoutGroupCustomItem
