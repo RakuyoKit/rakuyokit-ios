@@ -41,9 +41,10 @@ extension Extendable where Base: Layout.Compositional {
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets? = nil
+        edgeInsets: SectionEdgeInsets? = nil,
+        configuration: Layout.CompositionalConfiguration? = nil
     ) -> Base {
-        Base { _, environment in
+        let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
             Layout.Section.rak.custom(
                 layoutEnvironment: environment,
                 style: style,
@@ -52,6 +53,9 @@ extension Extendable where Base: Layout.Compositional {
                 edgeInsets: edgeInsets
             )
         }
+
+        guard let configuration else { return .init(sectionProvider: sectionProvider) }
+        return .init(sectionProvider: sectionProvider, configuration: configuration)
     }
 }
 
