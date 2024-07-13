@@ -9,8 +9,13 @@
 import UIKit
 
 extension Extendable where Base: UIColor {
-    public static func random(alpha: CGFloat = 1.0) -> UIColor {
-        UIColor(
+    public static var groupTableHeaderFooterTextColor: Base? {
+        let value = Base.perform(Selector(("_groupTableHeaderFooterTextColor")))
+        return value?.takeUnretainedValue() as? Base
+    }
+
+    public static func random(alpha: CGFloat = 1.0) -> Base {
+        .init(
             red: CGFloat.random(in: 0 ..< 256) / CGFloat(255.0),
             green: CGFloat.random(in: 0 ..< 256) / CGFloat(255.0),
             blue: CGFloat.random(in: 0 ..< 256) / CGFloat(255.0),
