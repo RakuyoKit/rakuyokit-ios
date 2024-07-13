@@ -42,7 +42,7 @@ extension Extendable where Base: Layout.Compositional {
         supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
-    ) -> Self {
+    ) -> Base {
         Base { _, environment in
             Layout.Section.rak.custom(
                 layoutEnvironment: environment,
@@ -51,7 +51,7 @@ extension Extendable where Base: Layout.Compositional {
                 decoration: decoration,
                 edgeInsets: edgeInsets
             )
-        }.rak
+        }
     }
 }
 

@@ -52,7 +52,7 @@ extension Extendable where Base: Layout.Compositional {
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets? = nil
-    ) -> Self {
+    ) -> Base {
         Base { _, environment in
             Layout.Section.rak.flow(
                 layoutEnvironment: environment,
@@ -64,7 +64,7 @@ extension Extendable where Base: Layout.Compositional {
                 decoration: decoration,
                 edgeInsets: edgeInsets
             )
-        }.rak
+        }
     }
 }
 

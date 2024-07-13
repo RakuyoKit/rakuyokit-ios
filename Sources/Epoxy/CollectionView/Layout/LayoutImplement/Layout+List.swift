@@ -58,7 +58,7 @@ extension Extendable where Base: Layout.Compositional {
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = .whiteBackground
-    ) -> Self {
+    ) -> Base {
         Base { _, environment in
             Layout.Section.rak.list(
                 layoutEnvironment: environment,
@@ -67,7 +67,7 @@ extension Extendable where Base: Layout.Compositional {
                 footer: footer,
                 decoration: decoration
             )
-        }.rak
+        }
     }
 
     public static func list(
@@ -75,7 +75,7 @@ extension Extendable where Base: Layout.Compositional {
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = .whiteBackground,
         edgeInsets: SectionEdgeInsets
-    ) -> Self {
+    ) -> Base {
         Base { _, environment in
             Layout.Section.rak.list(
                 layoutEnvironment: environment,
@@ -84,7 +84,7 @@ extension Extendable where Base: Layout.Compositional {
                 decoration: decoration,
                 edgeInsets: edgeInsets
             )
-        }.rak
+        }
     }
 }
 
