@@ -94,7 +94,7 @@ public struct DateFormat: Equatable {
     ///
     public let format: String
 
-    public init(date: Date? = nil, time: Time? = nil) {
+    public init(date: Date? = nil, time: Time? = nil, separator: Separator? = nil) {
         switch (date, time) {
         case (.some(let value), nil):
             format = value.format
@@ -103,7 +103,7 @@ public struct DateFormat: Equatable {
             format = value.format
 
         case (.some(let dateValue), .some(let timeValue)):
-            format = dateValue.format + " " + timeValue.format
+            format = dateValue.format + (separator?.rawValue ?? " ") + timeValue.format
 
         case (nil, nil):
             format = ""
@@ -151,6 +151,15 @@ extension DateFormat {
     /// `HH:mm`
     public static var h_m: Self {
         .init(time: .init([.hour, .minute]))
+    }
+
+    /// `yyyy_MM_dd_HH_mm_ss`
+    public static var fullTimeForFileName: Self {
+        .init(
+            date: .init(separator: .underscores),
+            time: .init(separator: .underscores),
+            separator: .underscores
+        )
     }
 }
 
