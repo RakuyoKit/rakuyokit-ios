@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift.git",
       "state" : {
-        "revision" : "639fa9168d36931b36a79e60dc06b7d23852f1f4",
-        "version" : "6.27.0"
+        "revision" : "78448cf8f4ed39b259bd6718d074a57ae3b2e8ba",
+        "version" : "6.28.0"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RakuyoKit/RaLog.git",
       "state" : {
-        "revision" : "30f50a95eb90d85f2c9bfd7321bfbbcc545b8fcc",
-        "version" : "1.7.3"
+        "revision" : "f89b6fe7ca4138f717a83f18bb80ce248acdbb6d",
+        "version" : "1.7.4"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RakuyoKit/swift.git",
       "state" : {
-        "revision" : "426104d8792ffe1cf1c6677a4820c10801f12b5c",
-        "version" : "1.2.0"
+        "revision" : "c5638568c4383ef7e72c10c76a682264b9fd4362",
+        "version" : "1.3.0"
       }
     },
     {
