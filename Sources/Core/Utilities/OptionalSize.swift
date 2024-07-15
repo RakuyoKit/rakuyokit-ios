@@ -11,9 +11,9 @@ import Foundation
 // MARK: - OptionalSize
 
 public struct OptionalSize<T: FloatingPoint> {
-    public var width: T?
+    public var width: T? = nil
 
-    public var height: T?
+    public var height: T? = nil
 
     public init(width: T? = nil, height: T? = nil) {
         self.width = width

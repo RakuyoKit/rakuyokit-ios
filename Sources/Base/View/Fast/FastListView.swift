@@ -26,7 +26,7 @@ public protocol FastListView: NSObjectProtocol {
 
 // MARK: - UITableView
 
-private var tableViewKey: Void?
+private var tableViewKey: Void? = nil
 
 extension UITableView: FastListView {
     public var registeredIdentifiers: [String] {
@@ -56,7 +56,7 @@ extension UITableView: FastListView {
 
 // MARK: - UICollectionView
 
-private var collectionViewKey: Void?
+private var collectionViewKey: Void? = nil
 
 extension UICollectionView: FastListView {
     public var registeredIdentifiers: [String] {

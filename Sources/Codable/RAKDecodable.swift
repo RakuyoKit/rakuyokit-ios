@@ -88,7 +88,7 @@ extension RAKDecodable {
         let jsonObject = try? JSONSerialization.jsonObject(with: _jsonData, options: .allowFragments)
         var result: Any? = jsonObject
         var abort = false
-        var next = jsonObject as? [String: Any]
+        var next = (jsonObject as? [String: Any])
 
         for path in paths {
             if path.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty || abort {

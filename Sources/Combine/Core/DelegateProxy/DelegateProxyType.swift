@@ -1,7 +1,7 @@
 #if !(os(iOS) && (arch(i386) || arch(arm)))
 import Foundation
 
-private var associatedKey: Void?
+private var associatedKey: Void? = nil
 
 public protocol DelegateProxyType {
     associatedtype Object

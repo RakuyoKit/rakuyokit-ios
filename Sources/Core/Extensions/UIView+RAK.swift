@@ -56,8 +56,8 @@ extension UIView {
     }
 }
 
-private var kIsHideKeyboardWhenTapKey: Void?
-private var kHideKeyboardGestureKey: Void?
+private var kIsHideKeyboardWhenTapKey: Void? = nil
+private var kHideKeyboardGestureKey: Void? = nil
 
 // MARK: - Animation
 
