@@ -27,8 +27,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.2"),
         .package(url: "https://github.com/airbnb/epoxy-ios.git", from: "0.10.0"),
-        .package(url: "https://github.com/groue/GRDB.swift.git", from: "6.27.0"),
-        .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.7.3"),
+        .package(url: "https://github.com/groue/GRDB.swift.git", from: "6.28.0"),
+        .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.7.4"),
         .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
     ],
     targets: [
@@ -143,4 +143,4 @@ let package = Package(
 )
 
 // Add the Rakuyo Swift formatting plugin if possible
-package.dependencies.append(.package(url: "https://github.com/RakuyoKit/swift.git", from: "1.1.4"))
+package.dependencies.append(.package(url: "https://github.com/RakuyoKit/swift.git", from: "1.2.2"))

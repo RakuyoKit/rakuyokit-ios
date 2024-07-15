@@ -14,7 +14,7 @@ import RAKConfig
 @objc(RAKBaseNavigationController)
 open class BaseNavigationController: UINavigationController {
     #if !os(tvOS)
-    private var popDelegateProxy: NavigationControllerPopDelegateProxy?
+    private var popDelegateProxy: NavigationControllerPopDelegateProxy? = nil
     #endif
 
     override open func viewDidLoad() {
