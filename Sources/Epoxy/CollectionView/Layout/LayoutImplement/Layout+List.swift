@@ -37,7 +37,7 @@ extension Extendable where Base: Layout.Section {
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets
+        edgeInsets: SectionEdgeInsets?
     ) -> Base {
         custom(
             layoutEnvironment: environment,
@@ -78,7 +78,7 @@ extension Extendable where Base: Layout.Compositional {
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets,
+        edgeInsets: SectionEdgeInsets?,
         configuration: Layout.CompositionalConfiguration? = nil
     ) -> Base {
         let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
@@ -121,7 +121,7 @@ extension SectionProviderWrapper {
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets
+        edgeInsets: SectionEdgeInsets?
     ) -> Self {
         .init {
             Layout.Section.rak.list(
