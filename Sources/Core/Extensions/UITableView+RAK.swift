@@ -11,6 +11,20 @@ import UIKit
 
 extension Extendable where Base: UITableView {
     public func deselectRowIfNeeded(
+        with transitionCoordinator: UIViewControllerTransitionCoordinator? = nil,
+        animated: Bool = true,
+        after deadline: DispatchTime? = nil
+    ) {
+        if let deadline {
+            DispatchQueue.main.asyncAfter(deadline: deadline) {
+                deselectRowIfNeeded(with: transitionCoordinator, animated: animated)
+            }
+        } else {
+            deselectRowIfNeeded(with: transitionCoordinator, animated: animated)
+        }
+    }
+
+    private func deselectRowIfNeeded(
         with transitionCoordinator: UIViewControllerTransitionCoordinator?,
         animated: Bool
     ) {
@@ -22,12 +36,12 @@ extension Extendable where Base: UITableView {
         }
 
         coordinator.animate(
-            alongsideTransition: { _ in
-                base.deselectRow(at: selectedIndexPath, animated: true)
+            alongsideTransition: { [weak base] _ in
+                base?.deselectRow(at: selectedIndexPath, animated: true)
             },
-            completion: { context in
+            completion: { [weak base] context in
                 guard context.isCancelled else { return }
-                base.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .none)
+                base?.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .none)
             }
         )
     }

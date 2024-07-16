@@ -32,6 +32,20 @@ extension Extendable where Base: UICollectionView {
 
 extension Extendable where Base: UICollectionView {
     public func deselectRowIfNeeded(
+        with transitionCoordinator: UIViewControllerTransitionCoordinator? = nil,
+        animated: Bool = true,
+        after deadline: DispatchTime? = nil
+    ) {
+        if let deadline {
+            DispatchQueue.main.asyncAfter(deadline: deadline) {
+                deselectRowIfNeeded(with: transitionCoordinator, animated: animated)
+            }
+        } else {
+            deselectRowIfNeeded(with: transitionCoordinator, animated: animated)
+        }
+    }
+
+    private func deselectRowIfNeeded(
         with transitionCoordinator: UIViewControllerTransitionCoordinator?,
         animated: Bool
     ) {
@@ -46,11 +60,11 @@ extension Extendable where Base: UICollectionView {
             alongsideTransition: { _ in
                 deselectItems(at: selectedIndexPaths, animated: true)
             },
-            completion: { context in
+            completion: { [weak base] context in
                 guard context.isCancelled else { return }
 
                 for selectedIndexPath in selectedIndexPaths {
-                    base.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+                    base?.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
                 }
             }
         )
@@ -58,7 +72,7 @@ extension Extendable where Base: UICollectionView {
 
     private func deselectItems(at selectedIndexPaths: [IndexPath], animated: Bool) {
         for selectedIndexPath in selectedIndexPaths {
-            base.deselectItem(at: selectedIndexPath, animated: true)
+            base.deselectItem(at: selectedIndexPath, animated: animated)
             base.delegate?.collectionView?(base, didDeselectItemAt: selectedIndexPath)
         }
     }

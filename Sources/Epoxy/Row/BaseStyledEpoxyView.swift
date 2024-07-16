@@ -29,7 +29,8 @@ open class BaseStyledEpoxyView<Style: Hashable>: RAKBase.BaseView, StyledView {
 
     // MARK: Config
 
-    override open func config() {
+    @objc
+    override open dynamic func config() {
         super.config()
 
         translatesAutoresizingMaskIntoConstraints = false
