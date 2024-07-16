@@ -58,7 +58,7 @@ extension Extendable where Base: UICollectionView {
 
     private func deselectItems(at selectedIndexPaths: [IndexPath], animated: Bool) {
         for selectedIndexPath in selectedIndexPaths {
-            base.deselectItem(at: selectedIndexPath, animated: true)
+            base.deselectItem(at: selectedIndexPath, animated: animated)
             base.delegate?.collectionView?(base, didDeselectItemAt: selectedIndexPath)
         }
     }
