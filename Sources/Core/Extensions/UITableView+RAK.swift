@@ -11,6 +11,20 @@ import UIKit
 
 extension Extendable where Base: UITableView {
     public func deselectRowIfNeeded(
+        with transitionCoordinator: UIViewControllerTransitionCoordinator? = nil,
+        animated: Bool = true,
+        after deadline: DispatchTime? = nil
+    ) {
+        if let deadline {
+            DispatchQueue.main.asyncAfter(deadline: deadline) {
+                deselectRowIfNeeded(with: transitionCoordinator, animated: animated)
+            }
+        } else {
+            deselectRowIfNeeded(with: transitionCoordinator, animated: animated)
+        }
+    }
+
+    private func deselectRowIfNeeded(
         with transitionCoordinator: UIViewControllerTransitionCoordinator?,
         animated: Bool
     ) {
