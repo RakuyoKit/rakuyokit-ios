@@ -60,11 +60,11 @@ extension Extendable where Base: UICollectionView {
             alongsideTransition: { _ in
                 deselectItems(at: selectedIndexPaths, animated: true)
             },
-            completion: { context in
+            completion: { [weak base] context in
                 guard context.isCancelled else { return }
 
                 for selectedIndexPath in selectedIndexPaths {
-                    base.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+                    base?.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
                 }
             }
         )

@@ -36,12 +36,12 @@ extension Extendable where Base: UITableView {
         }
 
         coordinator.animate(
-            alongsideTransition: { _ in
-                base.deselectRow(at: selectedIndexPath, animated: true)
+            alongsideTransition: { [weak base] _ in
+                base?.deselectRow(at: selectedIndexPath, animated: true)
             },
-            completion: { context in
+            completion: { [weak base] context in
                 guard context.isCancelled else { return }
-                base.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .none)
+                base?.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .none)
             }
         )
     }
