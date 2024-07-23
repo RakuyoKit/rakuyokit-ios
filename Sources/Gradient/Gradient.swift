@@ -24,4 +24,9 @@ public struct Gradient: Hashable {
         endPosition = end
         self.colors = colors
     }
+
+    public init(direction: Direction, colors: Colors) {
+        let positions = direction.positions
+        self.init(start: positions.start, end: positions.end, colors: colors)
+    }
 }
