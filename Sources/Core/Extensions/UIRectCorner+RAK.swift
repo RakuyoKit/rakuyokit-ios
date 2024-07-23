@@ -13,11 +13,11 @@ import UIKit
 extension UIRectCorner: NamespaceProviding { }
 
 extension Extendable where Base == UIRectCorner {
-    public static var top: Self {
-        Base([.topLeft, .topRight]).rak
+    public static var top: Base {
+        .init([.topLeft, .topRight])
     }
 
-    public static var bottom: Self {
-        Base([.bottomLeft, .bottomRight]).rak
+    public static var bottom: Base {
+        .init([.bottomLeft, .bottomRight])
     }
 }

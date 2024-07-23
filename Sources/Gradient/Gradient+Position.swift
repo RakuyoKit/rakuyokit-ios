@@ -31,12 +31,12 @@ extension Gradient {
 }
 
 extension Gradient.Position {
-    public static var top: Self { .init(x: 0.5, y: 0.0) }
-    public static var bottom: Self { .init(x: 0.5, y: 1.0) }
-    public static var left: Self { .init(x: 0.0, y: 0.5) }
-    public static var right: Self { .init(x: 1.0, y: 0.5) }
-    public static var topLeft: Self { .init(x: 0.0, y: 0.0) }
-    public static var topRight: Self { .init(x: 1.0, y: 0.0) }
-    public static var bottomLeft: Self { .init(x: 0.0, y: 1.0) }
-    public static var bottomRight: Self { .init(x: 1.0, y: 1.0) }
+    public static let top = Self(x: 0.5, y: 0.0)
+    public static let bottom = Self(x: 0.5, y: 1.0)
+    public static let left = Self(x: 0.0, y: 0.5)
+    public static let right = Self(x: 1.0, y: 0.5)
+    public static let topLeft = Self(x: 0.0, y: 0.0)
+    public static let topRight = Self(x: 1.0, y: 0.0)
+    public static let bottomLeft = Self(x: 0.0, y: 1.0)
+    public static let bottomRight = Self(x: 1.0, y: 1.0)
 }
