@@ -9,19 +9,19 @@
 import UIKit
 
 /// Gradient configuration
-public struct Gradient {
+public struct Gradient: Hashable {
     /// Starting position of the gradient
-    public let startDirection: Direction
-    
+    public let startPosition: Position
+
     /// Ending position of the gradient
-    public let endDirection: Direction
-    
+    public let endPosition: Position
+
     /// Gradient colors
     public let colors: Colors
     
-    public init(start: Direction, end: Direction, colors: Colors) {
-        startDirection = start
-        endDirection = end
+    public init(start: Position, end: Position, colors: Colors) {
+        startPosition = start
+        endPosition = end
         self.colors = colors
     }
 }

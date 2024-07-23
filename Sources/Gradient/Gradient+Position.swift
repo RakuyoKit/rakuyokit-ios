@@ -1,5 +1,5 @@
 //
-//  Gradient+Direction.swift
+//  Gradient+Position.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-// MARK: - Gradient.Direction
+// MARK: - Gradient.Position
 
 extension Gradient {
-    /// Specifies the direction of colors during gradient rendering.
+    /// Specifies the position of colors during gradient rendering.
     ///
     /// The values of this enumeration are set not according to the documentation of `startPoint`,
     /// but rather determined by **visual perception**.
     ///
-    /// For example, if our color array is `[.red, .black, .green]` and the direction is set to `from .top to .bottom`,
+    /// For example, if our color array is `[.red, .black, .green]` and the position is set to `from .top to .bottom`,
     /// the effect would be: red appears at the top of the view, and green appears at the bottom of the view.
-    public struct Direction {
+    public struct Position: Hashable {
         public let x: CGFloat
         
         public let y: CGFloat
@@ -30,7 +30,7 @@ extension Gradient {
     }
 }
 
-extension Gradient.Direction {
+extension Gradient.Position {
     public static var top: Self { .init(x: 0.5, y: 0.0) }
     public static var bottom: Self { .init(x: 0.5, y: 1.0) }
     public static var left: Self { .init(x: 0.0, y: 0.5) }

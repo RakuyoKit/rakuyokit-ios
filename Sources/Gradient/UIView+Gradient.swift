@@ -13,35 +13,35 @@ import RAKCore
 import Then
 
 extension Extendable where Base: UIView {
-    /// Specifies the direction of colors during gradient rendering.
+    /// Specifies the position of colors during gradient rendering.
     ///
     /// The values of this enumeration are set not according to the documentation of `startPoint`,
     /// but rather determined by **visual perception**.
     ///
-    /// For example, if our color array is `[.red, .black, .green]` and the direction is set to `from .top to .bottom`,
+    /// For example, if our color array is `[.red, .black, .green]` and the position is set to `from .top to .bottom`,
     /// the effect would be: red appears at the top of the view, and green appears at the bottom of the view.
-    public typealias Direction = Gradient.Direction
-    
-    /// Conveniently creates a gradient layer using preset directions from the `Direction` enumeration.
+    public typealias Position = Gradient.Position
+
+    /// Conveniently creates a gradient layer using preset positions from the `Position` enumeration.
     ///
     /// - Parameters:
-    ///   - start: The start direction.
-    ///   - end: The end direction.
+    ///   - start: The start position.
+    ///   - end: The end position.
     ///   - colors: The colors for the gradient.
     /// - Returns: The created gradient layer.
-    public func createGradientLayer(from start: Direction, to end: Direction, colors: [UIColor]) -> CAGradientLayer {
+    public func createGradientLayer(from start: Position, to end: Position, colors: [UIColor]) -> CAGradientLayer {
         createGradientLayer(by: .init(start: start, end: end, colors: .init(colors)))
     }
     
-    /// Conveniently applies a gradient to the view using preset directions from the `Direction` enumeration.
+    /// Conveniently applies a gradient to the view using preset positions from the `Position` enumeration.
     ///
     /// - Parameters:
-    ///   - start: The start direction.
-    ///   - end: The end direction.
+    ///   - start: The start position.
+    ///   - end: The end position.
     ///   - colors: The colors for the gradient.
     /// - Returns: The created gradient layer.
     @discardableResult
-    public func setGradientFrom(_ start: Direction, to end: Direction, colors: [UIColor]) -> CAGradientLayer {
+    public func setGradientFrom(_ start: Position, to end: Position, colors: [UIColor]) -> CAGradientLayer {
         applyGradient(with: .init(start: start, end: end, colors: .init(colors)))
     }
 }
@@ -52,9 +52,9 @@ extension Extendable where Base: UIView {
     /// - Parameter gradient: The gradient configuration.
     /// - Returns: The created gradient layer.
     public func createGradientLayer(by gradient: Gradient) -> CAGradientLayer {
-        let start = gradient.startDirection
-        let end = gradient.endDirection
-        
+        let start = gradient.startPosition
+        let end = gradient.endPosition
+
         let layer = CAGradientLayer()
         
         guard
