@@ -1,5 +1,5 @@
 //
-//  Database+SQLCipher+RAK.swift
+//  Database+RAK.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/7/24.
