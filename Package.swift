@@ -27,7 +27,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.2"),
         .package(url: "https://github.com/airbnb/epoxy-ios.git", from: "0.10.0"),
-        .package(url: "https://github.com/groue/GRDB.swift.git", from: "6.28.0"),
+        .package(url: "https://github.com/groue/GRDB.swift.git", from: "6.29.0"),
         .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.7.4"),
         .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
     ],
