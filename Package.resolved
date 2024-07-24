@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "sqlcipher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Tencent/sqlcipher.git",
+      "state" : {
+        "revision" : "f7e94ce2fad6fc55cfc1180592addd654f140058",
+        "version" : "1.4.4"
+      }
+    },
+    {
       "identity" : "swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RakuyoKit/swift.git",
