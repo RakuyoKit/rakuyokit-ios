@@ -23,6 +23,8 @@ import sqlcipher
 // swiftformat:disable all
 // swiftlint:disable all
 
+extension Database: NamespaceProviding { }
+
 // MARK: - Validate
 
 extension Extendable where Base: Database {
