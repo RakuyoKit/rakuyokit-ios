@@ -2,41 +2,54 @@
 //  Gradient+Direction.swift
 //  RakuyoKit
 //
-//  Created by Rakuyo on 2024/4/10.
+//  Created by Rakuyo on 2024/7/23.
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 // MARK: - Gradient.Direction
 
 extension Gradient {
-    /// Specifies the direction of colors during gradient rendering.
+    /// This type can be said to be a further abstraction of `Gradient.Position`
     ///
-    /// The values of this enumeration are set not according to the documentation of `startPoint`,
-    /// but rather determined by **visual perception**.
-    ///
-    /// For example, if our color array is `[.red, .black, .green]` and the direction is set to `from .top to .bottom`,
-    /// the effect would be: red appears at the top of the view, and green appears at the bottom of the view.
-    public struct Direction {
-        public let x: CGFloat
-        
-        public let y: CGFloat
-        
-        public init(x: CGFloat, y: CGFloat) {
-            self.x = x
-            self.y = y
-        }
+    /// `Gradient.Position` represents a specific point or position.
+    /// The type `Gradient.Direction` represents the direction, including the starting point and the end point.
+    public enum Direction: Hashable {
+        case topToBottom
+        case bottomToTop
+        case leftToRight
+        case rightToLeft
+        case topLeftToBottomRight
+        case topRightToBottomLeft
+        case bottomLeftToTopRight
+        case bottomRightToTopLeft
+        case custom(from: Position, to: Position)
     }
 }
 
 extension Gradient.Direction {
-    public static var top: Self { .init(x: 0.5, y: 0.0) }
-    public static var bottom: Self { .init(x: 0.5, y: 1.0) }
-    public static var left: Self { .init(x: 0.0, y: 0.5) }
-    public static var right: Self { .init(x: 1.0, y: 0.5) }
-    public static var topLeft: Self { .init(x: 0.0, y: 0.0) }
-    public static var topRight: Self { .init(x: 1.0, y: 0.0) }
-    public static var bottomLeft: Self { .init(x: 0.0, y: 1.0) }
-    public static var bottomRight: Self { .init(x: 1.0, y: 1.0) }
+    /// The starting and ending points corresponding to the direction
+    public var positions: (start: Gradient.Position, end: Gradient.Position) {
+        switch self {
+        case .topToBottom:
+            (.top, .bottom)
+        case .bottomToTop:
+            (.bottom, .top)
+        case .leftToRight:
+            (.left, .right)
+        case .rightToLeft:
+            (.right, .left)
+        case .topLeftToBottomRight:
+            (.topLeft, .bottomRight)
+        case .topRightToBottomLeft:
+            (.topRight, .bottomLeft)
+        case .bottomLeftToTopRight:
+            (.bottomLeft, .topRight)
+        case .bottomRightToTopLeft:
+            (.bottomRight, .topLeft)
+        case .custom(let from, let to):
+            (from, to)
+        }
+    }
 }

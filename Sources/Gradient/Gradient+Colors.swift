@@ -12,7 +12,7 @@ import RAKCore
 
 extension Gradient {
     /// Wrapper for an array of gradient colors
-    public struct Colors {
+    public struct Colors: Hashable {
         /// Array of colors
         public let colors: [UIColor]
         

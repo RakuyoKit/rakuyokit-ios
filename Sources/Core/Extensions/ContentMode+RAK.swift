@@ -3,7 +3,7 @@
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/6/12.
-//  Copyright © 2024 LenticularStickers. All rights reserved.
+//  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
 import UIKit

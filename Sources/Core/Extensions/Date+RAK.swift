@@ -43,14 +43,25 @@ extension Extendable where Base == Date {
     /// Start time of the specified date
     public var start: Date { calendar.startOfDay(for: base) }
 
-    /// Timestamp for N days in the future
-    public func apply(day: Int) -> Date? {
-        calendar.date(byAdding: .day, value: day, to: base)
+    /// Increment or decrement `value` on `component` based on the current time.
+    ///
+    /// A positive value represents the future, and a negative value represents the past.
+    public func apply(value: Int, by component: Calendar.Component) -> Date? {
+        calendar.date(byAdding: component, value: value, to: base)
     }
 
-    /// Timestamp for N years in the future
-    public func apply(year: Int) -> Date? {
-        calendar.date(byAdding: .year, value: year, to: base)
+    /// Increment or decrement `value` on `.second` based on the current time.
+    ///
+    /// A positive value represents the future, and a negative value represents the past.
+    public func apply(second value: Int) -> Date? {
+        apply(value: value, by: .second)
+    }
+
+    /// Increment or decrement `value` on `.day` based on the current time.
+    ///
+    /// A positive value represents the future, and a negative value represents the past.
+    public func apply(day value: Int) -> Date? {
+        apply(value: value, by: .day)
     }
 }
 
