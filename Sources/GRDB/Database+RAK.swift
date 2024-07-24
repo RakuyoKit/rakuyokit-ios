@@ -18,7 +18,7 @@ import Foundation
 
 import GRDB
 import RAKCore
-import sqlcipher
+import SQLCipher
 
 // swiftformat:disable all
 // swiftlint:disable all

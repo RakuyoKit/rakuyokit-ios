@@ -39,10 +39,10 @@
     {
       "identity" : "sqlcipher",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Tencent/sqlcipher.git",
+      "location" : "https://github.com/crazzy263/SQLCipher.git",
       "state" : {
-        "revision" : "f7e94ce2fad6fc55cfc1180592addd654f140058",
-        "version" : "1.4.4"
+        "revision" : "8cff317b9ad4b6857bee00b740e3d82b55267e57",
+        "version" : "1.0.1"
       }
     },
     {
