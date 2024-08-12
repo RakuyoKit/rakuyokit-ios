@@ -6,4 +6,5 @@
 @_exported import RAKEncrypte
 @_exported import RAKGradient
 @_exported import RAKLocalCache
+@_exported import RAKNanoID
 @_exported import RAKNotification
