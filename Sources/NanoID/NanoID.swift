@@ -30,23 +30,23 @@ import Foundation
 public final class NanoID {
     public enum Default {
         public static let size = 21
-        public static let aphabet = [NanoID.Alphabet.urlSafe]
+        public static let aphabet = NanoID.Alphabet.urlSafe
     }
 
     private var size: Int
-    private var alphabet: String
+    private var alphabet: Alphabet
 
-    public init(alphabet: [Alphabet] = Default.aphabet, size: Int = Default.size) {
+    public init(alphabet: Alphabet = Default.aphabet, size: Int = Default.size) {
         self.size = size
-        self.alphabet = Self.parse(alphabet)
+        self.alphabet = alphabet
     }
 }
 
 // MARK: - Public
 
 extension NanoID {
-    public static func new(alphabet: [Alphabet] = Default.aphabet, size: Int = Default.size) -> String {
-        generate(from: parse(alphabet), of: size)
+    public static func new(alphabet: Alphabet = Default.aphabet, size: Int = Default.size) -> String {
+        generate(from: alphabet, of: size)
     }
 
     public func new() -> String {
@@ -57,17 +57,13 @@ extension NanoID {
 // MARK: - Private
 
 extension NanoID {
-    /// Parses input alphabets into a string
-    private static func parse(_ alphabets: [Alphabet]) -> String {
-        alphabets.map(\.supportedChars).joined()
-    }
-
     /// Generates a Nano ID using given parameters
-    private static func generate(from alphabet: String, of length: Int) -> String {
+    private static func generate(from alphabet: Alphabet, of length: Int) -> String {
+        let alphabetSupportedChars = alphabet.supportedChars
         var nanoID = ""
 
         for _ in 0 ..< length {
-            let randomCharacter = randomCharacter(from: alphabet)
+            let randomCharacter = randomCharacter(from: alphabetSupportedChars)
             nanoID.append(randomCharacter)
         }
 
