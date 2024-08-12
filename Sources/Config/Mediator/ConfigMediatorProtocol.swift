@@ -1,5 +1,5 @@
 //
-//  Collection+RAK.swift
+//  ConfigMediatorProtocol.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/9.
