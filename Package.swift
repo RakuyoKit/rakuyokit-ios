@@ -23,6 +23,7 @@ let package = Package(
         .library(name: "RAKCombine", targets: ["RAKCombine"]),
         .library(name: "RAKEpoxy", targets: ["RAKEpoxy"]),
         .library(name: "RAKGRDB", targets: ["RAKGRDB"]),
+        .library(name: "RAKNanoID", targets: ["RAKNanoID"]),
     ],
     dependencies: [
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.2"),
@@ -44,6 +45,7 @@ let package = Package(
                 "RAKGradient",
                 "RAKLocalCache",
                 "RAKNotification",
+                "RAKNanoID",
             ]
         ),
         
@@ -133,6 +135,12 @@ let package = Package(
                 .product(name: "GRDB", package: "GRDB.swift"),
             ],
             path: "Sources/GRDB"
+        ),
+
+        .target(
+            name: "RAKNanoID",
+            dependencies: ["RAKCore"],
+            path: "Sources/NanoID"
         ),
 
         .testTarget(
