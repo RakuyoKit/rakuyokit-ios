@@ -22,7 +22,7 @@ public final class ButtonRow: UIButton {
     private lazy var size: OptionalCGSize? = nil
 
     /// Expanded scope
-    private lazy var expandedInsets: EdgeInsets = .zero
+    private lazy var expandedInsets = EdgeInsets.zero
 
     /// Closure for `.touchDown` event.
     private lazy var didTouchDown: ButtonClosure? = nil

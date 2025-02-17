@@ -21,7 +21,7 @@ import RaLog
 open class BaseViewController: RotatableViewController {
     #if !os(tvOS)
     /// Default status bar style: black.
-    public static let statusBarStyle: UIStatusBarStyle = .default
+    public static let statusBarStyle = UIStatusBarStyle.default
     #endif
 
     /// Cancellable bindings.
