@@ -44,8 +44,6 @@ extension ConfigSourceProtocol {
     public func appDownloadURL(with area: String = "cn") -> URL? {
         let baseURLString = "https://itunes.apple.com/\(area)/app/id"
         let urlString = baseURLString + appStoreConnectAppleID
-
-        guard let url = URL(string: urlString) else { return nil }
-        return url
+        return .init(string: urlString)
     }
 }
