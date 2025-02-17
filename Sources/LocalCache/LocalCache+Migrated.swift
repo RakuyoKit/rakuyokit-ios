@@ -27,8 +27,8 @@ extension NeedMigratedCache {
     }
     
     public static func getOldUserDefaultsValue<T: Codable>(name: String) -> T? {
-        let userDefaults: UserDefaults = .standard
-        var encrypted: NeedEncrypted<T> = .init(name: name)
+        let userDefaults = UserDefaults.standard
+        var encrypted = NeedEncrypted<T>(name: name)
         
         defer { Encrypted.setValue(nil, to: userDefaults, with: &encrypted) }
         return Encrypted.getWrappedValue(from: userDefaults, with: &encrypted)

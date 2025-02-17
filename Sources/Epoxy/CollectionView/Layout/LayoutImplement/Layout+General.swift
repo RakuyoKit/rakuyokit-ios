@@ -86,7 +86,7 @@ extension Extendable where Base: Layout.Section {
     }
     
     private static func createGroup(by style: Layout.Style, item: Layout.Item) -> Layout.Group {
-        let groupSize: Layout.Size = .init(
+        let groupSize = Layout.Size(
             widthDimension: .fractionalWidth(1),
             heightDimension: .estimated(50)
         )

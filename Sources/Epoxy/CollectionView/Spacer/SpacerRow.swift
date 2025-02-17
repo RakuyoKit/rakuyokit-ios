@@ -40,7 +40,7 @@ extension SpacerRow {
 extension SpacerRow {
     public struct Style: Hashable {
         /// Default
-        public static let `default`: Self = .init()
+        public static let `default` = Self()
         
         /// Height
         public let height: CGFloat

@@ -66,7 +66,7 @@ extension String: ConvertibleToColor {
     public var color: UIColor { rak.toHex.color }
 }
 
-// MARK: - ConvertibleToColor + ConvertibleToColor
+// MARK: - [CGFloat] + ConvertibleToColor
 
 /// Will not check for out-of-bounds behavior.
 /// Please make sure that the array contains at least three elements.
