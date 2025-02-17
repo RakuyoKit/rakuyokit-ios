@@ -21,14 +21,16 @@ extension Extendable where Base: Layout.Section {
         spacing: ListSpacing = .default,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground
+        decoration: DecorationStyle? = .whiteBackground,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         custom(
             layoutEnvironment: environment,
             style: .list,
             supplementaryItems: createSupplementaryItems(header: header, footer: footer),
             decoration: decoration,
-            edgeInsets: .bottom(spacing.spacing)
+            edgeInsets: .bottom(spacing.spacing),
+            sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
         )
     }
 
@@ -37,14 +39,16 @@ extension Extendable where Base: Layout.Section {
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets?
+        edgeInsets: SectionEdgeInsets?,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         custom(
             layoutEnvironment: environment,
             style: .list,
             supplementaryItems: createSupplementaryItems(header: header, footer: footer),
             decoration: decoration,
-            edgeInsets: edgeInsets
+            edgeInsets: edgeInsets,
+            sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
         )
     }
 }
@@ -57,7 +61,8 @@ extension Extendable where Base: Layout.Compositional {
         spacing: ListSpacing = .default,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = nil,
+        decoration: DecorationStyle? = .whiteBackground,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil,
         configuration: Layout.CompositionalConfiguration? = nil
     ) -> Base {
         let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
@@ -66,7 +71,8 @@ extension Extendable where Base: Layout.Compositional {
                 spacing: spacing,
                 header: header,
                 footer: footer,
-                decoration: decoration
+                decoration: decoration,
+                sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
             )
         }
 
@@ -79,6 +85,7 @@ extension Extendable where Base: Layout.Compositional {
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets?,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil,
         configuration: Layout.CompositionalConfiguration? = nil
     ) -> Base {
         let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
@@ -87,7 +94,8 @@ extension Extendable where Base: Layout.Compositional {
                 header: header,
                 footer: footer,
                 decoration: decoration,
-                edgeInsets: edgeInsets
+                edgeInsets: edgeInsets,
+                sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
             )
         }
 
@@ -104,7 +112,8 @@ extension SectionProviderWrapper {
         spacing: ListSpacing = .default,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
-        decoration: DecorationStyle? = .whiteBackground
+        decoration: DecorationStyle? = .whiteBackground,
+        sectionAdditionalEdgeInsets _: SectionEdgeInsets? = nil
     ) -> Self {
         .init {
             Layout.Section.rak.list(
@@ -121,7 +130,8 @@ extension SectionProviderWrapper {
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets?
+        edgeInsets: SectionEdgeInsets?,
+        sectionAdditionalEdgeInsets _: SectionEdgeInsets? = nil
     ) -> Self {
         .init {
             Layout.Section.rak.list(

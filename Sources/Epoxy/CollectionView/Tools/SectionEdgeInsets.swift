@@ -41,6 +41,11 @@ public enum SectionEdgeInsets {
     ///
     /// (top: 0, leading: 20, bottom: 35, trailing: 20)
     case groupCard(horizontal: CGFloat = 20, bottom: ListSpacing = .group)
+    
+    /// Compared to `groupCard`, the cards are larger and closer together.
+    ///
+    /// (top: 0, leading: 16, bottom: 12, trailing: 16)
+    case card(horizontal: CGFloat = 16, bottom: ListSpacing = .card)
 
     /// Fully customized using `EdgeInsets`.
     case custom(RAKCore.EdgeInsets)
@@ -73,6 +78,9 @@ extension SectionEdgeInsets {
             .init(top: top, leading: leading, bottom: bottom, trailing: trailing)
 
         case .groupCard(let horizontal, let bottom):
+            .init(top: 0, leading: horizontal, bottom: bottom.spacing, trailing: horizontal)
+            
+        case .card(let horizontal, let bottom):
             .init(top: 0, leading: horizontal, bottom: bottom.spacing, trailing: horizontal)
 
         case .custom(let edge):

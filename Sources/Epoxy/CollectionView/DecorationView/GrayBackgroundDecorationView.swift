@@ -1,5 +1,5 @@
 //
-//  WhiteBackgroundDecorationView.swift
+//  GrayBackgroundDecorationView.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2025/2/17.
@@ -11,18 +11,18 @@ import UIKit
 
 import RAKConfig
 
-// MARK: - WhiteBackgroundDecorationView
+// MARK: - WhiteBackgroundDecorationVGray
 
-/// Set a white background View for UICollectionView Section
-open class WhiteBackgroundDecorationView: BaseDecorationView {
+/// Set a gray background View for UICollectionView Section
+open class GrayBackgroundDecorationView: BaseDecorationView {
     override open var decorationViewConfig: DecorationViewConfig {
         .customDecorationViewConfig(cornerRadius: nil)
     }
 }
 
-// MARK: - WhiteBackgroundAndCornerRadiusDecorationView
+// MARK: - GrayBackgroundAndCornerRadiusDecorationView
 
-open class WhiteBackgroundAndCornerRadiusDecorationView: BaseDecorationView {
+open class GrayBackgroundAndCornerRadiusDecorationView: BaseDecorationView {
     /// The default rounded corners.
     /// The caller can modify this property globally to achieve the purpose of modifying the global configuration.
     public static let defaultCornerRadius: CGFloat = 12
@@ -32,9 +32,9 @@ open class WhiteBackgroundAndCornerRadiusDecorationView: BaseDecorationView {
     }
 }
 
-// MARK: - WhiteBackgroundAndTopCornerRadiusDecorationView
+// MARK: - GrayBackgroundAndTopCornerRadiusDecorationView
 
-open class WhiteBackgroundAndTopCornerRadiusDecorationView: BaseDecorationView {
+open class GrayBackgroundAndTopCornerRadiusDecorationView: BaseDecorationView {
     override open var decorationViewConfig: DecorationViewConfig {
         .customDecorationViewConfig(maskedCorners: [
             .layerMinXMinYCorner,
@@ -43,9 +43,9 @@ open class WhiteBackgroundAndTopCornerRadiusDecorationView: BaseDecorationView {
     }
 }
 
-// MARK: - WhiteBackgroundAndBottomCornerRadiusDecorationView
+// MARK: - GrayBackgroundAndBottomCornerRadiusDecorationView
 
-open class WhiteBackgroundAndBottomCornerRadiusDecorationView: BaseDecorationView {
+open class GrayBackgroundAndBottomCornerRadiusDecorationView: BaseDecorationView {
     override open var decorationViewConfig: DecorationViewConfig {
         .customDecorationViewConfig(maskedCorners: [
             .layerMinXMaxYCorner,
@@ -56,11 +56,11 @@ open class WhiteBackgroundAndBottomCornerRadiusDecorationView: BaseDecorationVie
 
 extension DecorationViewConfig {
     fileprivate static func customDecorationViewConfig(
-        cornerRadius: CGFloat? = WhiteBackgroundAndCornerRadiusDecorationView.defaultCornerRadius,
+        cornerRadius: CGFloat? = GrayBackgroundAndCornerRadiusDecorationView.defaultCornerRadius,
         maskedCorners: CACornerMask = []
     ) -> Self {
         .init(
-            backgroundColor: Config.color.backgroundGray.main,
+            backgroundColor: Config.color.white,
             cornerRadius: cornerRadius,
             maskedCorners: maskedCorners
         )

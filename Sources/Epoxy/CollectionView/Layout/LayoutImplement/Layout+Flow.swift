@@ -20,22 +20,28 @@ extension Extendable where Base: Layout.Section {
         layoutEnvironment environment: Layout.Environment,
         itemSize: Layout.Size,
         scrollingBehavior behavior: Layout.ScrollingBehavior = .none,
+        itemContentInsets: EdgeInsets = .zero,
+        interItemSpacing: Layout.LayoutSpacing? = nil,
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets? = nil
+        edgeInsets: SectionEdgeInsets? = nil,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         custom(
             layoutEnvironment: environment,
             style: .flow(
                 itemSize: itemSize,
                 scrollingBehavior: behavior,
+                itemContentInsets: itemContentInsets,
+                interItemSpacing: interItemSpacing,
                 customGroup: customGroup
             ),
             supplementaryItems: createSupplementaryItems(header: header, footer: footer),
             decoration: decoration,
-            edgeInsets: edgeInsets
+            edgeInsets: edgeInsets,
+            sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
         )
     }
 }
@@ -47,11 +53,14 @@ extension Extendable where Base: Layout.Compositional {
     public static func flow(
         itemSize: Layout.Size,
         scrollingBehavior behavior: Layout.ScrollingBehavior = .none,
+        itemContentInsets _: EdgeInsets = .zero,
+        interItemSpacing _: Layout.LayoutSpacing? = nil,
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil,
         configuration: Layout.CompositionalConfiguration? = nil
     ) -> Base {
         let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
@@ -63,7 +72,8 @@ extension Extendable where Base: Layout.Compositional {
                 header: header,
                 footer: footer,
                 decoration: decoration,
-                edgeInsets: edgeInsets
+                edgeInsets: edgeInsets,
+                sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
             )
         }
 
@@ -79,11 +89,14 @@ extension SectionProviderWrapper {
     public static func flow(
         itemSize: Layout.Size,
         scrollingBehavior behavior: Layout.ScrollingBehavior = .none,
+        itemContentInsets _: EdgeInsets = .zero,
+        interItemSpacing _: Layout.LayoutSpacing? = nil,
         customGroup: Layout.CustomGroupFactory? = nil,
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets? = nil
+        edgeInsets: SectionEdgeInsets? = nil,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
         .init {
             Layout.Section.rak.flow(
@@ -94,7 +107,8 @@ extension SectionProviderWrapper {
                 header: header,
                 footer: footer,
                 decoration: decoration,
-                edgeInsets: edgeInsets
+                edgeInsets: edgeInsets,
+                sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
             )
         }
     }

@@ -9,7 +9,11 @@
 #if !os(watchOS) && !os(tvOS)
 import UIKit
 
+// MARK: - BaseDecorationView
+
 open class BaseDecorationView: UICollectionReusableView {
+    open var decorationViewConfig: DecorationViewConfig { .init() }
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -22,6 +26,16 @@ open class BaseDecorationView: UICollectionReusableView {
         config()
     }
     
-    func config() { }
+    open func config() {
+        if let backgroundColor = decorationViewConfig.backgroundColor {
+            self.backgroundColor = backgroundColor
+        }
+        
+        if let cornerRadius = decorationViewConfig.cornerRadius {
+            layer.cornerRadius = cornerRadius
+            layer.maskedCorners = decorationViewConfig.maskedCorners
+            layer.masksToBounds = true
+        }
+    }
 }
 #endif

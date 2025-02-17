@@ -22,8 +22,6 @@ open class CollectionView: EpoxyCollectionView.CollectionView {
         super.init(layout: layout, configuration: configuration)
 
         autoDeselectItems = false
-        showsVerticalScrollIndicator = false
-        showsHorizontalScrollIndicator = false
     }
 }
 

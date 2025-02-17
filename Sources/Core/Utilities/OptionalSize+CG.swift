@@ -37,3 +37,15 @@ extension OptionalSize where T == Float {
         height.flatMap { .init($0) }
     }
 }
+
+extension OptionalSize where T == Double {
+    public init(_ size: CGSize) {
+        self.init(width: .init(size.width), height: .init(size.height))
+    }
+}
+
+extension OptionalSize where T == Float {
+    public init(_ size: CGSize) {
+        self.init(width: .init(size.width), height: .init(size.height))
+    }
+}
