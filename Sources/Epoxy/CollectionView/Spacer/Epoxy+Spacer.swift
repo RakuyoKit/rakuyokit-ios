@@ -29,8 +29,8 @@ extension SectionModel {
         dataID: String = Layout.spacerDataID,
         style: SpacerRow.Style = .default
     ) -> SectionModel {
-        let item = ItemModel.spacer(style: style)
-        return .init(dataID: dataID, items: [item]).layout(.list())
+        let item = ItemModel.spacer(dataID: dataID, style: style)
+        return .init(dataID: item.dataID, items: [item]).layout(.list())
     }
 }
 #endif

@@ -9,6 +9,8 @@
 #if !os(watchOS)
 import UIKit
 
+import RAKCore
+
 /// Used to define some content
 public enum Layout {
     public typealias Environment = NSCollectionLayoutEnvironment
@@ -37,12 +39,16 @@ public enum Layout {
 
     public typealias CustomGroupFactory = (_ itemSize: Size) -> Group
     
+    public typealias LayoutSpacing = NSCollectionLayoutSpacing
+    
     /// Styles
     public enum Style {
         /// Similar to the flow layout of the past CollectionView
         case flow(
             itemSize: Size,
             scrollingBehavior: ScrollingBehavior = .none,
+            itemContentInsets: RAKCore.EdgeInsets = .zero,
+            interItemSpacing: LayoutSpacing? = nil,
             customGroup: CustomGroupFactory? = nil
         )
         

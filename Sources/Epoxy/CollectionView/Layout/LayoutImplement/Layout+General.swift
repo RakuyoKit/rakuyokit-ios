@@ -18,21 +18,31 @@ extension Extendable where Base: Layout.Section {
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets? = nil
+        edgeInsets: SectionEdgeInsets? = nil,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         let item = createItem(by: style)
         let group = createGroup(by: style, item: item)
         
         return .init(group: group).then { section in
-            section.contentInsets = edgeInsets.edgeInsets
             section.decorationItems = createDecorationItems(by: decoration, edgeInsets: edgeInsets)
             section.boundarySupplementaryItems = supplementaryItems.map {
                 createSupplementaryItem(with: $0)
             }
 
-            if case .flow(_, let behavior, _) = style {
+            if case .flow(_, let behavior, _, _, _) = style {
                 section.orthogonalScrollingBehavior = behavior
             }
+            
+            let edgeInsets = edgeInsets.edgeInsets
+            let additionalEdgeInsets = sectionAdditionalEdgeInsets?.edgeInsets ?? .zero
+            
+            section.contentInsets = .init(
+                top: edgeInsets.top + additionalEdgeInsets.top,
+                leading: edgeInsets.leading + additionalEdgeInsets.leading,
+                bottom: edgeInsets.bottom + additionalEdgeInsets.bottom,
+                trailing: edgeInsets.trailing + additionalEdgeInsets.trailing
+            )
         }
     }
 }
@@ -73,7 +83,7 @@ extension Extendable where Base: Layout.Section {
     private static func createItem(by style: Layout.Style) -> Layout.Item {
         .init(layoutSize: {
             switch style {
-            case .flow(let size, _, _):
+            case .flow(let size, _, _, _, _):
                 size
                 
             case .list:
@@ -86,17 +96,21 @@ extension Extendable where Base: Layout.Section {
     }
     
     private static func createGroup(by style: Layout.Style, item: Layout.Item) -> Layout.Group {
-        let groupSize = Layout.Size(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .estimated(50)
-        )
-        
         switch style {
-        case .flow(let size, _, let customGroup):
+        case .flow(let size, _, let itemContentInsets, let interItemSpacing, let customGroup):
             if let _group = customGroup?(size) { return _group }
-            return .horizontal(layoutSize: groupSize, subitems: [item])
+            let flowItem = item.then {
+                $0.contentInsets = itemContentInsets.directionalEdgeInsets
+            }
+            
+            return .horizontal(
+                layoutSize: .init(height: size.heightDimension),
+                subitems: [flowItem]
+            )
+            .then { $0.interItemSpacing = interItemSpacing }
             
         case .list:
+            let groupSize = Layout.Size(height: .estimated(50))
             return .vertical(layoutSize: groupSize, subitems: [item])
         }
     }
@@ -120,6 +134,19 @@ extension Extendable where Base: Layout.Section {
                     "\(WhiteBackgroundAndTopCornerRadiusDecorationView.self)"
                 case .bottom:
                     "\(WhiteBackgroundAndBottomCornerRadiusDecorationView.self)"
+                }
+                
+            case .grayBackground:
+                "\(GrayBackgroundDecorationView.self)"
+                
+            case .grayBackgroundAndCornerRadius(let position):
+                switch position {
+                case .all:
+                    "\(GrayBackgroundAndCornerRadiusDecorationView.self)"
+                case .top:
+                    "\(GrayBackgroundAndTopCornerRadiusDecorationView.self)"
+                case .bottom:
+                    "\(GrayBackgroundAndBottomCornerRadiusDecorationView.self)"
                 }
                 
             case .custom(let type):

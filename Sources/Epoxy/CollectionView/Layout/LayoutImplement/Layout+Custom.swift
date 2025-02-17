@@ -21,14 +21,16 @@ extension Extendable where Base: Layout.Section {
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets? = nil
+        edgeInsets: SectionEdgeInsets? = nil,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Base {
         create(
             layoutEnvironment: environment,
             style: style,
             supplementaryItems: supplementaryItems,
             decoration: decoration,
-            edgeInsets: edgeInsets
+            edgeInsets: edgeInsets,
+            sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
         )
     }
 }
@@ -42,6 +44,7 @@ extension Extendable where Base: Layout.Compositional {
         supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets? = nil,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil,
         configuration: Layout.CompositionalConfiguration? = nil
     ) -> Base {
         let sectionProvider: Layout.CompositionalSectionProvider = { _, environment in
@@ -50,7 +53,8 @@ extension Extendable where Base: Layout.Compositional {
                 style: style,
                 supplementaryItems: supplementaryItems,
                 decoration: decoration,
-                edgeInsets: edgeInsets
+                edgeInsets: edgeInsets,
+                sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
             )
         }
 
@@ -67,7 +71,8 @@ extension SectionProviderWrapper {
         style: Layout.Style,
         supplementaryItems: [SupplementaryItem] = [],
         decoration: DecorationStyle? = nil,
-        edgeInsets: SectionEdgeInsets? = nil
+        edgeInsets: SectionEdgeInsets? = nil,
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
         .init {
             Layout.Section.rak.custom(
@@ -75,7 +80,8 @@ extension SectionProviderWrapper {
                 style: style,
                 supplementaryItems: supplementaryItems,
                 decoration: decoration,
-                edgeInsets: edgeInsets
+                edgeInsets: edgeInsets,
+                sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
             )
         }
     }

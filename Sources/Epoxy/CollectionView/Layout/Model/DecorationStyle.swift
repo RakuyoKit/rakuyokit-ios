@@ -19,8 +19,14 @@ public enum DecorationStyle {
     /// White background
     case whiteBackground
     
-    /// White background with 10px corner radius
+    /// White background with corner radius
     case whiteBackgroundAndCornerRadius(position: CornerRadiusPosition = .all)
+    
+    /// Gray background
+    case grayBackground
+    
+    /// Gray background with corner radius
+    case grayBackgroundAndCornerRadius(position: CornerRadiusPosition = .all)
 }
 
 // MARK: DecorationStyle.CornerRadiusPosition
