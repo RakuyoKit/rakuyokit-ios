@@ -5,9 +5,9 @@
 //  Created by Rakuyo on 2025/2/17.
 //
 
+#if os(iOS)
 import UIKit
 
-#if os(iOS)
 import EpoxyCollectionView
 import RAKCore
 

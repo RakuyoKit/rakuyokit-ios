@@ -6,9 +6,8 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
-import UIKit
-
 #if os(iOS)
+import UIKit
 
 // MARK: - DecorationViewConfig
 

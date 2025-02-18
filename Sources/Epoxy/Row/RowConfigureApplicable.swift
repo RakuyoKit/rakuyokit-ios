@@ -6,9 +6,9 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
-#if os(iOS)
 import RAKCore
 
 /// The purpose of this protocol is to make the configuration types in each custom Row more independent

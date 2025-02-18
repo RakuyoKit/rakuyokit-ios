@@ -6,9 +6,9 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
-#if !os(watchOS)
 /// Used directly in certain scenarios as a replacement for `UITableViewCell`.
 public final class FastTableViewCell: BaseTableViewCell, FastCell { }
 

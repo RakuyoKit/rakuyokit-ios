@@ -6,9 +6,9 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
-#if !os(watchOS)
 /// A protocol used to quickly create Cells in conjunction with `FastListView`.
 public protocol FastCell: UIView {
     typealias ConfigClosure = (Self) -> Void
