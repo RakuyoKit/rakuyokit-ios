@@ -7,6 +7,7 @@
 
 import UIKit
 
+#if os(iOS)
 import EpoxyCollectionView
 import RAKCore
 
@@ -27,3 +28,4 @@ extension Extendable where Base: Sequence {
         try base.flatMap(transform)
     }
 }
+#endif

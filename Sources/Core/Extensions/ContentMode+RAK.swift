@@ -8,7 +8,7 @@
 
 import UIKit
 
-#if DEBUG
+#if DEBUG && !os(watchOS)
 extension UIView.ContentMode: CaseIterable {
     public static var allCases: [UIView.ContentMode] {
         [
