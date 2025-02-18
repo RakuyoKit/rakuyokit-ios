@@ -46,7 +46,7 @@ extension Extendable where Base: UIApplication {
     /// - Returns: Whether the link can be opened. If possible, the corresponding URL object is returned. Otherwise return `nil`
     public func openableLink(of urlString: String) -> URL? {
         guard
-            let url = URL(string: urlString),
+            let url = urlString.rak.toURL,
             base.canOpenURL(url)
         else {
             return nil
@@ -70,6 +70,14 @@ extension Extendable where Base: UIApplication {
     @discardableResult
     public func openSettings() -> Bool {
         open(Base.openSettingsURLString)
+    }
+    
+    /// Make a phone call to a given number
+    ///
+    /// - Parameter phone: The phone number to call
+    @discardableResult
+    public func call(to phone: String) -> Bool {
+        open("tel://\(phone)")
     }
 }
 

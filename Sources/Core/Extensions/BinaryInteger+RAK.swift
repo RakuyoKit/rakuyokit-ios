@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension BinaryInteger {
+    public var isZero: Bool { self == 0 }
+}
+
 extension Extendable where Base: BinaryInteger {
     /// `float / scale`
     public var scale: CGFloat { .init(base) / _scale }

@@ -130,6 +130,18 @@ extension Extendable where Base == String {
     }
 }
 
+// MARK: - Predicate
+
+extension Extendable where Base == String {
+    /// Matches the string using a predicate
+    ///
+    /// - Parameter predicate: The matching predicate
+    /// - Returns: Whether the string matches the predicate
+    public func match(with predicate: Base) -> Bool {
+        NSPredicate(format: "SELF MATCHES %@", predicate).evaluate(with: base)
+    }
+}
+
 // MARK: - NSString bridged
 
 extension Extendable where Base == String {
