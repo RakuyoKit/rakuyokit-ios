@@ -3,7 +3,7 @@
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
-//  Copyright © 2024 RakuyoKit. All rights reserved.
+//  Copyright © 2024-2025 RakuyoKit. All rights reserved.
 //
 
 import UIKit
@@ -12,14 +12,14 @@ import RAKConfig
 
 #if !os(watchOS)
 @objc(RAKTextField)
-public final class TextField: UITextField {
+open class TextField: UITextField {
     /// Color of the placeholder text
     ///
     /// Please set before setting `placeholder`.
     /// Default is `Config.color.auxiliaryText`.
-    public lazy var placeholderColor: UIColor = Config.color.auxiliaryGray.main
+    open lazy var placeholderColor: UIColor = Config.color.auxiliaryGray.main
     
-    override public var placeholder: String? {
+    override open var placeholder: String? {
         didSet { configPlaceholder() }
     }
     

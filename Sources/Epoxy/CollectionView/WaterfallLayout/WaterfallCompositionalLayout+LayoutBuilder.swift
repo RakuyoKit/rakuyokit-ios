@@ -3,7 +3,7 @@
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/5/17.
-//  Copyright © 2024 RakuyoKit. All rights reserved.
+//  Copyright © 2024-2025 RakuyoKit. All rights reserved.
 //
 //  Most of the content is referenced from: https://github.com/eeshishko/WaterfallTrueCompositionalLayout
 //

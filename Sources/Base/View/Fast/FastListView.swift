@@ -3,12 +3,12 @@
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
-//  Copyright © 2024 RakuyoKit. All rights reserved.
+//  Copyright © 2024-2025 RakuyoKit. All rights reserved.
 //
 
+#if !os(watchOS)
 import UIKit
 
-#if !os(watchOS)
 /// Protocol for quickly creating lists of cells, used in conjunction with `FastCell`.
 public protocol FastListView: NSObjectProtocol {
     var registeredIdentifiers: [String] { get set }

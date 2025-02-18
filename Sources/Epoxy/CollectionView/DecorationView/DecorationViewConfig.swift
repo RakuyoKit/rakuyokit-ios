@@ -3,12 +3,11 @@
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2025/2/17.
-//  Copyright © 2024 RakuyoKit. All rights reserved.
+//  Copyright © 2024-2025 RakuyoKit. All rights reserved.
 //
 
-import UIKit
-
 #if os(iOS)
+import UIKit
 
 // MARK: - DecorationViewConfig
 
