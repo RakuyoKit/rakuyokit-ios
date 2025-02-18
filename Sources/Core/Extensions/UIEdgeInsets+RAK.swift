@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIEdgeInsets: Hashable {
+extension UIEdgeInsets: @retroactive Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(top)
         hasher.combine(left)

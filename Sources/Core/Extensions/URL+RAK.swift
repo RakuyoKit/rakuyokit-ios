@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - ExpressibleByStringInterpolation
 
-extension URL: ExpressibleByStringInterpolation {
+extension URL: @retroactive ExpressibleByStringInterpolation {
     public init(stringLiteral value: String) {
         guard let url = value.rak.toURL else {
             fatalError("Bad string, failed to create url from: \(value)")

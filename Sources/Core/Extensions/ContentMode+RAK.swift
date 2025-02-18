@@ -9,7 +9,7 @@
 import UIKit
 
 #if DEBUG && !os(watchOS)
-extension UIView.ContentMode: CaseIterable {
+extension UIView.ContentMode: @retroactive CaseIterable {
     public static var allCases: [UIView.ContentMode] {
         [
             .scaleToFill,
