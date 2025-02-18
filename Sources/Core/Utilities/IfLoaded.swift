@@ -3,7 +3,7 @@
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/5/16.
-//  Copyright © 2024 RakuyoKit. All rights reserved.
+//  Copyright © 2024-2025 RakuyoKit. All rights reserved.
 //
 
 // MARK: - IfLoaded
