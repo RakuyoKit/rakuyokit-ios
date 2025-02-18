@@ -31,62 +31,19 @@ extension Extendable where Base: UIColor {
     ///
     /// Please ensure that the current color domain is in RGB mode,
     /// otherwise `nil` will be returned if the extraction fails.
-    public var red: CGFloat? {
-        let color = base.cgColor
-
-        switch color.colorSpace?.model {
-        case .monochrome:
-            guard let first = color.components?.first else { return nil }
-            return first
-
-        case .rgb:
-            guard let first = color.components?.first else { return nil }
-            return first
-
-        default:
-            return nil
-        }
-    }
+    public var red: CGFloat? { getColorComponent(at: 0) }
 
     /// Returns the green value component of the current color
     ///
     /// Please ensure that the current color domain is in RGB mode,
     /// otherwise `nil` will be returned if the extraction fails.
-    public var green: CGFloat? {
-        let color = base.cgColor
-
-        switch color.colorSpace?.model {
-        case .monochrome:
-            guard let first = color.components?.first else { return nil }
-            return first
-
-        case .rgb:
-            return color.components?[1]
-
-        default:
-            return nil
-        }
-    }
+    public var green: CGFloat? { getColorComponent(at: 1) }
 
     /// Returns the blue value component of the current color
     ///
     /// Please ensure that the current color domain is in RGB mode,
     /// otherwise `nil` will be returned if the extraction fails.
-    public var blue: CGFloat? {
-        let color = base.cgColor
-
-        switch color.colorSpace?.model {
-        case .monochrome:
-            guard let first = color.components?.first else { return nil }
-            return first
-
-        case .rgb:
-            return color.components?[2]
-
-        default:
-            return nil
-        }
-    }
+    public var blue: CGFloat? { getColorComponent(at: 2) }
 
     public var alpha: CGFloat { base.cgColor.alpha }
 
@@ -102,4 +59,20 @@ extension Extendable where Base: UIColor {
     }
 
     public var hexString: String { .init(format: "%06x", hex) }
+    
+    private func getColorComponent(at index: Int) -> CGFloat? {
+        let color = base.cgColor
+
+        switch color.colorSpace?.model {
+        case .monochrome:
+            guard let first = color.components?.first else { return nil }
+            return first
+
+        case .rgb:
+            return color.components?[index]
+
+        default:
+            return nil
+        }
+    }
 }

@@ -8,6 +8,8 @@
 
 import UIKit
 
+#if os(iOS)
+
 // MARK: - DecorationViewConfig
 
 public struct DecorationViewConfig {
@@ -38,5 +40,5 @@ extension DecorationViewConfig {
             .layerMaxXMaxYCorner,
         ])
     }
-    
 }
+#endif

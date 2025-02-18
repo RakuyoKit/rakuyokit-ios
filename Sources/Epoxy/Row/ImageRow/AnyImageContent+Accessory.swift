@@ -6,7 +6,6 @@
 //  Copyright © 2024 RakuyoKit. All rights reserved.
 //
 
-#if !os(watchOS)
 import UIKit
 
 import RAKConfig
@@ -25,6 +24,7 @@ extension AnyImageContent {
     }
 }
 
+#if os(iOS)
 extension ImageRow.Style {
     public static func accessory() -> Self {
         .init(

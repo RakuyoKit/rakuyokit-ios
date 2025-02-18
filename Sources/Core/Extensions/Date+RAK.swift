@@ -22,6 +22,45 @@ extension Date {
     }
 }
 
+// MARK: - Information of date
+
+extension Extendable where Base == Date {
+    /// The year corresponding to this date
+    public var year: Int { dateComponents(.year).year ?? 0 }
+
+    /// The month corresponding to this date
+    public var month: Int { dateComponents(.month).month ?? 0 }
+
+    /// The day corresponding to this date
+    public var day: Int { dateComponents(.day).day ?? 0 }
+
+    /// The weekday corresponding to this date
+    public var weekday: Int { dateComponents(.weekday).weekday ?? 0 }
+
+    /// The hour corresponding to this date
+    public var hour: Int { dateComponents(.hour).hour ?? 0 }
+
+    /// The minute corresponding to this date
+    public var minute: Int { dateComponents(.minute).minute ?? 0 }
+
+    /// The second corresponding to this date
+    public var second: Int { dateComponents(.second).second ?? 0 }
+
+    /// Whether this date is yesterday
+    public var isYesterday: Bool { calendar.isDateInYesterday(base) }
+
+    /// Whether this date is today
+    public var isToday: Bool { calendar.isDateInToday(base) }
+
+    /// Whether this date is tomorrow
+    public var isTomorrow: Bool { calendar.isDateInTomorrow(base) }
+    
+    /// Determine whether two dates are the same day
+    public func isSameDay(to otherDay: Date) -> Bool {
+        calendar.isDate(base, inSameDayAs: otherDay)
+    }
+}
+
 // MARK: - Time manipulation
 
 extension Extendable where Base == Date {
@@ -63,6 +102,13 @@ extension Extendable where Base == Date {
     public func apply(day value: Int) -> Date? {
         apply(value: value, by: .day)
     }
+    
+    /// Increment or decrement `value` on `.year` based on the current time.
+    ///
+    /// A positive value represents the future, and a negative value represents the past.
+    public func apply(year value: Int) -> Date? {
+        apply(value: value, by: .year)
+    }
 }
 
 // MARK: -
@@ -72,13 +118,17 @@ extension Extendable where Base == Date {
         format(with: dateFormat.format)
     }
 
-    public func format(with dateFormat: String) -> String {
+    public func format(with dateFormat: String, timeZone: TimeZone? = nil) -> String {
         Self.serilizationQueue.sync {
             // It's considered that "Setting format is as expensive as recreating".
             // https://developer.apple.com/videos/play/wwdc2012/235/ (28:40)
             if Self.formatter.dateFormat != dateFormat {
                 Self.formatter = DateFormatter()
                 Self.formatter.dateFormat = dateFormat
+                
+                if let timeZone {
+                    Self.formatter.timeZone = timeZone
+                }
             }
 
             return Self.formatter.string(from: base)
@@ -93,4 +143,8 @@ extension Extendable where Base == Date {
     private static let serilizationQueue = DispatchQueue(label: "com.rakuyo.rakuyo-kit.date-formatter")
 
     private var calendar: Calendar { .current }
+    
+    private func dateComponents(_ components: Calendar.Component ...) -> DateComponents {
+        calendar.dateComponents(.init(components), from: base)
+    }
 }

@@ -14,6 +14,11 @@ extension Collection {
     public func toArray() -> [Element] {
         .init(self)
     }
+    
+    /// Returns the element at the specified index if it is within bounds, otherwise nil.
+    public subscript(safe index: Index) -> Iterator.Element? {
+        indices.contains(index) ? self[index] : nil
+    }
 }
 
 extension GenericExtendable where Base: Collection {

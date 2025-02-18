@@ -28,16 +28,14 @@ extension Extendable where Base: UIImage {
         case point(CGFloat)
 
         func compute(with size: CGSize) -> CGFloat {
-            let cornerRadius: CGFloat =
-                switch self {
-                case .point(let point):
-                    point
-                case .widthFraction(let widthFraction):
-                    size.width * widthFraction
-                case .heightFraction(let heightFraction):
-                    size.height * heightFraction
-                }
-            return cornerRadius
+            switch self {
+            case .point(let point):
+                point
+            case .widthFraction(let widthFraction):
+                size.width * widthFraction
+            case .heightFraction(let heightFraction):
+                size.height * heightFraction
+            }
         }
     }
 
@@ -274,11 +272,9 @@ extension Extendable where Base: UIImage {
 
         let scale = UIScreen.rak.scale
         let newSize = size * scale
+        
         UIGraphicsBeginImageContext(.init(width: newSize, height: newSize))
-
-        defer {
-            UIGraphicsEndImageContext()
-        }
+        defer { UIGraphicsEndImageContext() }
 
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil

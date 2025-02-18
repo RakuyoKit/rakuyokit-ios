@@ -8,6 +8,7 @@
 
 import UIKit
 
+#if os(iOS)
 import RAKCore
 
 /// The purpose of this protocol is to make the configuration types in each custom Row more independent
@@ -18,3 +19,4 @@ public protocol RowConfigureApplicable: HigherOrderFunctionalizable {
     /// Used to apply configuration to row
     func apply(to row: RowBasicType)
 }
+#endif

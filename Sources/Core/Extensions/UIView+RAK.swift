@@ -11,6 +11,14 @@ import UIKit
 
 import Then
 
+// MARK: - Layout
+
+extension Extendable where Base: UIView {
+    /// Retrieves the safe area insets
+    @available(iOSApplicationExtension, unavailable)
+    public var safeAreaInsets: UIEdgeInsets { UIApplication.shared.rak.keyWindow?.safeAreaInsets ?? .zero }
+}
+
 // MARK: - Hide keyboard when tap
 
 extension Extendable where Base: UIView {
@@ -142,6 +150,20 @@ extension Extendable where Base: UIView {
 // MARK: - Other
 
 extension Extendable where Base: UIView {
+    /// Retrieves the ViewController that the view belongs to
+    public var belongsController: UIViewController? {
+        var responder = base.next
+        
+        while let _responder = responder {
+            if let result = _responder as? UIViewController {
+                return result
+            }
+            responder = _responder.next
+        }
+        
+        return nil
+    }
+    
     /// Convert UIView to UIImage
     public func toImage() -> UIImage? {
         let format = UIGraphicsImageRendererFormat().then {

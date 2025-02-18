@@ -10,21 +10,34 @@
 import UIKit
 
 extension Extendable where Base: UICollectionView {
-    private var orthogonalScrollViewType: String {
-        "_UICollectionViewOrthogonalScrollerEmbeddedScrollView"
+    /// Possible types of `orthogonalScrollView`
+    ///
+    /// It is currently uncertain which system version uses which type,
+    /// so an array is used for checking.
+    private var orthogonalScrollViewTypes: [String] {
+        [
+            "_UICollectionViewOrthogonalScrollView",
+            "_UICollectionViewOrthogonalScrollerEmbeddedScrollView",
+        ]
     }
+    
+    private func isOrthogonalScrollView(with view: UIView) -> Bool {
+        orthogonalScrollViewTypes.contains("\(type(of: view))")
+    }
+}
 
+extension Extendable where Base: UICollectionView {
     /// When `UICollectionViewCompositionalLayout` + `orthogonalScrollingBehavior` are used together,
     /// the first `_UICollectionViewOrthogonalScrollerEmbeddedScrollView` view inside UICollectionView
     public var orthogonalScrollView: UIScrollView? {
-        base.subviews.first { "\(type(of: $0))" == orthogonalScrollViewType } as? UIScrollView
+        base.subviews.first { isOrthogonalScrollView(with: $0) } as? UIScrollView
     }
 
     /// When `UICollectionViewCompositionalLayout` + `orthogonalScrollingBehavior` are used together,
     /// the `_UICollectionViewOrthogonalScrollerEmbeddedScrollView` view collection inside UICollectionView
     public var orthogonalScrollViews: [UIScrollView] {
         base.subviews.compactMap {
-            guard orthogonalScrollViewType == "\(type(of: $0))" else { return nil }
+            guard isOrthogonalScrollView(with: $0) else { return nil }
             return $0 as? UIScrollView
         }
     }

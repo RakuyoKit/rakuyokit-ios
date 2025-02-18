@@ -8,8 +8,8 @@
 
 import UIKit
 
-#if DEBUG
-extension UIView.ContentMode: CaseIterable {
+#if DEBUG && !os(watchOS)
+extension UIView.ContentMode: @retroactive CaseIterable {
     public static var allCases: [UIView.ContentMode] {
         [
             .scaleToFill,
