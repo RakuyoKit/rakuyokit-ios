@@ -45,6 +45,18 @@ extension Extendable: BridgeToObjC where Base: CanBridageToObjC {
     public var bridgedValue: Base { base }
 }
 
+// MARK: - GenericExtendable + BridgeToObjC
+
+extension GenericExtendable: BridgeToObjC where Base: CanBridageToObjC {
+    public var bridgedValue: Base { base }
+}
+
+// MARK: - TwoGenericExtendable + BridgeToObjC
+
+extension TwoGenericExtendable: BridgeToObjC where Base: CanBridageToObjC {
+    public var bridgedValue: Base { base }
+}
+
 // MARK: - CanBridageToObjC
 
 /// Constraints that a type can be converted to an Objective-C type
