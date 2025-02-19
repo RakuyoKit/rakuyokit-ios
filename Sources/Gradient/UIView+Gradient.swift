@@ -23,30 +23,40 @@ extension Extendable where Base: UIView {
     ///
     /// - Parameters:
     ///   - direction: Gradient direction.
+    ///   - forceLayout: Whether to forcefully call `layoutIfNeeded`.
+    ///                 Set to `true` in cases where cells are reused; otherwise,
+    ///                 it can be determined based on the situation, typically `false`.
     ///   - colors: The colors for the gradient.
     /// - Returns: The created gradient layer.
-    public func createGradientLayer(direction: Direction, colors: [UIColor]) -> CAGradientLayer {
-        createGradientLayer(by: .init(direction: direction, colors: .init(colors)))
+    public func createGradientLayer(direction: Direction, forceLayout: Bool = false, colors: [UIColor]) -> CAGradientLayer {
+        createGradientLayer(by: .init(direction: direction, colors: .init(colors)), forceLayout: forceLayout)
     }
     
     /// Conveniently applies a gradient to the view using preset positions from the `Direction` enumeration.
     ///
     /// - Parameters:
     ///   - direction: Gradient direction.
+    ///   - forceLayout: Whether to forcefully call `layoutIfNeeded`.
+    ///                 Set to `true` in cases where cells are reused; otherwise,
+    ///                 it can be determined based on the situation, typically `false`.
     ///   - colors: The colors for the gradient.
     /// - Returns: The created gradient layer.
     @discardableResult
-    public func setGradient(direction: Direction, colors: [UIColor]) -> CAGradientLayer {
-        applyGradient(with: .init(direction: direction, colors: .init(colors)))
+    public func setGradient(direction: Direction, forceLayout: Bool = false, colors: [UIColor]) -> CAGradientLayer {
+        applyGradient(with: .init(direction: direction, colors: .init(colors)), forceLayout: forceLayout)
     }
 }
 
 extension Extendable where Base: UIView {
-    /// Creates a gradient layer for the view.
+    /// Creates a gradient layer for the view
     ///
-    /// - Parameter gradient: The gradient configuration.
-    /// - Returns: The created gradient layer.
-    public func createGradientLayer(by gradient: Gradient) -> CAGradientLayer {
+    /// - Parameters:
+    ///   - gradient: Gradient configuration
+    ///   - forceLayout: Whether to forcefully call `layoutIfNeeded`.
+    ///                 Set to `true` in cases where cells are reused; otherwise,
+    ///                 it can be determined based on the situation, typically `false`.
+    /// - Returns: The created gradient layer
+    public func createGradientLayer(by gradient: Gradient, forceLayout: Bool = false) -> CAGradientLayer {
         let start = gradient.startPosition
         let end = gradient.endPosition
 
@@ -62,7 +72,7 @@ extension Extendable where Base: UIView {
             return layer
         }
         
-        if base.layer.bounds.isEmpty {
+        if forceLayout || base.layer.bounds.isEmpty {
             base.layoutIfNeeded()
             base.superview?.layoutIfNeeded()
         }
@@ -80,13 +90,17 @@ extension Extendable where Base: UIView {
     
     /// Applies the gradient configuration to the view.
     ///
-    /// - Parameter gradient: The gradient configuration.
+    /// - Parameters:
+    ///   - gradient: Gradient configuration
+    ///   - forceLayout: Whether to forcefully call `layoutIfNeeded`.
+    ///                 Set to `true` in cases where cells are reused; otherwise,
+    ///                 it can be determined based on the situation, typically `false`.
     /// - Returns: The created gradient layer.
     @discardableResult
-    public func applyGradient(with gradient: Gradient) -> CAGradientLayer {
+    public func applyGradient(with gradient: Gradient, forceLayout: Bool = false) -> CAGradientLayer {
         removeGradientLayer()
         
-        let gradientLayer = createGradientLayer(by: gradient)
+        let gradientLayer = createGradientLayer(by: gradient, forceLayout: forceLayout)
         
         base.layer.insertSublayer(gradientLayer, at: 0)
         base.backgroundColor = .clear
