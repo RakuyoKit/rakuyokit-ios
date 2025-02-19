@@ -9,7 +9,7 @@
 import Foundation
 
 extension Extendable where Base: DispatchQueue {
-    public typealias Task = (_ canceled: Bool) -> Void
+    public typealias DispatchTask = (_ canceled: Bool) -> Void
 
     /// Create a deferred task that can be canceled midway using the `cancel()` method.
     ///
@@ -21,15 +21,15 @@ extension Extendable where Base: DispatchQueue {
     public static func after(
         _ time: DispatchTimeInterval,
         execute task: @escaping EmptyClosure
-    ) -> Task? {
+    ) -> DispatchTask? {
         func _after(block: @escaping EmptyClosure) {
             DispatchQueue.main.asyncAfter(deadline: .now() + time, execute: block)
         }
 
         var taskAction: EmptyClosure? = task
-        var result: Task?
+        var result: DispatchTask?
 
-        let delayedClosure: Task = { canceled in
+        let delayedClosure: DispatchTask = { canceled in
             if let action = taskAction, !canceled {
                 DispatchQueue.main.async(execute: action)
             }
@@ -47,7 +47,7 @@ extension Extendable where Base: DispatchQueue {
     /// Cancel delayed tasks
     ///
     /// - Parameter task: Task to be canceled
-    public static func cancel(_ task: Task?) {
+    public static func cancel(_ task: DispatchTask?) {
         task?(true)
     }
 }
