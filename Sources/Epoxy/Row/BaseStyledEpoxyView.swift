@@ -13,7 +13,7 @@ import EpoxyCore
 import RAKBase
 
 /// For views that follow the `StyledView` protocol, you can use this base class to simplify initialization operations.
-open class BaseStyledEpoxyView<Style: Hashable>: RAKBase.BaseView, StyledView {
+open class BaseStyledEpoxyView<Style: Hashable>: RAKBaseView, StyledView {
     public let style: Style
 
     public required init(style: Style) {

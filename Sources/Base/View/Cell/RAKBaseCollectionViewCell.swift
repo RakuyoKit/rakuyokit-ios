@@ -1,5 +1,5 @@
 //
-//  BaseCollectionViewCell.swift
+//  RAKBaseCollectionViewCell.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
@@ -9,8 +9,7 @@
 #if !os(watchOS)
 import UIKit
 
-@objc(RAKBaseCollectionViewCell)
-open class BaseCollectionViewCell: UICollectionViewCell {
+open class RAKBaseCollectionViewCell: UICollectionViewCell {
     public typealias View = UICollectionView
     
     override public init(frame: CGRect) {
@@ -24,9 +23,7 @@ open class BaseCollectionViewCell: UICollectionViewCell {
         
         config()
     }
-}
-
-extension BaseCollectionViewCell {
+    
     @objc
     open func config() {
         addSubviews()

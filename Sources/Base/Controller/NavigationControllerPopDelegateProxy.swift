@@ -9,7 +9,7 @@
 #if !os(watchOS) && !os(tvOS)
 import UIKit
 
-public class NavigationControllerPopDelegateProxy: NSObject, UIGestureRecognizerDelegate {
+public final class NavigationControllerPopDelegateProxy: NSObject, UIGestureRecognizerDelegate {
     public weak var navigationController: UINavigationController?
     public weak var popGestureRecognizerDelegate: UIGestureRecognizerDelegate?
 

@@ -1,5 +1,5 @@
 //
-//  RotatableViewController.swift
+//  RAKRotatableViewController.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
@@ -10,7 +10,7 @@
 import UIKit
 
 /// Base class for view controllers that provide rotation control.
-open class RotatableViewController: UIViewController {
+open class RAKRotatableViewController: UIViewController {
     #if !os(tvOS)
     /// Indicates whether the interface should autorotate.
     ///
@@ -41,7 +41,7 @@ open class RotatableViewController: UIViewController {
 }
 
 #if !os(visionOS) && !os(tvOS)
-extension RotatableViewController {
+extension RAKRotatableViewController {
     public static var normalPreferredInterfaceOrientation: UIInterfaceOrientation {
         guard case .pad = UIDevice.current.userInterfaceIdiom else { return .portrait }
         

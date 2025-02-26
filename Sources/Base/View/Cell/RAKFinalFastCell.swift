@@ -1,5 +1,5 @@
 //
-//  FinalFastCell.swift
+//  RAKFinalFastCell.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
@@ -10,8 +10,8 @@
 import UIKit
 
 /// Used directly in certain scenarios as a replacement for `UITableViewCell`.
-public final class FastTableViewCell: BaseTableViewCell, FastCell { }
+public final class RAKFastTableViewCell: RAKBaseTableViewCell, FastCell { }
 
 /// Used directly in certain scenarios as a replacement for `UICollectionViewCell`.
-public final class FastCollectionViewCell: BaseCollectionViewCell, FastCell { }
+public final class RAKFastCollectionViewCell: RAKBaseCollectionViewCell, FastCell { }
 #endif

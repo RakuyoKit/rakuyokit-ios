@@ -1,5 +1,5 @@
 //
-//  BaseView.swift
+//  RAKBaseView.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/5/24.
@@ -10,7 +10,7 @@
 import UIKit
 
 /// A wrapper for the frame nature of `UIView`
-open class BaseView: UIView {
+open class RAKBaseView: UIView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
 
