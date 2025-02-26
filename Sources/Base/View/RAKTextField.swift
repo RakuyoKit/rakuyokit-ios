@@ -1,5 +1,5 @@
 //
-//  TextField.swift
+//  RAKTextField.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
@@ -11,8 +11,7 @@ import UIKit
 import RAKConfig
 
 #if !os(watchOS)
-@objc(RAKTextField)
-open class TextField: UITextField {
+open class RAKTextField: UITextField {
     /// Color of the placeholder text
     ///
     /// Please set before setting `placeholder`.
@@ -43,7 +42,7 @@ open class TextField: UITextField {
     }
 }
 
-extension TextField {
+extension RAKTextField {
     public func selectedRange() -> NSRange? {
         guard
             let start = selectedTextRange?.start,
