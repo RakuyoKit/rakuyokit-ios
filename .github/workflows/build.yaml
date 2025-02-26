@@ -22,6 +22,8 @@ jobs:
       matrix:
         os: [macos-14]
         xcode: ["15"]
+    env:
+        GITHUB_TOKEN: ${{ secrets.RAK_GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2
