@@ -1,5 +1,5 @@
 //
-//  BaseTableViewCell.swift
+//  RAKBaseTableViewCell.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
@@ -9,8 +9,7 @@
 #if !os(watchOS)
 import UIKit
 
-@objc(RAKBaseTableViewCell)
-open class BaseTableViewCell: UITableViewCell {
+open class RAKBaseTableViewCell: UITableViewCell {
     public typealias View = UITableView
     
     override public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -24,9 +23,7 @@ open class BaseTableViewCell: UITableViewCell {
         
         config(style: .default, reuseIdentifier: "\(Self.self)")
     }
-}
-
-extension BaseTableViewCell {
+    
     @objc
     open func config(style _: UITableViewCell.CellStyle, reuseIdentifier _: String?) {
         selectionStyle = .none

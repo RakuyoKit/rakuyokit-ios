@@ -1,5 +1,5 @@
 //
-//  BaseNavigationController.swift
+//  RAKBaseNavigationController.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
@@ -11,8 +11,7 @@ import UIKit
 
 import RAKConfig
 
-@objc(RAKBaseNavigationController)
-open class BaseNavigationController: UINavigationController {
+open class RAKBaseNavigationController: UINavigationController {
     #if !os(tvOS)
     private var popDelegateProxy: NavigationControllerPopDelegateProxy? = nil
     #endif
@@ -34,7 +33,7 @@ open class BaseNavigationController: UINavigationController {
     }
 }
 
-extension BaseNavigationController {
+extension RAKBaseNavigationController {
     #if !os(tvOS)
     override open var childForStatusBarStyle: UIViewController? { topViewController }
     

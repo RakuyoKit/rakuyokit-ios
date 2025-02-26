@@ -1,5 +1,5 @@
 //
-//  BaseViewController.swift
+//  RAKBaseViewController.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/10.
@@ -14,11 +14,7 @@ import Combine
 import RaLog
 
 /// Base class for view controllers.
-///
-/// Renamed with `@objc` to resolve symbol redefinition issues encountered in the `XXModule-swift.h` file
-/// when inheriting `SwissArmyKnife.BaseViewController` to implement its own `BaseViewController`.
-@objc(RAKBaseViewController)
-open class BaseViewController: RotatableViewController {
+open class RAKBaseViewController: RAKRotatableViewController {
     #if !os(tvOS)
     /// Default status bar style: black.
     public static let statusBarStyle = UIStatusBarStyle.default
@@ -35,7 +31,7 @@ open class BaseViewController: RotatableViewController {
 
 // MARK: - Life cycle
 
-extension BaseViewController {
+extension RAKBaseViewController {
     #if !os(tvOS)
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         Self.statusBarStyle
@@ -75,7 +71,7 @@ extension BaseViewController {
 
 // MARK: - Life cycle extension
 
-extension BaseViewController {
+extension RAKBaseViewController {
     @objc // swiftformat:disable:next unusedArguments
     open func viewWillAppear(_ animated: Bool, isFirstEnter: Bool) { }
 
@@ -85,7 +81,7 @@ extension BaseViewController {
 
 // MARK: - Log
 
-extension BaseViewController {
+extension RAKBaseViewController {
     @objc
     open func logDeinit() { Log.deinit(self) }
     
