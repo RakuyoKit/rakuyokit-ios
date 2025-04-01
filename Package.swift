@@ -26,8 +26,8 @@ let package = Package(
         .library(name: "RAKNanoID", targets: ["RAKNanoID"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/RakuyoKit/swift.git", from: "1.4.0"),
-        .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.7.4"),
+        .package(url: "https://github.com/RakuyoKit/swift.git", branch: "release/1.4.0"),
+        .package(url: "https://github.com/RakuyoKit/RaLog.git", from: "1.8.1"),
         .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.4"),
         .package(url: "https://github.com/airbnb/epoxy-ios.git", from: "0.10.0"),
