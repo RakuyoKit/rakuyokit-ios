@@ -20,8 +20,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-14]
-        xcode: ["15"]
+        os: [macos-15]
+        xcode: ["16"]
     env:
         GITHUB_TOKEN: ${{ secrets.RAK_GITHUB_TOKEN }}
     steps:
