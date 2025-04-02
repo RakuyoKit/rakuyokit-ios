@@ -63,7 +63,6 @@ end
 
 namespace :swift do
   FORMAT_COMMAND = 'swift package --allow-writing-to-package-directory format'
-  BUILD_COMMAND = 'xcodebuild -scheme RakuyoKit -destination'
 
   desc 'Run Format'
   task :format do
@@ -77,6 +76,7 @@ namespace :swift do
 
   desc 'Build'
   task :build do
-    sh BUILD_COMMAND + " 'platform=iOS Simulator,OS=17.4,name=iPhone 15 Pro'"
+    simulator_id = %x[xcrun simctl list devices available | grep -E "iPhone" | head -n 1 | awk -F '[()]' '{print $2}'].strip
+    sh "xcodebuild -scheme RakuyoKit -destination 'platform=iOS Simulator,id=#{simulator_id}'"
   end
 end
