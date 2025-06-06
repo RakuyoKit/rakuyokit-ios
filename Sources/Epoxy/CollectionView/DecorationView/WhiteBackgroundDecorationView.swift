@@ -60,7 +60,7 @@ extension DecorationViewConfig {
         maskedCorners: CACornerMask = []
     ) -> Self {
         .init(
-            backgroundColor: Config.color.backgroundGray.main,
+            backgroundColor: Config.color.white,
             cornerRadius: cornerRadius,
             maskedCorners: maskedCorners
         )

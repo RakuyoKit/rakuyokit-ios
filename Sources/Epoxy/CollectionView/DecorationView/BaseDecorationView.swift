@@ -33,8 +33,12 @@ open class BaseDecorationView: UICollectionReusableView {
         
         if let cornerRadius = decorationViewConfig.cornerRadius {
             layer.cornerRadius = cornerRadius
-            layer.maskedCorners = decorationViewConfig.maskedCorners
             layer.masksToBounds = true
+            
+            // If no position is specified, this property is not set.
+            if !decorationViewConfig.maskedCorners.isEmpty {
+                layer.maskedCorners = decorationViewConfig.maskedCorners
+            }
         }
     }
 }
