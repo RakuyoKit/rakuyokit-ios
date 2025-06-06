@@ -113,7 +113,7 @@ extension SectionProviderWrapper {
         header: SupplementaryItem.Style? = nil,
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = .whiteBackground,
-        sectionAdditionalEdgeInsets _: SectionEdgeInsets? = nil
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
         .init {
             Layout.Section.rak.list(
@@ -121,7 +121,8 @@ extension SectionProviderWrapper {
                 spacing: spacing,
                 header: header,
                 footer: footer,
-                decoration: decoration
+                decoration: decoration,
+                sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
             )
         }
     }
@@ -131,7 +132,7 @@ extension SectionProviderWrapper {
         footer: SupplementaryItem.Style? = nil,
         decoration: DecorationStyle? = nil,
         edgeInsets: SectionEdgeInsets?,
-        sectionAdditionalEdgeInsets _: SectionEdgeInsets? = nil
+        sectionAdditionalEdgeInsets: SectionEdgeInsets? = nil
     ) -> Self {
         .init {
             Layout.Section.rak.list(
@@ -139,7 +140,8 @@ extension SectionProviderWrapper {
                 header: header,
                 footer: footer,
                 decoration: decoration,
-                edgeInsets: edgeInsets
+                edgeInsets: edgeInsets,
+                sectionAdditionalEdgeInsets: sectionAdditionalEdgeInsets
             )
         }
     }

@@ -1,5 +1,5 @@
 //
-//  NSCollectionLayoutDimension+QLCD.swift
+//  NSCollectionLayoutDimension+RAK.swift
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2024/4/9.
