@@ -8,14 +8,13 @@
 
 import UIKit
 
-import RAKConfig
 import RAKCore
 
 extension AnyImageContent {
     public static func accessory() -> Self {
         .sfSymbols(
             name: "chevron.forward",
-            color: Config.color.text.tertiary,
+            color: .label,
             configuration: .init(
                 textStyle: .init(rawValue: "UICTFontTextStyleEmphasizedBody"),
                 scale: .small

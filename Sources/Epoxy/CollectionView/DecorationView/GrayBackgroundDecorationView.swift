@@ -9,8 +9,6 @@
 #if !os(watchOS) && !os(tvOS)
 import UIKit
 
-import RAKConfig
-
 // MARK: - WhiteBackgroundDecorationVGray
 
 /// Set a gray background View for UICollectionView Section
@@ -60,7 +58,7 @@ extension DecorationViewConfig {
         maskedCorners: CACornerMask = []
     ) -> Self {
         .init(
-            backgroundColor: Config.color.backgroundGray.main,
+            backgroundColor: .systemGroupedBackground,
             cornerRadius: cornerRadius,
             maskedCorners: maskedCorners
         )
