@@ -10,7 +10,6 @@
 import UIKit
 
 import EpoxyCore
-import RAKConfig
 
 // MARK: - SpacerRow
 
@@ -50,7 +49,7 @@ extension SpacerRow {
         
         public init(
             height: CGFloat = ListSpacing.normal.spacing,
-            backgroundColor: UIColor? = Config.color.backgroundGray.main
+            backgroundColor: UIColor? = nil
         ) {
             self.height = height
             self.backgroundColor = backgroundColor

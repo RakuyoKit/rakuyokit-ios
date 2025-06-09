@@ -3,13 +3,11 @@
 //  RakuyoKit
 //
 //  Created by Rakuyo on 2025/2/17.
-//  Copyright © 2024-2025 RakuyoKit. All rights reserved.
+//  Copyright © 2025 RakuyoKit. All rights reserved.
 //
 
 #if !os(watchOS) && !os(tvOS)
 import UIKit
-
-import RAKConfig
 
 // MARK: - WhiteBackgroundDecorationView
 
@@ -60,7 +58,7 @@ extension DecorationViewConfig {
         maskedCorners: CACornerMask = []
     ) -> Self {
         .init(
-            backgroundColor: Config.color.white,
+            backgroundColor: .white,
             cornerRadius: cornerRadius,
             maskedCorners: maskedCorners
         )

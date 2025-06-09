@@ -8,8 +8,6 @@
 
 import UIKit
 
-import RAKCore
-
 // MARK: - SectionEdgeInsets
 
 /// Spacing around the section.
@@ -48,7 +46,7 @@ public enum SectionEdgeInsets {
     case card(horizontal: CGFloat = 16, bottom: ListSpacing = .card)
 
     /// Fully customized using `EdgeInsets`.
-    case custom(RAKCore.EdgeInsets)
+    case custom(Layout.EdgeInsets)
 
     // swiftlint:enable sorted_enum_cases
 }

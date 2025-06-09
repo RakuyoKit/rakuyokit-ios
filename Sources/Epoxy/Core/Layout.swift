@@ -39,21 +39,8 @@ public enum Layout {
 
     public typealias CustomGroupFactory = (_ itemSize: Size) -> Group
     
-    public typealias LayoutSpacing = NSCollectionLayoutSpacing
+    public typealias ItemSpacing = NSCollectionLayoutSpacing
     
-    /// Styles
-    public enum Style {
-        /// Similar to the flow layout of the past CollectionView
-        case flow(
-            itemSize: Size,
-            scrollingBehavior: ScrollingBehavior = .none,
-            itemContentInsets: RAKCore.EdgeInsets = .zero,
-            interItemSpacing: LayoutSpacing? = nil,
-            customGroup: CustomGroupFactory? = nil
-        )
-        
-        /// Similar to the vertical list layout of UITableView
-        case list
-    }
+    public typealias EdgeInsets = RAKCore.EdgeInsets
 }
 #endif

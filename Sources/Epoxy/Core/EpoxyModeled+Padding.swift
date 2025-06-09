@@ -16,5 +16,9 @@ extension EpoxyModeled where Self: PaddingProviding {
     public func padding(_ value: SectionEdgeInsets) -> Self {
         padding(value.edgeInsets)
     }
+    
+    public func padding(_ value: Layout.EdgeInsets) -> Self {
+        padding(.custom(value))
+    }
 }
 #endif

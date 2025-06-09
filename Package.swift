@@ -122,7 +122,6 @@ let package = Package(
         .target(
             name: "RAKEpoxy",
             dependencies: [
-                "RAKConfig",
                 "RAKBase",
                 .product(name: "Epoxy", package: "epoxy-ios", condition: .when(platforms: [.iOS])),
             ],
